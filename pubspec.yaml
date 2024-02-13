@@ -40,7 +40,6 @@ dependencies:
   equatable: ^2.0.5
   supabase_flutter: ^2.3.3
   easy_image_viewer: ^1.4.1
-  flutter_screenutil: ^5.9.0
   sidebarx: ^0.16.3
 
 

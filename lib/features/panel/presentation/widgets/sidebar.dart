@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gharmart/features/panel/presentation/manager/panel_logic/panel_logic_cubit.dart';
 import 'package:sidebarx/sidebarx.dart';
 
@@ -12,13 +11,13 @@ class SideBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
       child: SidebarX(
         theme: SidebarXTheme(
-          width: 250.w,
+          width: 250,
           decoration: BoxDecoration(
-            color: const Color.fromRGBO(29,28,29,1.000),
-            borderRadius: BorderRadius.circular(30.r),
+            color: const Color.fromRGBO(29, 28, 29, 1.000),
+            borderRadius: BorderRadius.circular(30),
           ),
           selectedTextStyle: Theme.of(context)
               .textTheme
@@ -30,14 +29,14 @@ class SideBar extends StatelessWidget {
               ?.copyWith(color: Colors.white),
           selectedItemDecoration: BoxDecoration(
             color: const Color.fromARGB(100, 50, 50, 50),
-            borderRadius: BorderRadius.circular(20.r),
+            borderRadius: BorderRadius.circular(20),
           ),
           hoverTextStyle: Theme.of(context)
               .textTheme
               .titleMedium
               ?.copyWith(color: Colors.white),
-          itemMargin: EdgeInsets.symmetric(vertical: 2.h, horizontal: 10.w),
-          padding: EdgeInsets.symmetric(vertical: 2.h, horizontal: 10.w),
+          itemMargin: const EdgeInsets.symmetric(vertical: 2, horizontal: 10),
+          padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 10),
         ),
         showToggleButton: false,
         controller: SidebarXController(
@@ -45,11 +44,11 @@ class SideBar extends StatelessWidget {
           extended: true,
         ),
         headerBuilder: (context, ct) {
-          return Padding(
-            padding: EdgeInsets.symmetric(vertical: 30.h),
+          return const Padding(
+            padding: EdgeInsets.symmetric(vertical: 30),
             child: CircleAvatar(
-              radius: 50.r,
-              backgroundImage: const AssetImage('assets/images/logo.png'),
+              radius: 50,
+              backgroundImage: AssetImage('assets/images/logo.png'),
             ),
           );
         },
@@ -94,7 +93,7 @@ class SidebarIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 8.h),
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
       child: Icon(iconData, color: Colors.white),
     );
   }
@@ -103,4 +102,27 @@ class SidebarIcon extends StatelessWidget {
     super.key,
     required this.iconData,
   });
+}
+
+class SideBarDrawer extends StatelessWidget {
+  const SideBarDrawer({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Drawer(
+      child: Column(
+        children: [
+          DrawerHeader(
+            child: Padding(
+              padding: EdgeInsets.symmetric(vertical: 30),
+              child: CircleAvatar(
+                radius: 50,
+                backgroundImage: AssetImage('assets/images/logo.png'),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 }

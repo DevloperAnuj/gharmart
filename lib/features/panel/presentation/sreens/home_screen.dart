@@ -1,35 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gharmart/features/panel/presentation/widgets/property_list_widget.dart';
-import 'package:gharmart/utils/my_layout_builder.dart';
+import 'package:google_fonts/google_fonts.dart';
 
-import '../widgets/property_card_widget.dart';
-import '../widgets/search_section.dart';
-
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const MyBuilder(
-      mobileView: HomeScreenMobile(),
-      tabletView: HomeScreenTablet(),
-      deskView: HomeScreenDesktop(),
-    );
-  }
-}
+import '../widgets/panel_section.dart';
 
 class HomeScreenMobile extends StatelessWidget {
   const HomeScreenMobile({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const Column(
-      children: [
-        SearchSection(),
-        PropertiesListWidget(),
-      ],
-    );
+    return const PropertiesListWidgetMobile();
   }
 }
 
@@ -38,12 +18,7 @@ class HomeScreenTablet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Column(
-      children: [
-        SearchSection(),
-        PropertiesListWidget(),
-      ],
-    );
+    return const PropertiesListWidgetTablet();
   }
 }
 
@@ -52,12 +27,63 @@ class HomeScreenDesktop extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Column(
+    return Column(
       children: [
-        SearchSection(),
-        PropertiesListWidget(),
+        Row(
+          children: [
+            Flexible(
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20),
+                child: TextField(
+                  style: const TextStyle(
+                    color: Colors.black,
+                  ),
+                  onChanged: (_) {},
+                  decoration: InputDecoration(
+                    filled: true,
+                    fillColor: const Color(0xfff1f1f1),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8),
+                      borderSide: BorderSide.none,
+                    ),
+                    hintText: "Search for Locations",
+                    prefixIcon: const Icon(Icons.search),
+                    prefixIconColor: Colors.black,
+                  ),
+                ),
+              ),
+            ),
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 20),
+              child: ElevatedButton(
+                onPressed: () {},
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.indigoAccent,
+                  foregroundColor: Colors.white,
+                ),
+                child: const Text("Search"),
+              ),
+            ),
+          ],
+        ),
+        const Divider(),
+        const Expanded(
+          child: Row(
+            children: [
+              Expanded(
+                flex: 1,
+                child: SizedBox(),
+              ),
+              Expanded(
+                flex: 2,
+                child: PropertiesListWidgetDesktop(),
+              ),
+            ],
+          ),
+        ),
       ],
     );
   }
 }
-

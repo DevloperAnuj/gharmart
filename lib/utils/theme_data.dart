@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 final ThemeData myTheme = ThemeData(
@@ -12,18 +11,18 @@ final ThemeData myTheme = ThemeData(
   // Define text theme with desired fonts and sizes
   textTheme: TextTheme(
     titleLarge: GoogleFonts.montserrat(
-      fontSize: 24.sp,
+      fontSize: 24,
       fontWeight: FontWeight.bold,
       color: const Color(0x00333333),
     ),
     titleMedium: GoogleFonts.montserrat(
-      fontSize: 16.0.sp,
+      fontSize: 16.0,
       fontWeight: FontWeight.w400,
       color: const Color(0x00333333),
     ),
     bodyLarge: GoogleFonts.roboto(
       fontWeight: FontWeight.normal,
-      fontSize: 14.0.sp,
+      fontSize: 14.0,
       color: const Color(0x00333333),
     ),
   ),
