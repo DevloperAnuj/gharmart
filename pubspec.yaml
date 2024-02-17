@@ -41,7 +41,8 @@ dependencies:
   supabase_flutter: ^2.3.3
   easy_image_viewer: ^1.4.1
   sidebarx: ^0.16.3
-
+  get_it: ^7.6.7
+  csc_picker: ^0.2.0
 
 dev_dependencies:
   flutter_test:

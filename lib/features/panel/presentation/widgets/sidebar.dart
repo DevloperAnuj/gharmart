@@ -62,7 +62,7 @@ class SideBar extends StatelessWidget {
           ),
           SidebarXItem(
             iconWidget: const SidebarIcon(iconData: Icons.list),
-            label: 'Listings',
+            label: 'My Listings',
             onTap: () {
               context.read<PanelLogicCubit>().toggleScreen(1);
             },
