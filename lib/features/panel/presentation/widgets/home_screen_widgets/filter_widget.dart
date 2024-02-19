@@ -17,9 +17,16 @@ class FilterWidgetDesktop extends StatelessWidget {
             CSCPicker(
               flagState: CountryFlag.DISABLE,
               defaultCountry: CscCountry.India,
-              onCountryChanged: (_) {},
-              onCityChanged: (_) {},
-              onStateChanged: (_) {},
+              disabledDropdownDecoration: const BoxDecoration(color: Colors.white),
+              onCountryChanged: (country) {
+                print(country);
+              },
+              onCityChanged: (city) {
+                print(city);
+              },
+              onStateChanged: (state) {
+                print(state);
+              },
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),

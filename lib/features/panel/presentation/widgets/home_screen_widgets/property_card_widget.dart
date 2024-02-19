@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:gharmart/features/home_listings/presentation/pages/property_details_Page.dart';
+import 'package:go_router/go_router.dart';
 
 class PropertyCardWidgetMobile extends StatelessWidget {
   const PropertyCardWidgetMobile({super.key});
@@ -129,10 +131,11 @@ class PropertyCardWidgetDesktop extends StatelessWidget {
                                 onPressed: () {},
                                 icon: const Icon(Icons.info),
                                 label: const Text(
-                                  "See Full Details",
+                                  "Get Owner Details",
                                 ),
                                 style: ElevatedButton.styleFrom(
-                                  backgroundColor: const Color.fromRGBO(18, 132, 142, 1),
+                                  backgroundColor:
+                                      const Color.fromRGBO(18, 132, 142, 1),
                                   foregroundColor: Colors.white,
                                 ),
                               ),
@@ -165,17 +168,20 @@ class PropertyCardWidgetDesktop extends StatelessWidget {
             ),
           ),
           const Divider(height: 10, thickness: 1),
-           ListTile(
-             onTap: (){},
+          ListTile(
+            onTap: () {
+              GoRouter.of(context).push(PropertyDetailsPage.routeName);
+            },
             leading: const Icon(Icons.my_location),
             titleTextStyle: Theme.of(context).textTheme.titleMedium!.copyWith(
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-              color: Colors.black,
-            ),
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
+                ),
             title: const Text("Home Name and where it located"),
-            subtitle: const Text("Home Address full and city state with PinCode"),
-             trailing: const Icon(Icons.open_in_new),
+            subtitle:
+                const Text("Home Address full and city state with PinCode"),
+            trailing: const Icon(Icons.open_in_new),
           ),
         ],
       ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gharmart/navigation/my_router.dart';
 import 'package:gharmart/utils/theme_data.dart';
 
 import 'features/panel/presentation/pages/panel_page.dart';
@@ -13,11 +14,11 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       debugShowCheckedModeBanner: false,
       title: 'GHAR MART',
       theme: myTheme,
-      home: const PanelPage(),
+      routerConfig: MyRouter.router,
     );
   }
 }
