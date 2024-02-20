@@ -1,7 +1,27 @@
 import 'package:flutter/material.dart';
 
-class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({super.key});
+class ProfileScreenMobile extends StatelessWidget {
+  const ProfileScreenMobile({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Placeholder();
+  }
+}
+
+
+class ProfileScreenTablet extends StatelessWidget {
+  const ProfileScreenTablet({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Placeholder();
+  }
+}
+
+
+class ProfileScreenDesktop extends StatelessWidget {
+  const ProfileScreenDesktop({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -14,11 +14,11 @@ class MobilePanelSection extends StatelessWidget {
     return BlocBuilder<PanelLogicCubit, int>(
       builder: (context, state) {
         if (state == 1) {
-          return const ListingScreen();
+          return const ListingScreenMobile();
         } else if (state == 2) {
-          return const SubscriptionScreen();
+          return const SubscriptionScreenMobile();
         } else if (state == 3) {
-          return const ProfileScreen();
+          return const ProfileScreenMobile();
         } else {
           return const HomeScreenMobile();
         }
@@ -35,11 +35,11 @@ class TabletPanelSection extends StatelessWidget {
     return BlocBuilder<PanelLogicCubit, int>(
       builder: (context, state) {
         if (state == 1) {
-          return const ListingScreen();
+          return const ListingScreenTablet();
         } else if (state == 2) {
-          return const SubscriptionScreen();
+          return const SubscriptionScreenTablet();
         } else if (state == 3) {
-          return const ProfileScreen();
+          return const ProfileScreenTablet();
         } else {
           return const HomeScreenTablet();
         }
@@ -57,11 +57,11 @@ class DesktopPanelSection extends StatelessWidget {
       child: BlocBuilder<PanelLogicCubit, int>(
         builder: (context, state) {
           if (state == 1) {
-            return const ListingScreen();
+            return const ListingScreenDesktop();
           } else if (state == 2) {
-            return const SubscriptionScreen();
+            return const SubscriptionScreenDesktop();
           } else if (state == 3) {
-            return const ProfileScreen();
+            return const ProfileScreenDesktop();
           } else {
             return const HomeScreenDesktop();
           }

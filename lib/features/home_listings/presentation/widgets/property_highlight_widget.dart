@@ -136,10 +136,13 @@ class PropertyHighlightsWidget extends StatelessWidget {
           ),
           const Divider(height: 10, thickness: 1),
           ListTile(
+            // shape: RoundedRectangleBorder(
+            //   borderRadius: BorderRadius.circular(25),
+            // ),
             minLeadingWidth: 20,
             tileColor: Colors.grey.shade200,
-            leading: Icon(Icons.flag),
-            title: Text("Report what was not correct in this property"),
+            leading: const Icon(Icons.flag),
+            title: const Text("Report what was not correct in this property"),
             subtitle: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Wrap(

@@ -1,38 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:gharmart/features/home_listings/presentation/pages/property_details_Page.dart';
+import 'package:gharmart/features/home_listings/presentation/pages/edit_property_details.dart';
 import 'package:go_router/go_router.dart';
 
-class PropertyCardWidgetMobile extends StatelessWidget {
-  const PropertyCardWidgetMobile({super.key});
+import '../../../../home_listings/presentation/pages/property_details_Page.dart';
+import '../home_screen_widgets/property_card_widget.dart';
 
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
-      child: Container(
-        decoration: BoxDecoration(border: Border.all(color: Colors.grey)),
-        child: const SizedBox(),
-      ),
-    );
-  }
-}
-
-class PropertyCardWidgetTablet extends StatelessWidget {
-  const PropertyCardWidgetTablet({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(border: Border.all(color: Colors.grey)),
-      child: const Card(),
-    );
-  }
-}
-
-///////////////////////////////////////////////////////////////
-
-class PropertyCardWidgetDesktop extends StatelessWidget {
-  const PropertyCardWidgetDesktop({super.key});
+class MyPropertyCardWidgetDesktop extends StatelessWidget {
+  const MyPropertyCardWidgetDesktop({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -79,12 +53,12 @@ class PropertyCardWidgetDesktop extends StatelessWidget {
                   ),
                 ),
                 const VerticalDivider(width: 10, thickness: 1),
-                Expanded(
+                const Expanded(
                   flex: 2,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      const IntrinsicHeight(
+                      IntrinsicHeight(
                         child: Row(
                           children: [
                             InfoTile(
@@ -102,8 +76,8 @@ class PropertyCardWidgetDesktop extends StatelessWidget {
                           ],
                         ),
                       ),
-                      const Divider(height: 10, thickness: 1),
-                      const IntrinsicHeight(
+                      Divider(height: 10, thickness: 1),
+                      IntrinsicHeight(
                         child: Row(
                           children: [
                             InfoTile(
@@ -121,46 +95,6 @@ class PropertyCardWidgetDesktop extends StatelessWidget {
                           ],
                         ),
                       ),
-                      const Divider(height: 10, thickness: 1),
-                      IntrinsicHeight(
-                        child: Row(
-                          children: [
-                            Expanded(
-                              flex: 4,
-                              child: ElevatedButton.icon(
-                                onPressed: () {},
-                                icon: const Icon(Icons.info),
-                                label: const Text(
-                                  "Get Owner Details",
-                                ),
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor:
-                                      const Color.fromRGBO(18, 132, 142, 1),
-                                  foregroundColor: Colors.white,
-                                ),
-                              ),
-                            ),
-                            Expanded(
-                              flex: 1,
-                              child: IconButton(
-                                onPressed: () {},
-                                icon: const Icon(
-                                  Icons.bookmark_add_outlined,
-                                ),
-                              ),
-                            ),
-                            Expanded(
-                              flex: 1,
-                              child: IconButton(
-                                onPressed: () {},
-                                icon: const Icon(
-                                  Icons.flag,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
                     ],
                   ),
                 ),
@@ -170,7 +104,7 @@ class PropertyCardWidgetDesktop extends StatelessWidget {
           const Divider(height: 10, thickness: 1),
           ListTile(
             onTap: () {
-              context.pushNamed(PropertyDetailsPage.routeName);
+              context.pushNamed(EditPropertyDetailsPage.routeName);
             },
             leading: const Icon(Icons.my_location),
             titleTextStyle: Theme.of(context).textTheme.titleMedium!.copyWith(
@@ -181,44 +115,10 @@ class PropertyCardWidgetDesktop extends StatelessWidget {
             title: const Text("Home Name and where it located"),
             subtitle:
                 const Text("Home Address full and city state with PinCode"),
-            trailing: const Icon(Icons.open_in_new),
+            trailing: const Icon(Icons.edit),
           ),
         ],
       ),
     );
   }
-}
-
-class InfoTile extends StatelessWidget {
-  final Widget leading;
-  final Widget title;
-  final Widget subtitle;
-
-  @override
-  Widget build(BuildContext context) {
-    return Expanded(
-      child: ListTile(
-        minLeadingWidth: 5,
-        leading: leading,
-        title: title,
-        subtitle: subtitle,
-        titleTextStyle: Theme.of(context).textTheme.titleMedium!.copyWith(
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-              color: Colors.black,
-            ),
-        subtitleTextStyle: Theme.of(context).textTheme.titleMedium!.copyWith(
-              fontSize: 14,
-              color: Colors.black,
-            ),
-      ),
-    );
-  }
-
-  const InfoTile({
-    super.key,
-    required this.leading,
-    required this.title,
-    required this.subtitle,
-  });
 }

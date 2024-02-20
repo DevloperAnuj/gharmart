@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:gharmart/navigation/my_router.dart';
 import 'package:gharmart/utils/theme_data.dart';
 
-import 'features/panel/presentation/pages/panel_page.dart';
 
 void main() {
   runApp(const MyApp());
