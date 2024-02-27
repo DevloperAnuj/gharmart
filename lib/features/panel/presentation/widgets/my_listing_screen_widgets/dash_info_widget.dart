@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:gharmart/features/properties/presentation/pages/add_property_page.dart';
+import 'package:go_router/go_router.dart';
 
 import 'my_listing_info_tile.dart';
 
@@ -15,15 +17,14 @@ class DashInfoWidget extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         child: ListView(
           children: [
-
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(
                 "My Listings",
                 style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                  color: Colors.black,
-                  fontSize: 22,
-                ),
+                      color: Colors.black,
+                      fontSize: 22,
+                    ),
               ),
             ),
             const Divider(),
@@ -57,7 +58,9 @@ class DashInfoWidget extends StatelessWidget {
             const Divider(),
             const Divider(),
             ElevatedButton.icon(
-              onPressed: () {},
+              onPressed: () {
+                context.pushNamed(AddPropertyPage.routeName);
+              },
               icon: const Icon(Icons.add_home_rounded),
               label: const Text("Add New Property"),
               style: ElevatedButton.styleFrom(

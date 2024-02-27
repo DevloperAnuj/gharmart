@@ -69,18 +69,18 @@ class SideBar extends StatelessWidget {
           ),
           SidebarXItem(
             iconWidget: const SidebarIcon(iconData: Icons.military_tech),
-            label: 'Subscription',
+            label: 'Profile',
             onTap: () {
               context.read<PanelLogicCubit>().toggleScreen(2);
             },
           ),
-          SidebarXItem(
-            iconWidget: const SidebarIcon(iconData: Icons.person),
-            label: 'Profile',
-            onTap: () {
-              context.read<PanelLogicCubit>().toggleScreen(3);
-            },
-          ),
+          // SidebarXItem(
+          //   iconWidget: const SidebarIcon(iconData: Icons.person),
+          //   label: 'Profile',
+          //   onTap: () {
+          //     context.read<PanelLogicCubit>().toggleScreen(3);
+          //   },
+          // ),
         ],
       ),
     );

@@ -10,7 +10,7 @@ import '../widgets/property_highlight_widget.dart';
 import '../widgets/property_image_college.dart';
 
 class PropertyDetailsPage extends StatelessWidget {
-  static const String routeName = "/propertydetail";
+  static const String routeName = "propertydetail";
 
   @override
   Widget build(BuildContext context) {

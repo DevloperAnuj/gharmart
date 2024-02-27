@@ -200,8 +200,8 @@ class InfoTile extends StatelessWidget {
       child: ListTile(
         minLeadingWidth: 5,
         leading: leading,
-        title: title,
-        subtitle: subtitle,
+        title: FittedBox(fit: BoxFit.scaleDown, child: title),
+        subtitle: FittedBox(fit: BoxFit.scaleDown, child: subtitle),
         titleTextStyle: Theme.of(context).textTheme.titleMedium!.copyWith(
               fontSize: 16,
               fontWeight: FontWeight.bold,

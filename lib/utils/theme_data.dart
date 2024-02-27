@@ -2,6 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 final ThemeData myTheme = ThemeData(
+  dropdownMenuTheme: const DropdownMenuThemeData(
+    inputDecorationTheme: InputDecorationTheme(
+      fillColor: Colors.black,
+    )
+  ),
   dialogBackgroundColor: Colors.white,
   // Specify color scheme based on your chosen colors
   colorScheme: ColorScheme.fromSeed(
@@ -29,4 +34,8 @@ final ThemeData myTheme = ThemeData(
     ),
   ),
   // Other theme properties can be set here (e.g., buttonTheme, appBarTheme)
+  sliderTheme: const SliderThemeData(
+    showValueIndicator: ShowValueIndicator.always,
+  ),
+
 );

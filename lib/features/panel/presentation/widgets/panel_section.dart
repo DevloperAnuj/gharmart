@@ -4,7 +4,6 @@ import 'package:gharmart/features/panel/presentation/manager/panel_logic/panel_l
 import 'package:gharmart/features/panel/presentation/sreens/home_screen.dart';
 import 'package:gharmart/features/panel/presentation/sreens/listings_screen.dart';
 import 'package:gharmart/features/panel/presentation/sreens/profile_screen.dart';
-import 'package:gharmart/features/panel/presentation/sreens/subscription_screen.dart';
 
 class MobilePanelSection extends StatelessWidget {
   const MobilePanelSection({super.key});
@@ -16,8 +15,6 @@ class MobilePanelSection extends StatelessWidget {
         if (state == 1) {
           return const ListingScreenMobile();
         } else if (state == 2) {
-          return const SubscriptionScreenMobile();
-        } else if (state == 3) {
           return const ProfileScreenMobile();
         } else {
           return const HomeScreenMobile();
@@ -37,10 +34,8 @@ class TabletPanelSection extends StatelessWidget {
         if (state == 1) {
           return const ListingScreenTablet();
         } else if (state == 2) {
-          return const SubscriptionScreenTablet();
-        } else if (state == 3) {
           return const ProfileScreenTablet();
-        } else {
+        }  else {
           return const HomeScreenTablet();
         }
       },
@@ -59,10 +54,8 @@ class DesktopPanelSection extends StatelessWidget {
           if (state == 1) {
             return const ListingScreenDesktop();
           } else if (state == 2) {
-            return const SubscriptionScreenDesktop();
-          } else if (state == 3) {
             return const ProfileScreenDesktop();
-          } else {
+          }  else {
             return const HomeScreenDesktop();
           }
         },

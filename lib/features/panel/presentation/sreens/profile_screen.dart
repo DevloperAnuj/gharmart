@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import '../widgets/profile_screen_widgets/profile_widget.dart';
+import '../widgets/profile_screen_widgets/purchase_token_widget.dart';
+
 class ProfileScreenMobile extends StatelessWidget {
   const ProfileScreenMobile({super.key});
 
@@ -8,7 +11,6 @@ class ProfileScreenMobile extends StatelessWidget {
     return const Placeholder();
   }
 }
-
 
 class ProfileScreenTablet extends StatelessWidget {
   const ProfileScreenTablet({super.key});
@@ -19,17 +21,17 @@ class ProfileScreenTablet extends StatelessWidget {
   }
 }
 
-
 class ProfileScreenDesktop extends StatelessWidget {
   const ProfileScreenDesktop({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: Icon(
-        Icons.person,
-        size: 100,
-      ),
+    return const Row(
+      children: [
+        ProfileWidget(),
+        VerticalDivider(),
+        PurchaseTokensWidget(),
+      ],
     );
   }
 }
