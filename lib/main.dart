@@ -3,6 +3,7 @@ import 'package:gharmart/navigation/my_router.dart';
 import 'package:gharmart/utils/config_file.dart';
 import 'package:gharmart/utils/constants.dart';
 import 'package:gharmart/utils/theme_data.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 void main() async {
@@ -22,7 +23,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
       title: 'GHAR MART',
-      // theme: myTheme,
+      theme: myTheme,
       routerConfig: MyRouter.router,
     );
   }

@@ -13,7 +13,7 @@ class MyRouter {
     routes: [
       GoRoute(
         path: '/',
-        builder: (context, state) => const AddPropertyPage(),
+        builder: (context, state) => const AuthWrapperPage(),
       ),
       GoRoute(
         path: AuthPage.routeName,
@@ -45,7 +45,7 @@ class MyRouter {
             name: EditProfilePage.routeName,
             builder: (context, state) => const EditProfilePage(),
           ),
-        ]
+        ],
       ),
     ],
     errorBuilder: (context, state) => const ErrorPage(),

@@ -2,11 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 final ThemeData myTheme = ThemeData(
-  dropdownMenuTheme: const DropdownMenuThemeData(
-    inputDecorationTheme: InputDecorationTheme(
-      fillColor: Colors.black,
-    )
-  ),
   dialogBackgroundColor: Colors.white,
   // Specify color scheme based on your chosen colors
   colorScheme: ColorScheme.fromSeed(
@@ -38,4 +33,20 @@ final ThemeData myTheme = ThemeData(
     showValueIndicator: ShowValueIndicator.always,
   ),
 
+
+  //canvasColor: Colors.pinkAccent,
+  // dropdownMenuTheme:  DropdownMenuThemeData(
+  //   textStyle: GoogleFonts.poppins(
+  //     fontWeight: FontWeight.normal,
+  //     fontSize: 14.0,
+  //     color: Colors.black,
+  //   ),
+  //   inputDecorationTheme: InputDecorationTheme(
+  //     labelStyle: GoogleFonts.poppins(
+  //       fontWeight: FontWeight.normal,
+  //       fontSize: 14.0,
+  //       color: Colors.black
+  //     ),
+  //   )
+  // )
 );

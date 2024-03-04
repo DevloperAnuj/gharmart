@@ -4,6 +4,7 @@ import 'package:gharmart/features/auth/presentation/manager/sign_up_cubit/sign_u
 import 'package:gharmart/features/home_listings/presentation/manager/filter/listing_filter_cubit.dart';
 import 'package:gharmart/features/profile/presentation/manager/fetch_profile/fetch_profile_cubit.dart';
 import 'package:gharmart/features/properties/presentation/manager/add_property_temp_cubit/add_property_cubit.dart';
+import 'package:gharmart/features/properties/presentation/manager/upload_property_database/upload_property_database_cubit.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 final serviceConfig = GetIt.instance;
@@ -35,5 +36,7 @@ void configSetup() {
     () => AddPropertyTempCubit(),
   );
 
-
+  serviceConfig.registerLazySingleton<UploadPropertyDatabaseCubit>(
+        () => UploadPropertyDatabaseCubit(),
+  );
 }

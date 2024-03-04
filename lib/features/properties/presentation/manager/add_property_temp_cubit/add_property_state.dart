@@ -28,6 +28,7 @@ class AddPropertyTempState {
   final int age;
   final List<String> amenities;
   final List<Uint8List> pics;
+  final List<String> picsUrl;
 
   factory AddPropertyTempState.initial() {
     return const AddPropertyTempState(
@@ -58,6 +59,7 @@ class AddPropertyTempState {
       age: 0,
       amenities: [],
       pics: [],
+      picsUrl: [],
     );
   }
 
@@ -89,6 +91,7 @@ class AddPropertyTempState {
     required this.age,
     required this.amenities,
     required this.pics,
+    required this.picsUrl,
   });
 
   AddPropertyTempState copyWith({
@@ -119,6 +122,7 @@ class AddPropertyTempState {
     int? age,
     List<String>? amenities,
     List<Uint8List>? pics,
+    List<String>? picsUrl,
   }) {
     return AddPropertyTempState(
       country: country ?? this.country,
@@ -148,6 +152,73 @@ class AddPropertyTempState {
       age: age ?? this.age,
       amenities: amenities ?? this.amenities,
       pics: pics ?? this.pics,
+      picsUrl: picsUrl ?? this.picsUrl
+    );
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'country': country,
+      'state': state,
+      'city': city,
+      'title': title,
+      'address': address,
+      'propertyType': propertyType,
+      'rentPrice': rentPrice,
+      'sellPrice': sellPrice,
+      'rentNego': rentNego,
+      'sellNego': sellNego,
+      'deposit': deposit,
+      'ment': ment,
+      'area': area,
+      'bhkType': bhkType,
+      'furnishing': furnishing,
+      'prefTene': prefTene,
+      'parking': parking,
+      'bathNo': bathNo,
+      'floorNo': floorNo,
+      'balkNo': balkNo,
+      'water': water,
+      'facing': facing,
+      'gatedSecu': gatedSecu,
+      'nonveg': nonveg,
+      'age': age,
+      'amenities': amenities,
+      'pics': pics,
+      'picsUrl': picsUrl,
+    };
+  }
+
+  factory AddPropertyTempState.fromMap(Map<String, dynamic> map) {
+    return AddPropertyTempState(
+      country: map['country'] as String,
+      state: map['state'] as String,
+      city: map['city'] as String,
+      title: map['title'] as String,
+      address: map['address'] as String,
+      propertyType: map['propertyType'] as String,
+      rentPrice: map['rentPrice'] as int,
+      sellPrice: map['sellPrice'] as int,
+      rentNego: map['rentNego'] as bool,
+      sellNego: map['sellNego'] as bool,
+      deposit: map['deposit'] as int,
+      ment: map['ment'] as int,
+      area: map['area'] as int,
+      bhkType: map['bhkType'] as String,
+      furnishing: map['furnishing'] as String,
+      prefTene: map['prefTene'] as String,
+      parking: map['parking'] as String,
+      bathNo: map['bathNo'] as int,
+      floorNo: map['floorNo'] as int,
+      balkNo: map['balkNo'] as int,
+      water: map['water'] as String,
+      facing: map['facing'] as String,
+      gatedSecu: map['gatedSecu'] as bool,
+      nonveg: map['nonveg'] as bool,
+      age: map['age'] as int,
+      amenities: map['amenities'] as List<String>,
+      pics: map['pics'] as List<Uint8List>,
+      picsUrl: map['picsUrl'] as List<String>,
     );
   }
 }

@@ -156,4 +156,8 @@ class AddPropertyTempCubit extends Cubit<AddPropertyTempState> {
       emit(state.copyWith(pics: tempImages));
     }
   }
+
+  void setToInit() {
+    emit(AddPropertyTempState.initial());
+  }
 }

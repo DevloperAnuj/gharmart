@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gharmart/features/properties/presentation/manager/add_property_temp_cubit/add_property_cubit.dart';
 
 class AddPropertyForm extends StatelessWidget {
-
   const AddPropertyForm({
     super.key,
   });
@@ -81,10 +80,9 @@ class AddPropertyForm extends StatelessWidget {
                       inputType: TextInputType.number,
                       hint: "Rent in ₹",
                       onChanged: (rent) {
-                        int price = int.tryParse(rent) == null ? 0 : int.parse(rent);
-                        context
-                            .read<AddPropertyTempCubit>()
-                            .getRent(price);
+                        int price =
+                            int.tryParse(rent) == null ? 0 : int.parse(rent);
+                        context.read<AddPropertyTempCubit>().getRent(price);
                       },
                     ),
                   if (tempState.propertyType == "Rent")
@@ -103,10 +101,9 @@ class AddPropertyForm extends StatelessWidget {
                       inputType: TextInputType.number,
                       hint: "Deposit in ₹",
                       onChanged: (depo) {
-                        int price = int.tryParse(depo) == null ? 0 : int.parse(depo);
-                        context
-                            .read<AddPropertyTempCubit>()
-                            .getDeposit(price);
+                        int price =
+                            int.tryParse(depo) == null ? 0 : int.parse(depo);
+                        context.read<AddPropertyTempCubit>().getDeposit(price);
                       },
                     ),
                   if (tempState.propertyType == "Sell")
@@ -115,7 +112,8 @@ class AddPropertyForm extends StatelessWidget {
                       inputType: TextInputType.number,
                       hint: "Sell Price in ₹",
                       onChanged: (sell) {
-                        int price = int.tryParse(sell) == null ? 0 : int.parse(sell);
+                        int price =
+                            int.tryParse(sell) == null ? 0 : int.parse(sell);
                         context
                             .read<AddPropertyTempCubit>()
                             .getSellPrice(price);
@@ -136,7 +134,8 @@ class AddPropertyForm extends StatelessWidget {
                     inputType: TextInputType.number,
                     hint: "Maintenance in ₹",
                     onChanged: (ment) {
-                      int price = int.tryParse(ment) == null ? 0 : int.parse(ment);
+                      int price =
+                          int.tryParse(ment) == null ? 0 : int.parse(ment);
                       context
                           .read<AddPropertyTempCubit>()
                           .getMaintenance(price);
@@ -164,9 +163,7 @@ class AddPropertyForm extends StatelessWidget {
                     hint: "No of Bathrooms",
                     onChanged: (no) {
                       int price = int.tryParse(no) == null ? 0 : int.parse(no);
-                      context
-                          .read<AddPropertyTempCubit>()
-                          .getBathrooms(price);
+                      context.read<AddPropertyTempCubit>().getBathrooms(price);
                     },
                   ),
                   AddPropertyTextFormField(
@@ -175,9 +172,7 @@ class AddPropertyForm extends StatelessWidget {
                     hint: "No of Balconies",
                     onChanged: (no) {
                       int price = int.tryParse(no) == null ? 0 : int.parse(no);
-                      context
-                          .read<AddPropertyTempCubit>()
-                          .getBalconies(price);
+                      context.read<AddPropertyTempCubit>().getBalconies(price);
                     },
                   ),
                   AddPropertyTextFormField(
@@ -185,10 +180,9 @@ class AddPropertyForm extends StatelessWidget {
                     inputType: TextInputType.number,
                     hint: "BuiltUp Area in sqft",
                     onChanged: (area) {
-                      int price = int.tryParse(area) == null ? 0 : int.parse(area);
-                      context
-                          .read<AddPropertyTempCubit>()
-                          .getArea(price);
+                      int price =
+                          int.tryParse(area) == null ? 0 : int.parse(area);
+                      context.read<AddPropertyTempCubit>().getArea(price);
                     },
                   ),
                   MyDropDown(
@@ -209,10 +203,9 @@ class AddPropertyForm extends StatelessWidget {
                     inputType: TextInputType.number,
                     hint: "Floor No",
                     onChanged: (floor) {
-                      int price = int.tryParse(floor) == null ? 0 : int.parse(floor);
-                      context
-                          .read<AddPropertyTempCubit>()
-                          .getFloor(price);
+                      int price =
+                          int.tryParse(floor) == null ? 0 : int.parse(floor);
+                      context.read<AddPropertyTempCubit>().getFloor(price);
                     },
                   ),
                   const SizedBox(height: 10),
@@ -369,10 +362,9 @@ class AddPropertyForm extends StatelessWidget {
                     inputType: TextInputType.number,
                     hint: "Property Age in Years",
                     onChanged: (age) {
-                      int price = int.tryParse(age) == null ? 0 : int.parse(age);
-                      context
-                          .read<AddPropertyTempCubit>()
-                          .getAge(price);
+                      int price =
+                          int.tryParse(age) == null ? 0 : int.parse(age);
+                      context.read<AddPropertyTempCubit>().getAge(price);
                     },
                   ),
                   CheckboxListTile(
@@ -419,22 +411,25 @@ class MyDropDown extends StatelessWidget {
           borderRadius: BorderRadius.circular(10),
           color: Colors.grey.shade400,
         ),
-        child: DropdownButtonHideUnderline(
-          child: DropdownButton<String>(
-            icon: Icon(iconData),
-            iconSize: 40,
-            value: value,
-            isExpanded: true,
-            items: options
-                .map(
-                  (option) => DropdownMenuItem<String>(
-                    value: option,
-                    alignment: Alignment.center,
-                    child: Text(option),
-                  ),
-                )
-                .toList(),
-            onChanged: onChanged,
+        child: Theme(
+          data: ThemeData(),
+          child: DropdownButtonHideUnderline(
+            child: DropdownButton<String>(
+              icon: Icon(iconData),
+              iconSize: 40,
+              value: value,
+              isExpanded: true,
+              items: options
+                  .map(
+                    (option) => DropdownMenuItem<String>(
+                      value: option,
+                      alignment: Alignment.center,
+                      child: Text(option),
+                    ),
+                  )
+                  .toList(),
+              onChanged: onChanged,
+            ),
           ),
         ),
       ),
