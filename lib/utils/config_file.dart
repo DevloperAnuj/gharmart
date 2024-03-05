@@ -1,6 +1,7 @@
 import 'package:get_it/get_it.dart';
 import 'package:gharmart/features/auth/presentation/manager/sign_in_cubit/sign_in_cubit.dart';
 import 'package:gharmart/features/auth/presentation/manager/sign_up_cubit/sign_up_cubit.dart';
+import 'package:gharmart/features/home_listings/presentation/manager/fetch_properties/fetch_properties_cubit.dart';
 import 'package:gharmart/features/home_listings/presentation/manager/filter/listing_filter_cubit.dart';
 import 'package:gharmart/features/profile/presentation/manager/fetch_profile/fetch_profile_cubit.dart';
 import 'package:gharmart/features/properties/presentation/manager/add_property_temp_cubit/add_property_cubit.dart';
@@ -37,6 +38,11 @@ void configSetup() {
   );
 
   serviceConfig.registerLazySingleton<UploadPropertyDatabaseCubit>(
-        () => UploadPropertyDatabaseCubit(),
+    () => UploadPropertyDatabaseCubit(),
   );
+
+  serviceConfig.registerLazySingleton<FetchPropertiesCubit>(
+    () => FetchPropertiesCubit(),
+  );
+
 }

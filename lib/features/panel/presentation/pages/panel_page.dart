@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gharmart/features/auth/presentation/manager/sign_in_cubit/sign_in_cubit.dart';
 import 'package:gharmart/features/auth/presentation/manager/sign_up_cubit/sign_up_cubit.dart';
+import 'package:gharmart/features/home_listings/presentation/manager/fetch_properties/fetch_properties_cubit.dart';
 import 'package:gharmart/features/home_listings/presentation/manager/filter/listing_filter_cubit.dart';
 import 'package:gharmart/features/panel/presentation/manager/panel_logic/panel_logic_cubit.dart';
 import 'package:gharmart/features/panel/presentation/widgets/panel_section.dart';
@@ -21,6 +22,9 @@ class PanelPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
+        BlocProvider.value(
+          value: serviceConfig.get<FetchPropertiesCubit>()..fetchProperties(),
+        ),
         BlocProvider(
           create: (context) => PanelLogicCubit(),
         ),

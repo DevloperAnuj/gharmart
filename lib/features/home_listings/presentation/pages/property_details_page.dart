@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gharmart/features/home_listings/domain/entities/property_entity.dart';
 import 'package:gharmart/features/home_listings/presentation/widgets/second_head_row_widget.dart';
 import 'package:gharmart/utils/my_layout_builder.dart';
 import 'package:image_collage/image_collage.dart';
@@ -10,18 +11,25 @@ import '../widgets/property_highlight_widget.dart';
 import '../widgets/property_image_college.dart';
 
 class PropertyDetailsPage extends StatelessWidget {
+
+  final PropertyEntity property;
+
   static const String routeName = "propertydetail";
 
   @override
   Widget build(BuildContext context) {
-    return const MyBuilder(
+    return  MyBuilder(
       mobileView: PropertyDetailsPageMobile(),
       tabletView: PropertyDetailsPageTablet(),
-      deskView: PropertyDetailsPageDesktop(),
+      deskView: PropertyDetailsPageDesktop(
+        property: property,
+      ),
     );
   }
 
-  const PropertyDetailsPage({super.key});
+  const PropertyDetailsPage({super.key,
+    required this.property,
+  });
 }
 
 class PropertyDetailsPageMobile extends StatelessWidget {
@@ -57,7 +65,8 @@ class PropertyDetailsPageTablet extends StatelessWidget {
 }
 
 class PropertyDetailsPageDesktop extends StatelessWidget {
-  const PropertyDetailsPageDesktop({super.key});
+
+  final PropertyEntity property;
 
   @override
   Widget build(BuildContext context) {
@@ -65,7 +74,9 @@ class PropertyDetailsPageDesktop extends StatelessWidget {
       body: Column(
         children: [
           const Divider(),
-          const DetailsHeaderWidgetDesktop(),
+           DetailsHeaderWidgetDesktop(
+            property: property,
+          ),
           const Divider(),
           Expanded(
             child: SingleChildScrollView(
@@ -79,19 +90,27 @@ class PropertyDetailsPageDesktop extends StatelessWidget {
                     const Divider(),
                     SizedBox(
                       height: MediaQuery.of(context).size.height,
-                      child: const Row(
+                      child:  Row(
                         children: [
-                          PropertyImageCollageWidget(),
+                          PropertyImageCollageWidget(
+                            imageList: property.picsUrl,
+                          ),
                           VerticalDivider(),
-                          PropertyHighlightsWidget(),
+                          PropertyHighlightsWidget(
+                            property: property,
+                          ),
                           VerticalDivider(),
                         ],
                       ),
                     ),
                     const Divider(),
-                    const SecondHeadRowWidget(),
+                     SecondHeadRowWidget(
+                      property: property,
+                    ),
                     const Divider(),
-                    const DescriptionWidget(),
+                     DescriptionWidget(
+                      property: property,
+                    ),
                     const Divider(),
                   ],
                 ),
@@ -102,6 +121,10 @@ class PropertyDetailsPageDesktop extends StatelessWidget {
       ),
     );
   }
+
+  const PropertyDetailsPageDesktop({
+    super.key,
+    required this.property,
+  });
+
 }
-
-

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_carousel_widget/flutter_carousel_widget.dart';
 import 'package:image_collage/image_collage.dart';
 
-List<Img> imagesList = [
+List<Img> imagesxList = [
   const Img(
       image:
           "https://images.unsplash.com/photo-1417721955552-a49ac2d334e8?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHx0b3BpYy1mZWVkfDF8TThqVmJMYlRSd3N8fGVufDB8fHx8fA%3D%3D"),
@@ -20,9 +21,7 @@ List<Img> imagesList = [
 ];
 
 class PropertyImageCollageWidget extends StatelessWidget {
-  const PropertyImageCollageWidget({
-    super.key,
-  });
+  final List<String> imageList;
 
   @override
   Widget build(BuildContext context) {
@@ -32,10 +31,65 @@ class PropertyImageCollageWidget extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(10.0),
         child: ImageCollage(
-          images: imagesList,
+          images: imageList.map((image) => Img(image: image)).toList(),
           onClick: (clickedImage, imagesList) {
-            print(clickedImage.image);
+            showAdaptiveDialog(
+              context: context,
+              builder: (context) =>
+                  PropertyImageCarouselWidget(imageList: imageList),
+            );
           },
+        ),
+      ),
+    );
+  }
+
+  const PropertyImageCollageWidget({
+    super.key,
+    required this.imageList,
+  });
+}
+
+class PropertyImageCarouselWidget extends StatelessWidget {
+  const PropertyImageCarouselWidget({
+    super.key,
+    required this.imageList,
+  });
+
+  final List<String> imageList;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 40),
+      child: FlutterCarousel(
+        items: imageList
+            .map(
+              (e) => Stack(
+                children: [
+                  Center(
+                    child: Image.network(
+                      e,
+                      fit: BoxFit.cover,
+                      alignment: Alignment.center,
+                    ),
+                  ),
+                  Center(
+                    child: Text(
+                      "GharMart",
+                      style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                            color: Colors.white.withOpacity(0.6),
+                            fontSize: 50,
+                            fontWeight: FontWeight.bold,
+                          ),
+                    ),
+                  ),
+                ],
+              ),
+            )
+            .toList(),
+        options: CarouselOptions(
+          enableInfiniteScroll: true,
         ),
       ),
     );

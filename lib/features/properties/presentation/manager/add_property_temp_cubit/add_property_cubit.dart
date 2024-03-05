@@ -1,12 +1,11 @@
-import 'package:bloc/bloc.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/foundation.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:meta/meta.dart';
 
 part 'add_property_state.dart';
 
 class AddPropertyTempCubit extends Cubit<AddPropertyTempState> {
+
   AddPropertyTempCubit() : super(AddPropertyTempState.initial());
 
   List<String> tempAmenities = [];
@@ -32,6 +31,10 @@ class AddPropertyTempCubit extends Cubit<AddPropertyTempState> {
 
   void getAddress(String val) {
     emit(state.copyWith(address: val));
+  }
+
+  void getDescription(String val) {
+    emit(state.copyWith(desc: val));
   }
 
   //
@@ -141,7 +144,7 @@ class AddPropertyTempCubit extends Cubit<AddPropertyTempState> {
 
   void selectingImages() async {
     final List<XFile> result =
-        await ImagePicker().pickMultiImage(imageQuality: 25);
+        await ImagePicker().pickMultiImage(imageQuality: 20);
     if (result.isNotEmpty) {
       for (XFile file in result) {
         tempImages.add(await file.readAsBytes());
@@ -160,4 +163,5 @@ class AddPropertyTempCubit extends Cubit<AddPropertyTempState> {
   void setToInit() {
     emit(AddPropertyTempState.initial());
   }
+
 }

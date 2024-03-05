@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gharmart/features/home_listings/presentation/manager/fetch_properties/fetch_properties_cubit.dart';
 
 class SearchSectionMobile extends StatelessWidget {
   const SearchSectionMobile({super.key});
@@ -33,7 +35,9 @@ class SearchSectionMobile extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: IconButton(
-            onPressed: () {},
+            onPressed: () {
+              context.read<FetchPropertiesCubit>().fetchProperties();
+            },
             style: ElevatedButton.styleFrom(
               backgroundColor: const Color.fromRGBO(18, 132, 142, 1),
               foregroundColor: Colors.white,
@@ -125,7 +129,9 @@ class SearchbarSectionDesktop extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: ElevatedButton(
-            onPressed: () {},
+            onPressed: () {
+              context.read<FetchPropertiesCubit>().fetchProperties();
+            },
             style: ElevatedButton.styleFrom(
               backgroundColor: const Color.fromRGBO(18, 132, 142, 1),
               foregroundColor: Colors.white,

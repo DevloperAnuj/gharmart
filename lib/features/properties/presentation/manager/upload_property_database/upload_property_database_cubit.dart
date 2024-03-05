@@ -211,9 +211,10 @@ class UploadPropertyDatabaseCubit extends Cubit<UploadPropertyDatabaseState> {
     // );
     try {
       await client.from("property").insert(
-            propertyTempCubit.state
-                .copyWith(picsUrl: picsList, pics: [])
-                .toMap(),
+            propertyTempCubit.state.copyWith(
+              picsUrl: picsList,
+              pics: [],
+            ).toMap(),
           );
     } on PostgrestException catch (e) {
       print(e.message);

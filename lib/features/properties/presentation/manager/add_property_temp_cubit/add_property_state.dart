@@ -5,6 +5,7 @@ class AddPropertyTempState {
   final String state;
   final String city;
   final String title;
+  final String desc;
   final String address;
   final String propertyType;
   final int rentPrice;
@@ -37,6 +38,7 @@ class AddPropertyTempState {
       city: "Pune",
       title: "",
       address: "",
+      desc: "",
       propertyType: "Property for",
       rentPrice: 0,
       sellPrice: 0,
@@ -69,6 +71,7 @@ class AddPropertyTempState {
     required this.city,
     required this.title,
     required this.address,
+    required this.desc,
     required this.propertyType,
     required this.rentPrice,
     required this.sellPrice,
@@ -100,6 +103,7 @@ class AddPropertyTempState {
     String? city,
     String? title,
     String? address,
+    String? desc,
     String? propertyType,
     int? rentPrice,
     int? sellPrice,
@@ -125,35 +129,35 @@ class AddPropertyTempState {
     List<String>? picsUrl,
   }) {
     return AddPropertyTempState(
-      country: country ?? this.country,
-      state: state ?? this.state,
-      city: city ?? this.city,
-      title: title ?? this.title,
-      address: address ?? this.address,
-      propertyType: propertyType ?? this.propertyType,
-      rentPrice: rentPrice ?? this.rentPrice,
-      sellPrice: sellPrice ?? this.sellPrice,
-      rentNego: rentNego ?? this.rentNego,
-      sellNego: sellNego ?? this.sellNego,
-      deposit: deposit ?? this.deposit,
-      ment: ment ?? this.ment,
-      area: area ?? this.area,
-      bhkType: bhkType ?? this.bhkType,
-      furnishing: furnishing ?? this.furnishing,
-      prefTene: prefTene ?? this.prefTene,
-      parking: parking ?? this.parking,
-      bathNo: bathNo ?? this.bathNo,
-      floorNo: floorNo ?? this.floorNo,
-      balkNo: balkNo ?? this.balkNo,
-      water: water ?? this.water,
-      facing: facing ?? this.facing,
-      gatedSecu: gatedSecu ?? this.gatedSecu,
-      nonveg: nonveg ?? this.nonveg,
-      age: age ?? this.age,
-      amenities: amenities ?? this.amenities,
-      pics: pics ?? this.pics,
-      picsUrl: picsUrl ?? this.picsUrl
-    );
+        country: country ?? this.country,
+        state: state ?? this.state,
+        city: city ?? this.city,
+        title: title ?? this.title,
+        address: address ?? this.address,
+        desc: desc ?? this.desc,
+        propertyType: propertyType ?? this.propertyType,
+        rentPrice: rentPrice ?? this.rentPrice,
+        sellPrice: sellPrice ?? this.sellPrice,
+        rentNego: rentNego ?? this.rentNego,
+        sellNego: sellNego ?? this.sellNego,
+        deposit: deposit ?? this.deposit,
+        ment: ment ?? this.ment,
+        area: area ?? this.area,
+        bhkType: bhkType ?? this.bhkType,
+        furnishing: furnishing ?? this.furnishing,
+        prefTene: prefTene ?? this.prefTene,
+        parking: parking ?? this.parking,
+        bathNo: bathNo ?? this.bathNo,
+        floorNo: floorNo ?? this.floorNo,
+        balkNo: balkNo ?? this.balkNo,
+        water: water ?? this.water,
+        facing: facing ?? this.facing,
+        gatedSecu: gatedSecu ?? this.gatedSecu,
+        nonveg: nonveg ?? this.nonveg,
+        age: age ?? this.age,
+        amenities: amenities ?? this.amenities,
+        pics: pics ?? this.pics,
+        picsUrl: picsUrl ?? this.picsUrl);
   }
 
   Map<String, dynamic> toMap() {
@@ -163,6 +167,7 @@ class AddPropertyTempState {
       'city': city,
       'title': title,
       'address': address,
+      'desc':desc,
       'propertyType': propertyType,
       'rentPrice': rentPrice,
       'sellPrice': sellPrice,
@@ -196,6 +201,7 @@ class AddPropertyTempState {
       city: map['city'] as String,
       title: map['title'] as String,
       address: map['address'] as String,
+      desc: map['desc'] as String,
       propertyType: map['propertyType'] as String,
       rentPrice: map['rentPrice'] as int,
       sellPrice: map['sellPrice'] as int,

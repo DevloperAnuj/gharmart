@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gharmart/features/home_listings/presentation/manager/fetch_properties/fetch_properties_cubit.dart';
 import 'package:gharmart/features/panel/presentation/widgets/home_screen_widgets/property_card_widget.dart';
 
 class PropertiesListWidgetMobile extends StatelessWidget {
@@ -51,10 +53,30 @@ class PropertiesListWidgetDesktop extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10),
         child: SizedBox(
-          child: ListView.builder(
-            itemCount: 2,
-            itemBuilder: (c, i) {
-              return const PropertyCardWidgetDesktop();
+          child: BlocBuilder<FetchPropertiesCubit, FetchPropertiesState>(
+            builder: (context, state) {
+              // if (state.loading != null) {
+              //   return const Center(
+              //     child: CircularProgressIndicator(),
+              //   );
+              // }
+              // if (state.err != null) {
+              //   return const Center(
+              //     child: Icon(
+              //       Icons.error_rounded,
+              //       size: 100,
+              //     ),
+              //   );
+              // }
+              return ListView.builder(
+                itemCount: state.properties.length,
+                itemBuilder: (c, i) {
+                  final property = state.properties[i];
+                  return PropertyCardWidgetDesktop(
+                    property: property,
+                  );
+                },
+              );
             },
           ),
         ),

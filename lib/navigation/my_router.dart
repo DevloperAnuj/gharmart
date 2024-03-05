@@ -1,5 +1,6 @@
 import 'package:gharmart/features/auth/presentation/pages/auth_page.dart';
 import 'package:gharmart/features/auth/presentation/pages/auth_wrapper_page.dart';
+import 'package:gharmart/features/home_listings/domain/entities/property_entity.dart';
 import 'package:gharmart/features/properties/presentation/pages/add_property_page.dart';
 import 'package:gharmart/features/home_listings/presentation/pages/edit_property_details.dart';
 import 'package:gharmart/features/home_listings/presentation/pages/property_details_Page.dart';
@@ -28,7 +29,9 @@ class MyRouter {
           GoRoute(
             path: PropertyDetailsPage.routeName,
             name: PropertyDetailsPage.routeName,
-            builder: (context, state) => const PropertyDetailsPage(),
+            builder: (context, state) =>  PropertyDetailsPage(
+              property: state.extra as PropertyEntity,
+            ),
           ),
           GoRoute(
             path: AddPropertyPage.routeName,

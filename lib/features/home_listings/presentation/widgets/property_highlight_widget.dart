@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:gharmart/features/home_listings/domain/entities/property_entity.dart';
 
 import '../../../panel/presentation/widgets/home_screen_widgets/property_card_widget.dart';
 
 class PropertyHighlightsWidget extends StatelessWidget {
-  const PropertyHighlightsWidget({
-    super.key,
-  });
+
+  final PropertyEntity property;
 
   @override
   Widget build(BuildContext context) {
@@ -15,17 +15,17 @@ class PropertyHighlightsWidget extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           const Divider(height: 10, thickness: 1),
-          const IntrinsicHeight(
+           IntrinsicHeight(
             child: Row(
               children: [
                 InfoTile(
-                  title: Text("Semi Furnished"),
+                  title: Text("${property.furnishing} Furnished"),
                   subtitle: Text("Furnishing"),
                   leading: Icon(Icons.chair),
                 ),
                 VerticalDivider(width: 10, thickness: 1),
                 InfoTile(
-                  title: Text("2 BHK"),
+                  title: Text(property.bhkType),
                   subtitle: Text("Apartment Type"),
                   leading: Icon(Icons.apartment),
                 ),
@@ -33,17 +33,17 @@ class PropertyHighlightsWidget extends StatelessWidget {
             ),
           ),
           const Divider(height: 10, thickness: 1),
-          const IntrinsicHeight(
+           IntrinsicHeight(
             child: Row(
               children: [
                 InfoTile(
-                  title: Text("Family"),
+                  title: Text(property.prefTene),
                   subtitle: Text("Preferred Tenants"),
                   leading: Icon(Icons.person),
                 ),
                 VerticalDivider(width: 10, thickness: 1),
                 InfoTile(
-                  title: Text("4-Wheeler"),
+                  title: Text(property.parking),
                   subtitle: Text("Parking"),
                   leading: Icon(Icons.local_parking),
                 ),
@@ -51,17 +51,17 @@ class PropertyHighlightsWidget extends StatelessWidget {
             ),
           ),
           const Divider(height: 10, thickness: 1),
-          const IntrinsicHeight(
+           IntrinsicHeight(
             child: Row(
               children: [
                 InfoTile(
-                  title: Text("2 Bathrooms"),
+                  title: Text("${property.bathNo}"),
                   subtitle: Text("No of Bathrooms"),
                   leading: Icon(Icons.bathtub),
                 ),
                 VerticalDivider(width: 10, thickness: 1),
                 InfoTile(
-                  title: Text("Floor No 2"),
+                  title: Text("Floor No ${property.floorNo}"),
                   subtitle: Text("Floor"),
                   leading: Icon(Icons.corporate_fare),
                 ),
@@ -69,17 +69,17 @@ class PropertyHighlightsWidget extends StatelessWidget {
             ),
           ),
           const Divider(height: 10, thickness: 1),
-          const IntrinsicHeight(
+           IntrinsicHeight(
             child: Row(
               children: [
                 InfoTile(
-                  title: Text("Corporation"),
+                  title: Text(property.water),
                   subtitle: Text("Water Supply"),
                   leading: Icon(Icons.water_drop),
                 ),
                 VerticalDivider(width: 10, thickness: 1),
                 InfoTile(
-                  title: Text("Yes"),
+                  title: Text(property.gatedSecu ? "Yes" : "No"),
                   subtitle: Text("Gated Security"),
                   leading: Icon(Icons.badge),
                 ),
@@ -87,17 +87,17 @@ class PropertyHighlightsWidget extends StatelessWidget {
             ),
           ),
           const Divider(height: 10, thickness: 1),
-          const IntrinsicHeight(
+           IntrinsicHeight(
             child: Row(
               children: [
                 InfoTile(
-                  title: Text("North"),
+                  title: Text(property.facing),
                   subtitle: Text("Facing"),
                   leading: Icon(Icons.explore),
                 ),
                 VerticalDivider(width: 10, thickness: 1),
                 InfoTile(
-                  title: Text("Yes"),
+                  title: Text(property.nonveg ? "Yes" : "No"),
                   subtitle: Text("Non-Veg Allowed"),
                   leading: Icon(Icons.dinner_dining),
                 ),
@@ -191,4 +191,8 @@ class PropertyHighlightsWidget extends StatelessWidget {
       ),
     );
   }
+
+  const PropertyHighlightsWidget({super.key,
+    required this.property,
+  });
 }

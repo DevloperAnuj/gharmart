@@ -64,6 +64,14 @@ class AddPropertyForm extends StatelessWidget {
                       context.read<AddPropertyTempCubit>().getAddress(text);
                     },
                   ),
+                  AddPropertyTextFormField(
+                    initialValue: tempState.desc,
+                    hint: "Description",
+                    max: 4,
+                    onChanged: (text) {
+                      context.read<AddPropertyTempCubit>().getDescription(text);
+                    },
+                  ),
                   MyDropDown(
                     value: tempState.propertyType,
                     onChanged: (val) {
@@ -436,12 +444,14 @@ class MyDropDown extends StatelessWidget {
     );
   }
 
-  const MyDropDown(
-      {super.key,
-      required this.value,
-      required this.options,
-      required this.onChanged,
-      this.iconData = Icons.arrow_drop_down_circle_rounded});
+  const MyDropDown({
+    super.key,
+    required this.value,
+    required this.options,
+    required this.onChanged,
+    this.iconData = Icons.arrow_drop_down_circle_rounded,
+
+  });
 }
 
 class AddPropertyTextFormField extends StatelessWidget {
@@ -449,6 +459,7 @@ class AddPropertyTextFormField extends StatelessWidget {
   final String initialValue;
   final String hint;
   final TextInputType inputType;
+  final int max;
 
   @override
   Widget build(BuildContext context) {
@@ -478,7 +489,9 @@ class AddPropertyTextFormField extends StatelessWidget {
             borderRadius: BorderRadius.circular(10.0),
           ),
         ),
-        keyboardType: inputType,
+        keyboardType: max > 1 ? TextInputType.multiline : inputType,
+        maxLines: max+1,
+        minLines: max,
       ),
     );
   }
@@ -489,5 +502,6 @@ class AddPropertyTextFormField extends StatelessWidget {
     required this.initialValue,
     required this.hint,
     this.inputType = TextInputType.text,
+    this.max = 1,
   });
 }

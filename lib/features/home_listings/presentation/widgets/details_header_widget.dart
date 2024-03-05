@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:gharmart/features/home_listings/domain/entities/property_entity.dart';
 
 class DetailsHeaderWidgetDesktop extends StatelessWidget {
-  const DetailsHeaderWidgetDesktop({
-    super.key,
-  });
+
+  final PropertyEntity property;
 
   @override
   Widget build(BuildContext context) {
@@ -28,28 +28,34 @@ class DetailsHeaderWidgetDesktop extends StatelessWidget {
                           fontWeight: FontWeight.bold,
                           color: Colors.black,
                         ),
-                title: const Text("Home Name and where it located"),
+                title: Text(property.title),
                 subtitle:
-                    const Text("Home Address full and city state with PinCode"),
+                Text(property.address),
               ),
             ),
             const VerticalDivider(),
-            const HeaderInfoTile(
-              leading: Icon(Icons.square_foot),
-              title: Text("9000 /M"),
-              subtitle: Text("Rent"),
+             HeaderInfoTile(
+              leading: const Icon(Icons.square_foot),
+              title: Text(property.propertyType == "Rent"
+                  ? "${property.rentPrice}"
+                  : "${property.sellPrice}"),
+              subtitle: property.propertyType == "Rent"
+                  ? Text("${property.propertyType}"
+                  "${property.rentNego ? "(Negotiable)" : ""}")
+                  : Text("${property.propertyType}"
+                  "${property.sellNego ? "(Negotiable)" : ""}"),
             ),
             const VerticalDivider(),
-            const HeaderInfoTile(
-              leading: Icon(Icons.square_foot),
-              title: Text("600 sqft"),
-              subtitle: Text("BuildUp"),
+             HeaderInfoTile(
+              leading: const Icon(Icons.square_foot),
+              title: Text("${property.area} sqft"),
+              subtitle: const Text("BuildUp"),
             ),
             const VerticalDivider(),
-            const HeaderInfoTile(
-              leading: Icon(Icons.currency_rupee_outlined),
-              title: Text("20000"),
-              subtitle: Text(
+             HeaderInfoTile(
+              leading: const Icon(Icons.currency_rupee_outlined),
+              title: Text("${property.deposit}"),
+              subtitle: const Text(
                 "Deposit",
               ),
             ),
@@ -59,6 +65,10 @@ class DetailsHeaderWidgetDesktop extends StatelessWidget {
       ),
     );
   }
+
+  const DetailsHeaderWidgetDesktop({super.key,
+    required this.property,
+  });
 }
 
 class HeaderInfoTile extends StatelessWidget {
