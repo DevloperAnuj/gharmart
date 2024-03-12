@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:gharmart/features/home_listings/presentation/pages/edit_property_details.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../home_listings/domain/entities/property_entity.dart';
 import '../../../../home_listings/presentation/pages/property_details_Page.dart';
 import '../home_screen_widgets/property_card_widget.dart';
 
 class MyPropertyCardWidgetDesktop extends StatelessWidget {
-  const MyPropertyCardWidgetDesktop({super.key});
+  final PropertyEntity property;
 
   @override
   Widget build(BuildContext context) {
@@ -16,30 +17,20 @@ class MyPropertyCardWidgetDesktop extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
       child: Column(
         children: [
-          const IntrinsicHeight(
-            child: Row(
-              children: [
-                VerticalDivider(width: 10, thickness: 1),
-                InfoTile(
-                  leading: Icon(Icons.currency_rupee),
-                  title: Text("9000"),
-                  subtitle: Text("Rent"),
+          ListTile(
+            tileColor: getTileStatusColour(property.status),
+            onTap: () {
+              context.pushNamed(PropertyDetailsPage.routeName, extra: property);
+            },
+            leading: const Icon(Icons.my_location),
+            titleTextStyle: Theme.of(context).textTheme.titleMedium!.copyWith(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
                 ),
-                VerticalDivider(width: 10, thickness: 1),
-                InfoTile(
-                  leading: Icon(Icons.currency_rupee_outlined),
-                  title: Text("20000"),
-                  subtitle: Text("Deposit"),
-                ),
-                VerticalDivider(width: 10, thickness: 1),
-                InfoTile(
-                  leading: Icon(Icons.square_foot),
-                  title: Text("9000" " sqft"),
-                  subtitle: Text("BuiltUp"),
-                ),
-                VerticalDivider(width: 10, thickness: 1),
-              ],
-            ),
+            title: Text(property.title),
+            subtitle: Text(property.address),
+            trailing: const Icon(Icons.remove_red_eye_rounded),
           ),
           const Divider(height: 10, thickness: 1),
           IntrinsicHeight(
@@ -48,12 +39,13 @@ class MyPropertyCardWidgetDesktop extends StatelessWidget {
                 Expanded(
                   flex: 1,
                   child: Image.network(
-                    "https://images.unsplash.com/photo-1568605114967-8130f3a36994?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                    property.picsUrl.first,
                     fit: BoxFit.cover,
+                    height: 225,
                   ),
                 ),
                 const VerticalDivider(width: 10, thickness: 1),
-                const Expanded(
+                Expanded(
                   flex: 2,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -62,36 +54,76 @@ class MyPropertyCardWidgetDesktop extends StatelessWidget {
                         child: Row(
                           children: [
                             InfoTile(
-                              title: Text("Semi Furnished"),
-                              subtitle: Text("Furnishing"),
-                              leading: Icon(Icons.chair),
+                              title: Text("${property.furnishing} Furnished"),
+                              subtitle: const Text("Furnishing"),
+                              leading: const Icon(Icons.chair),
                             ),
-                            VerticalDivider(width: 10, thickness: 1),
+                            const VerticalDivider(width: 10, thickness: 1),
                             InfoTile(
-                              title: Text("2 BHK"),
-                              subtitle: Text("Apartment Type"),
-                              leading: Icon(Icons.apartment),
+                              title: Text(property.bhkType),
+                              subtitle: const Text("Apartment Type"),
+                              leading: const Icon(Icons.apartment),
                             ),
-                            VerticalDivider(width: 10, thickness: 1),
+                            const VerticalDivider(width: 10, thickness: 1),
                           ],
                         ),
                       ),
-                      Divider(height: 10, thickness: 1),
+                      const Divider(height: 10, thickness: 1),
                       IntrinsicHeight(
                         child: Row(
                           children: [
                             InfoTile(
-                              title: Text("Family"),
-                              subtitle: Text("Preferred Tenants"),
-                              leading: Icon(Icons.person),
+                              title: Text(property.prefTene),
+                              subtitle: const Text("Preferred Tenants"),
+                              leading: const Icon(Icons.person),
                             ),
-                            VerticalDivider(width: 10, thickness: 1),
+                            const VerticalDivider(width: 10, thickness: 1),
                             InfoTile(
-                              title: Text("4-Wheeler"),
-                              subtitle: Text("Parking"),
-                              leading: Icon(Icons.local_parking),
+                              title: Text(property.parking),
+                              subtitle: const Text("Parking"),
+                              leading: const Icon(Icons.local_parking),
                             ),
-                            VerticalDivider(width: 10, thickness: 1),
+                            const VerticalDivider(width: 10, thickness: 1),
+                          ],
+                        ),
+                      ),
+                      const Divider(height: 10, thickness: 1),
+                      IntrinsicHeight(
+                        child: Row(
+                          children: [
+                            Expanded(
+                              flex: 4,
+                              child: ElevatedButton.icon(
+                                onPressed: () {},
+                                icon: const Icon(Icons.info),
+                                label: const Text(
+                                  "Get Owner Details",
+                                ),
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor:
+                                      const Color.fromRGBO(18, 132, 142, 1),
+                                  foregroundColor: Colors.white,
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              flex: 1,
+                              child: IconButton(
+                                onPressed: () {},
+                                icon: const Icon(
+                                  Icons.bookmark_add_outlined,
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              flex: 1,
+                              child: IconButton(
+                                onPressed: () {},
+                                icon: const Icon(
+                                  Icons.flag,
+                                ),
+                              ),
+                            ),
                           ],
                         ),
                       ),
@@ -102,23 +134,97 @@ class MyPropertyCardWidgetDesktop extends StatelessWidget {
             ),
           ),
           const Divider(height: 10, thickness: 1),
-          ListTile(
-            onTap: () {
-              context.pushNamed(EditPropertyDetailsPage.routeName);
-            },
-            leading: const Icon(Icons.my_location),
-            titleTextStyle: Theme.of(context).textTheme.titleMedium!.copyWith(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
+          IntrinsicHeight(
+            child: Row(
+              children: [
+                const VerticalDivider(width: 10, thickness: 1),
+                InfoTile(
+                  leading: const Icon(Icons.currency_rupee),
+                  title: Text(property.propertyType == "Rent"
+                      ? "${property.rentPrice}"
+                      : "${property.sellPrice}"),
+                  subtitle: property.propertyType == "Rent"
+                      ? Text("${property.propertyType}"
+                          "${property.rentNego ? "(Negotiable)" : ""}")
+                      : Text("${property.propertyType}"
+                          "${property.sellNego ? "(Negotiable)" : ""}"),
                 ),
-            title: const Text("Home Name and where it located"),
-            subtitle:
-                const Text("Home Address full and city state with PinCode"),
-            trailing: const Icon(Icons.edit),
+                const VerticalDivider(width: 10, thickness: 1),
+                InfoTile(
+                  leading: const Icon(Icons.currency_rupee_outlined),
+                  title: Text("${property.deposit}"),
+                  subtitle: const Text("Deposit"),
+                ),
+                const VerticalDivider(width: 10, thickness: 1),
+                InfoTile(
+                  leading: const Icon(Icons.square_foot),
+                  title: Text("${property.area}" " sqft"),
+                  subtitle: const Text("BuiltUp"),
+                ),
+                const VerticalDivider(width: 10, thickness: 1),
+              ],
+            ),
           ),
         ],
       ),
     );
   }
+
+  const MyPropertyCardWidgetDesktop({
+    super.key,
+    required this.property,
+  });
+}
+
+class StatusWidget extends StatelessWidget {
+  final int status;
+
+  @override
+  Widget build(BuildContext context) {
+    if (status == 0) {
+      return const CircleAvatar(
+        child: Icon(Icons.approval),
+      );
+    }
+    if (status == 1) {
+      return CircleAvatar(
+        child: Icon(
+          Icons.pending,
+          color: Colors.yellow.shade200,
+        ),
+      );
+    }
+    if (status == 2) {
+      return const CircleAvatar(
+        child: Icon(Icons.error_rounded),
+      );
+    }
+    if (status == 3) {
+      return const CircleAvatar(
+        child: Icon(Icons.delete),
+      );
+    }
+    return const SizedBox.shrink();
+  }
+
+  const StatusWidget({
+    super.key,
+    required this.status,
+  });
+}
+
+Color getTileStatusColour(int status) {
+  if (status == 0) {
+    return Colors.green.shade100;
+  }
+  if (status == 1) {
+    return Colors.yellow.shade100;
+  }
+  if (status == 2) {
+    return Colors.orange.shade100;
+  }
+  if (status == 3) {
+    return Colors.red.shade100;
+  }
+  return Colors.white;
 }

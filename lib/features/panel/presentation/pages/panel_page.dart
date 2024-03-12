@@ -5,6 +5,7 @@ import 'package:gharmart/features/auth/presentation/manager/sign_up_cubit/sign_u
 import 'package:gharmart/features/home_listings/presentation/manager/display_properties/display_properties_cubit.dart';
 import 'package:gharmart/features/home_listings/presentation/manager/fetch_properties/fetch_properties_cubit.dart';
 import 'package:gharmart/features/home_listings/presentation/manager/filter/listing_filter_cubit.dart';
+import 'package:gharmart/features/home_listings/presentation/manager/get_user_properties/get_user_properties_cubit.dart';
 import 'package:gharmart/features/panel/presentation/manager/panel_logic/panel_logic_cubit.dart';
 import 'package:gharmart/features/panel/presentation/widgets/panel_section.dart';
 import 'package:gharmart/features/profile/presentation/manager/fetch_profile/fetch_profile_cubit.dart';
@@ -43,6 +44,9 @@ class PanelPage extends StatelessWidget {
         ),
         BlocProvider.value(
           value: serviceConfig.get<DisplayPropertiesCubit>(),
+        ),
+        BlocProvider.value(
+          value: serviceConfig.get<GetUserPropertiesCubit>(),
         ),
       ],
       child: BlocBuilder<FetchProfileCubit, FetchProfileState>(

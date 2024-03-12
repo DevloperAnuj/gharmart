@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gharmart/features/home_listings/presentation/manager/display_properties/display_properties_cubit.dart';
 import 'package:gharmart/features/home_listings/presentation/manager/fetch_properties/fetch_properties_cubit.dart';
+import 'package:gharmart/features/home_listings/presentation/manager/get_user_properties/get_user_properties_cubit.dart';
 import 'package:gharmart/features/panel/presentation/widgets/home_screen_widgets/property_card_widget.dart';
 
 class PropertiesListWidgetMobile extends StatelessWidget {
@@ -57,6 +58,7 @@ class PropertiesListWidgetDesktop extends StatelessWidget {
           listener: (context, state) {
             if (state.properties.isNotEmpty) {
               context.read<DisplayPropertiesCubit>().displayProperties();
+              context.read<GetUserPropertiesCubit>().getUserProperties();
             }
           },
           builder: (context, state) {

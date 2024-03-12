@@ -25,6 +25,7 @@ class ListingScreenTablet extends StatelessWidget {
 }
 
 class ListingScreenDesktop extends StatelessWidget {
+
   const ListingScreenDesktop({super.key});
 
   @override
