@@ -5,7 +5,6 @@ import '../widgets/home_screen_widgets/filter_widget.dart';
 import '../widgets/home_screen_widgets/property_list_widget.dart';
 
 class HomeScreenMobile extends StatelessWidget {
-
   const HomeScreenMobile({super.key});
 
   @override
@@ -45,12 +44,15 @@ class HomeScreenDesktop extends StatelessWidget {
     return const Column(
       children: [
         SearchbarSectionDesktop(),
-         Divider(),
+        Divider(),
         Expanded(
           child: Row(
             children: [
-              FilterWidgetDesktop(),
               PropertiesListWidgetDesktop(),
+              Expanded(
+                flex: 1,
+                child: SizedBox(),
+              ),
             ],
           ),
         ),

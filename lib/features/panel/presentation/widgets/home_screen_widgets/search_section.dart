@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gharmart/features/home_listings/presentation/manager/display_properties/display_properties_cubit.dart';
 import 'package:gharmart/features/home_listings/presentation/manager/fetch_properties/fetch_properties_cubit.dart';
+import 'package:gharmart/features/panel/presentation/widgets/home_screen_widgets/filter_widget.dart';
 
 class SearchSectionMobile extends StatelessWidget {
-
   const SearchSectionMobile({super.key});
 
   @override
@@ -132,18 +132,57 @@ class SearchbarSectionDesktop extends StatelessWidget {
             ),
           ),
         ),
+        // Padding(
+        //   padding: const EdgeInsets.symmetric(horizontal: 20),
+        //   child: ElevatedButton(
+        //     onPressed: () {},
+        //     style: ElevatedButton.styleFrom(
+        //       backgroundColor: const Color.fromRGBO(18, 132, 142, 1),
+        //       foregroundColor: Colors.white,
+        //     ),
+        //     child: const Text("Search"),
+        //   ),
+        // ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: ElevatedButton(
-            onPressed: () {},
+          child: ElevatedButton.icon(
+            onPressed: () {
+              _showAlertDialog(context);
+            },
             style: ElevatedButton.styleFrom(
               backgroundColor: const Color.fromRGBO(18, 132, 142, 1),
               foregroundColor: Colors.white,
             ),
-            child: const Text("Search"),
+            label: const Text("Modify Filter"),
+            icon: const Icon(Icons.filter_alt),
           ),
         ),
       ],
+    );
+  }
+
+  Future<void> _showAlertDialog(BuildContext context) async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          // <-- SEE HERE
+          title: const Text('Apply Filter'),
+          content: const FilterWidgetDesktop(),
+          actions: [
+            IconButton.outlined(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              icon: const Icon(
+                Icons.close_rounded,
+                color: Colors.red,
+              ),
+            ),
+          ],
+        );
+      },
     );
   }
 }

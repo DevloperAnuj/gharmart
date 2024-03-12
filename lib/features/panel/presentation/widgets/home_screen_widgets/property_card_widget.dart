@@ -43,36 +43,19 @@ class PropertyCardWidgetDesktop extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
       child: Column(
         children: [
-          IntrinsicHeight(
-            child: Row(
-              children: [
-                const VerticalDivider(width: 10, thickness: 1),
-                InfoTile(
-                  leading: const Icon(Icons.currency_rupee),
-                  title: Text(property.propertyType == "Rent"
-                      ? "${property.rentPrice}"
-                      : "${property.sellPrice}"),
-                  subtitle: property.propertyType == "Rent"
-                      ? Text("${property.propertyType}"
-                          "${property.rentNego ? "(Negotiable)" : ""}")
-                      : Text("${property.propertyType}"
-                          "${property.sellNego ? "(Negotiable)" : ""}"),
-                ),
-                const VerticalDivider(width: 10, thickness: 1),
-                InfoTile(
-                  leading: const Icon(Icons.currency_rupee_outlined),
-                  title: Text("${property.deposit}"),
-                  subtitle: const Text("Deposit"),
-                ),
-                const VerticalDivider(width: 10, thickness: 1),
-                InfoTile(
-                  leading: const Icon(Icons.square_foot),
-                  title: Text("${property.area}" " sqft"),
-                  subtitle: const Text("BuiltUp"),
-                ),
-                const VerticalDivider(width: 10, thickness: 1),
-              ],
+          ListTile(
+            onTap: () {
+              context.pushNamed(PropertyDetailsPage.routeName,extra: property);
+            },
+            leading: const Icon(Icons.my_location),
+            titleTextStyle: Theme.of(context).textTheme.titleMedium!.copyWith(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+              color: Colors.black,
             ),
+            title: Text(property.title),
+            subtitle: Text(property.address),
+            trailing: const Icon(Icons.open_in_new),
           ),
           const Divider(height: 10, thickness: 1),
           IntrinsicHeight(
@@ -83,6 +66,7 @@ class PropertyCardWidgetDesktop extends StatelessWidget {
                   child: Image.network(
                     property.picsUrl.first,
                     fit: BoxFit.cover,
+                    height: 225,
                   ),
                 ),
                 const VerticalDivider(width: 10, thickness: 1),
@@ -175,19 +159,36 @@ class PropertyCardWidgetDesktop extends StatelessWidget {
             ),
           ),
           const Divider(height: 10, thickness: 1),
-          ListTile(
-            onTap: () {
-              context.pushNamed(PropertyDetailsPage.routeName,extra: property);
-            },
-            leading: const Icon(Icons.my_location),
-            titleTextStyle: Theme.of(context).textTheme.titleMedium!.copyWith(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
+          IntrinsicHeight(
+            child: Row(
+              children: [
+                const VerticalDivider(width: 10, thickness: 1),
+                InfoTile(
+                  leading: const Icon(Icons.currency_rupee),
+                  title: Text(property.propertyType == "Rent"
+                      ? "${property.rentPrice}"
+                      : "${property.sellPrice}"),
+                  subtitle: property.propertyType == "Rent"
+                      ? Text("${property.propertyType}"
+                      "${property.rentNego ? "(Negotiable)" : ""}")
+                      : Text("${property.propertyType}"
+                      "${property.sellNego ? "(Negotiable)" : ""}"),
                 ),
-            title: Text(property.title),
-            subtitle: Text(property.address),
-            trailing: const Icon(Icons.open_in_new),
+                const VerticalDivider(width: 10, thickness: 1),
+                InfoTile(
+                  leading: const Icon(Icons.currency_rupee_outlined),
+                  title: Text("${property.deposit}"),
+                  subtitle: const Text("Deposit"),
+                ),
+                const VerticalDivider(width: 10, thickness: 1),
+                InfoTile(
+                  leading: const Icon(Icons.square_foot),
+                  title: Text("${property.area}" " sqft"),
+                  subtitle: const Text("BuiltUp"),
+                ),
+                const VerticalDivider(width: 10, thickness: 1),
+              ],
+            ),
           ),
         ],
       ),
