@@ -25,8 +25,8 @@ class ListingFilterState {
       priceMax: 10000000,
       prefTen: "All",
       furnishing: "Semi",
-      parking: "Bike And Car",
-      rentMin: 3000,
+      parking: "Bike and Car",
+      rentMin: 1000,
       rentMax: 20000,
     );
   }

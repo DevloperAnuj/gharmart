@@ -1,6 +1,7 @@
 import 'package:csc_picker/csc_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gharmart/features/home_listings/presentation/manager/display_properties/display_properties_cubit.dart';
 import 'package:gharmart/features/home_listings/presentation/manager/filter/listing_filter_cubit.dart';
 import 'package:money_formatter/money_formatter.dart';
 
@@ -33,13 +34,13 @@ class FilterWidgetDesktop extends StatelessWidget {
                     String selectedState = state ?? "Maharashtra";
                     context
                         .read<ListingFilterCubit>()
-                        .applyCountry(selectedState);
+                        .applyState(selectedState);
                   },
                   onCityChanged: (city) {
                     String selectedCity = city ?? "Pune";
                     context
                         .read<ListingFilterCubit>()
-                        .applyCountry(selectedCity);
+                        .applyCity(selectedCity);
                   },
                 ),
                 Padding(
@@ -335,12 +336,12 @@ class FilterWidgetDesktop extends StatelessWidget {
                       },
                     ),
                     CustomChoiceChip(
-                      label: "Bike And Car",
-                      selected: filterState.parking == "Bike And Car",
+                      label: "Bike and Car",
+                      selected: filterState.parking == "Bike and Car",
                       onSelected: (val) {
                         context
                             .read<ListingFilterCubit>()
-                            .applyParking("Bike And Car");
+                            .applyParking("Bike and Car");
                       },
                     ),
                     CustomChoiceChip(
@@ -357,7 +358,9 @@ class FilterWidgetDesktop extends StatelessWidget {
                       horizontal: 20.0, vertical: 30),
                   child: ElevatedButton.icon(
                     onPressed: () {
-                      print(filterState);
+                      context
+                          .read<DisplayPropertiesCubit>()
+                          .displayFilteredProperties();
                     },
                     icon: const Icon(Icons.filter_alt),
                     label: const Text("Apply Filter"),
@@ -407,9 +410,8 @@ String MyFormattedMoney(int price) {
   return MoneyFormatter(
     amount: price.toDouble(),
     settings: MoneyFormatterSettings(
-      symbol: "₹",
-      compactFormatType: CompactFormatType.short,
-      thousandSeparator: ','
-    ),
+        symbol: "₹",
+        compactFormatType: CompactFormatType.short,
+        thousandSeparator: ','),
   ).output.compactSymbolOnLeft;
 }

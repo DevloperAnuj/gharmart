@@ -20,14 +20,14 @@ class PropertyHighlightsWidget extends StatelessWidget {
               children: [
                 InfoTile(
                   title: Text("${property.furnishing} Furnished"),
-                  subtitle: Text("Furnishing"),
-                  leading: Icon(Icons.chair),
+                  subtitle: const Text("Furnishing"),
+                  leading: const Icon(Icons.chair),
                 ),
-                VerticalDivider(width: 10, thickness: 1),
+                const VerticalDivider(width: 10, thickness: 1),
                 InfoTile(
                   title: Text(property.bhkType),
-                  subtitle: Text("Apartment Type"),
-                  leading: Icon(Icons.apartment),
+                  subtitle: const Text("Apartment Type"),
+                  leading: const Icon(Icons.apartment),
                 ),
               ],
             ),
@@ -38,14 +38,14 @@ class PropertyHighlightsWidget extends StatelessWidget {
               children: [
                 InfoTile(
                   title: Text(property.prefTene),
-                  subtitle: Text("Preferred Tenants"),
-                  leading: Icon(Icons.person),
+                  subtitle: const Text("Preferred Tenants"),
+                  leading: const Icon(Icons.person),
                 ),
-                VerticalDivider(width: 10, thickness: 1),
+                const VerticalDivider(width: 10, thickness: 1),
                 InfoTile(
                   title: Text(property.parking),
-                  subtitle: Text("Parking"),
-                  leading: Icon(Icons.local_parking),
+                  subtitle: const Text("Parking"),
+                  leading: const Icon(Icons.local_parking),
                 ),
               ],
             ),
@@ -56,14 +56,14 @@ class PropertyHighlightsWidget extends StatelessWidget {
               children: [
                 InfoTile(
                   title: Text("${property.bathNo}"),
-                  subtitle: Text("No of Bathrooms"),
-                  leading: Icon(Icons.bathtub),
+                  subtitle: const Text("No of Bathrooms"),
+                  leading: const Icon(Icons.bathtub),
                 ),
-                VerticalDivider(width: 10, thickness: 1),
+                const VerticalDivider(width: 10, thickness: 1),
                 InfoTile(
                   title: Text("Floor No ${property.floorNo}"),
-                  subtitle: Text("Floor"),
-                  leading: Icon(Icons.corporate_fare),
+                  subtitle: const Text("Floor"),
+                  leading: const Icon(Icons.corporate_fare),
                 ),
               ],
             ),
@@ -74,14 +74,14 @@ class PropertyHighlightsWidget extends StatelessWidget {
               children: [
                 InfoTile(
                   title: Text(property.water),
-                  subtitle: Text("Water Supply"),
-                  leading: Icon(Icons.water_drop),
+                  subtitle: const Text("Water Supply"),
+                  leading: const Icon(Icons.water_drop),
                 ),
-                VerticalDivider(width: 10, thickness: 1),
+                const VerticalDivider(width: 10, thickness: 1),
                 InfoTile(
                   title: Text(property.gatedSecu ? "Yes" : "No"),
-                  subtitle: Text("Gated Security"),
-                  leading: Icon(Icons.badge),
+                  subtitle: const Text("Gated Security"),
+                  leading: const Icon(Icons.badge),
                 ),
               ],
             ),
@@ -92,14 +92,14 @@ class PropertyHighlightsWidget extends StatelessWidget {
               children: [
                 InfoTile(
                   title: Text(property.facing),
-                  subtitle: Text("Facing"),
-                  leading: Icon(Icons.explore),
+                  subtitle: const Text("Facing"),
+                  leading: const Icon(Icons.explore),
                 ),
-                VerticalDivider(width: 10, thickness: 1),
+                const VerticalDivider(width: 10, thickness: 1),
                 InfoTile(
                   title: Text(property.nonveg ? "Yes" : "No"),
-                  subtitle: Text("Non-Veg Allowed"),
-                  leading: Icon(Icons.dinner_dining),
+                  subtitle: const Text("Non-Veg Allowed"),
+                  leading: const Icon(Icons.dinner_dining),
                 ),
               ],
             ),

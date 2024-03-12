@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gharmart/features/home_listings/domain/entities/property_entity.dart';
 import 'package:gharmart/features/home_listings/presentation/widgets/second_head_row_widget.dart';
 import 'package:gharmart/utils/my_layout_builder.dart';
-import 'package:image_collage/image_collage.dart';
 
-import '../../../panel/presentation/widgets/home_screen_widgets/property_card_widget.dart';
 import '../widgets/description_widget.dart';
 import '../widgets/details_header_widget.dart';
 import '../widgets/property_highlight_widget.dart';
@@ -19,8 +17,8 @@ class PropertyDetailsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return  MyBuilder(
-      mobileView: PropertyDetailsPageMobile(),
-      tabletView: PropertyDetailsPageTablet(),
+      mobileView: const PropertyDetailsPageMobile(),
+      tabletView: const PropertyDetailsPageTablet(),
       deskView: PropertyDetailsPageDesktop(
         property: property,
       ),
@@ -95,11 +93,11 @@ class PropertyDetailsPageDesktop extends StatelessWidget {
                           PropertyImageCollageWidget(
                             imageList: property.picsUrl,
                           ),
-                          VerticalDivider(),
+                          const VerticalDivider(),
                           PropertyHighlightsWidget(
                             property: property,
                           ),
-                          VerticalDivider(),
+                          const VerticalDivider(),
                         ],
                       ),
                     ),

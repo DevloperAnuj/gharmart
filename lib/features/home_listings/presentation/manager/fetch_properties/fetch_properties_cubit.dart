@@ -3,6 +3,7 @@ import 'dart:html';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:gharmart/features/home_listings/presentation/manager/display_properties/display_properties_cubit.dart';
 import 'package:gharmart/utils/config_file.dart';
 import 'package:meta/meta.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -18,8 +19,6 @@ class FetchPropertiesCubit extends Cubit<FetchPropertiesState> {
 
   void fetchProperties() async {
     try {
-      emit(state.copyWith(loading: true));
-      print("Start Fetch Properties");
       final result =
           await client.from("property").select('''*,user:users(*)''');
       final encodedBody = jsonEncode(result);
@@ -29,7 +28,7 @@ class FetchPropertiesCubit extends Cubit<FetchPropertiesState> {
               .map((property) => PropertyEntity.fromMap(property))
               .toList()));
     } on PostgrestException catch (e) {
-      emit(state.copyWith(err: e.message));
+      emit(state.copyWith(properties: []));
     }
   }
 }

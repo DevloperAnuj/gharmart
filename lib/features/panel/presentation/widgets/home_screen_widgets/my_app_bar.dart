@@ -9,7 +9,7 @@ class MyAppBar extends StatelessWidget {
     return AppBar(
       scrolledUnderElevation: 0,
       leading: const Icon(Icons.home),
-      title: const Text("GharMart"),
+      title: const Text("GharMarket"),
       actions: [
         IconButton(
           onPressed: () {},

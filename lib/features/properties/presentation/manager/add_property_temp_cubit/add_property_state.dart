@@ -1,6 +1,7 @@
 part of 'add_property_cubit.dart';
 
 class AddPropertyTempState {
+
   final String country;
   final String state;
   final String city;
@@ -191,6 +192,7 @@ class AddPropertyTempState {
       'amenities': amenities,
       'pics': pics,
       'picsUrl': picsUrl,
+      'owner': serviceConfig.get<SupabaseClient>().auth.currentUser!.id
     };
   }
 

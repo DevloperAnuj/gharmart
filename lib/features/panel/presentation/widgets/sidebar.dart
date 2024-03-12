@@ -48,7 +48,7 @@ class SideBar extends StatelessWidget {
             padding: EdgeInsets.symmetric(vertical: 30),
             child: CircleAvatar(
               radius: 50,
-              backgroundImage: AssetImage('assets/images/logo.png'),
+              backgroundImage: AssetImage('assets/images/mlogo.jpeg'),
             ),
           );
         },
@@ -117,7 +117,7 @@ class SideBarDrawer extends StatelessWidget {
               padding: EdgeInsets.symmetric(vertical: 30),
               child: CircleAvatar(
                 radius: 50,
-                backgroundImage: AssetImage('assets/images/logo.png'),
+                backgroundImage: AssetImage('assets/images/mlogo.jpeg'),
               ),
             ),
           ),

@@ -15,38 +15,38 @@ class SecondHeadRowWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return  IntrinsicHeight(
       child: Padding(
-        padding: EdgeInsets.symmetric(
+        padding: const EdgeInsets.symmetric(
           horizontal: 20,
           vertical: 10,
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            VerticalDivider(),
+            const VerticalDivider(),
             InfoTile(
-              leading: Icon(Icons.balcony),
+              leading: const Icon(Icons.balcony),
               title: Text("${property.balkNo}"),
-              subtitle: Text("Balcony's"),
+              subtitle: const Text("Balcony's"),
             ),
-            VerticalDivider(),
+            const VerticalDivider(),
             InfoTile(
-              leading: Icon(Icons.handyman),
+              leading: const Icon(Icons.handyman),
               title: Text("${property.ment} /M"),
-              subtitle: Text("Maintenance"),
+              subtitle: const Text("Maintenance"),
             ),
-            VerticalDivider(),
+            const VerticalDivider(),
             InfoTile(
-              leading: Icon(Icons.cake),
+              leading: const Icon(Icons.cake),
               title: Text("${property.age}+ Years"),
-              subtitle: Text("Age"),
+              subtitle: const Text("Age"),
             ),
-            VerticalDivider(),
+            const VerticalDivider(),
             InfoTile(
-              leading: Icon(Icons.calendar_month_rounded),
+              leading: const Icon(Icons.calendar_month_rounded),
               title: Text(property.createdAt.day.toString()),
-              subtitle: Text("Posted On"),
+              subtitle: const Text("Posted On"),
             ),
-            VerticalDivider(),
+            const VerticalDivider(),
           ],
         ),
       ),
