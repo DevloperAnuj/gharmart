@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gharmart/features/home_listings/domain/entities/property_entity.dart';
 import 'package:gharmart/features/panel/presentation/widgets/home_screen_widgets/property_card_widget.dart';
+import 'package:intl/intl.dart';
 
 class SecondHeadRowWidget extends StatelessWidget {
 
@@ -43,7 +44,7 @@ class SecondHeadRowWidget extends StatelessWidget {
             const VerticalDivider(),
             InfoTile(
               leading: const Icon(Icons.calendar_month_rounded),
-              title: Text(property.createdAt.day.toString()),
+              title: Text(DateFormat.yMMMd().format(property.createdAt)),
               subtitle: const Text("Posted On"),
             ),
             const VerticalDivider(),

@@ -164,23 +164,12 @@ class SearchbarSectionDesktop extends StatelessWidget {
   Future<void> _showAlertDialog(BuildContext context) async {
     return showDialog<void>(
       context: context,
-      barrierDismissible: false, // user must tap button!
+      //barrierDismissible: false, // user must tap button!
       builder: (BuildContext context) {
-        return AlertDialog(
+        return const AlertDialog(
           // <-- SEE HERE
-          title: const Text('Apply Filter'),
-          content: const FilterWidgetDesktop(),
-          actions: [
-            IconButton.outlined(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              icon: const Icon(
-                Icons.close_rounded,
-                color: Colors.red,
-              ),
-            ),
-          ],
+          title: Text('Apply Filter'),
+          content: FilterWidgetDesktop(),
         );
       },
     );

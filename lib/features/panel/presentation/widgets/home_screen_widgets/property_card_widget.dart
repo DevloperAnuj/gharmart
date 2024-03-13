@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gharmart/features/home_listings/domain/entities/favorite_property_entity.dart';
 import 'package:gharmart/features/home_listings/domain/entities/property_entity.dart';
+import 'package:gharmart/features/home_listings/presentation/manager/favorite_property/favorite_property_cubit.dart';
 import 'package:gharmart/features/home_listings/presentation/pages/property_details_Page.dart';
 import 'package:go_router/go_router.dart';
+
+import '../../../../../utils/config_file.dart';
+import '../../../../../utils/constants.dart';
+import '../../../../home_listings/presentation/manager/report_property/report_property_cubit.dart';
 
 class PropertyCardWidgetMobile extends StatelessWidget {
   const PropertyCardWidgetMobile({super.key});
@@ -45,14 +52,14 @@ class PropertyCardWidgetDesktop extends StatelessWidget {
         children: [
           ListTile(
             onTap: () {
-              context.pushNamed(PropertyDetailsPage.routeName,extra: property);
+              context.pushNamed(PropertyDetailsPage.routeName, extra: property);
             },
             leading: const Icon(Icons.my_location),
             titleTextStyle: Theme.of(context).textTheme.titleMedium!.copyWith(
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-              color: Colors.black,
-            ),
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
+                ),
             title: Text(property.title),
             subtitle: Text(property.address),
             trailing: const Icon(Icons.open_in_new),
@@ -133,17 +140,14 @@ class PropertyCardWidgetDesktop extends StatelessWidget {
                             ),
                             Expanded(
                               flex: 1,
-                              child: IconButton(
-                                onPressed: () {},
-                                icon: const Icon(
-                                  Icons.bookmark_add_outlined,
-                                ),
-                              ),
+                              child: AddToFavoriteButton(property: property),
                             ),
                             Expanded(
                               flex: 1,
                               child: IconButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  showReportTile(context, property.id);
+                                },
                                 icon: const Icon(
                                   Icons.flag,
                                 ),
@@ -170,9 +174,9 @@ class PropertyCardWidgetDesktop extends StatelessWidget {
                       : "${property.sellPrice}"),
                   subtitle: property.propertyType == "Rent"
                       ? Text("${property.propertyType}"
-                      "${property.rentNego ? "(Negotiable)" : ""}")
+                          "${property.rentNego ? "(Negotiable)" : ""}")
                       : Text("${property.propertyType}"
-                      "${property.sellNego ? "(Negotiable)" : ""}"),
+                          "${property.sellNego ? "(Negotiable)" : ""}"),
                 ),
                 const VerticalDivider(width: 10, thickness: 1),
                 InfoTile(
@@ -199,6 +203,38 @@ class PropertyCardWidgetDesktop extends StatelessWidget {
     super.key,
     required this.property,
   });
+}
+
+class AddToFavoriteButton extends StatelessWidget {
+  const AddToFavoriteButton({
+    super.key,
+    required this.property,
+  });
+
+  final PropertyEntity property;
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<FavoritePropertyCubit, FavoritePropertyState>(
+      builder: (context, state) {
+        return IconButton(
+          onPressed: () {
+            context.read<FavoritePropertyCubit>().toggleFavorite(property);
+          },
+          icon: Icon(
+            state.favoritePropertyList
+                    .any((element) => element.id == property.id)
+                ? Icons.bookmark
+                : Icons.bookmark_add_outlined,
+            color: state.favoritePropertyList
+                    .any((element) => element.id == property.id)
+                ? Colors.red
+                : Colors.black,
+          ),
+        );
+      },
+    );
+  }
 }
 
 class InfoTile extends StatelessWidget {
@@ -233,4 +269,96 @@ class InfoTile extends StatelessWidget {
     required this.title,
     required this.subtitle,
   });
+}
+
+void showReportTile(BuildContext context, String id) {
+  showAdaptiveDialog(
+    context: context,
+    builder: (context) {
+      return BlocProvider.value(
+        value: serviceConfig.get<ReportPropertyCubit>(),
+        child: Builder(builder: (context) {
+          return AlertDialog.adaptive(
+            icon: const Icon(Icons.flag),
+            title: const Text("Report Property"),
+            content: BlocListener<ReportPropertyCubit, ReportPropertyState>(
+              listener: (context, state) {
+                if (state is ReportPropertySuccess) {
+                  Navigator.pop(context);
+                  MyConstants.mySnackBar(
+                    context,
+                    message: "Report Submitted Successfully !",
+                    color: Colors.indigo,
+                  );
+                }
+              },
+              child: ListTile(
+                // shape: RoundedRectangleBorder(
+                //   borderRadius: BorderRadius.circular(25),
+                // ),
+                minLeadingWidth: 20,
+                title:
+                    const Text("Report what was not correct in this property"),
+                subtitle: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Wrap(
+                    spacing: 10,
+                    runSpacing: 10,
+                    alignment: WrapAlignment.center,
+                    children: [
+                      TextButton(
+                        onPressed: () {
+                          context
+                              .read<ReportPropertyCubit>()
+                              .submitReport(id, "Listed By Broker");
+                        },
+                        style: TextButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(18.0),
+                            side: const BorderSide(color: Colors.black),
+                          ),
+                          backgroundColor: Colors.white,
+                        ),
+                        child: const Text("Listed By Broker"),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          context
+                              .read<ReportPropertyCubit>()
+                              .submitReport(id, "Rented Out");
+                        },
+                        style: TextButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(18.0),
+                            side: const BorderSide(color: Colors.black),
+                          ),
+                          backgroundColor: Colors.white,
+                        ),
+                        child: const Text("Rented out"),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          context
+                              .read<ReportPropertyCubit>()
+                              .submitReport(id, "Wrong Info");
+                        },
+                        style: TextButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(18.0),
+                            side: const BorderSide(color: Colors.black),
+                          ),
+                          backgroundColor: Colors.white,
+                        ),
+                        child: const Text("Wrong Info"),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          );
+        }),
+      );
+    },
+  );
 }

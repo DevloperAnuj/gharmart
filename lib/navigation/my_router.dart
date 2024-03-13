@@ -1,6 +1,7 @@
 import 'package:gharmart/features/auth/presentation/pages/auth_page.dart';
 import 'package:gharmart/features/auth/presentation/pages/auth_wrapper_page.dart';
 import 'package:gharmart/features/home_listings/domain/entities/property_entity.dart';
+import 'package:gharmart/features/home_listings/presentation/pages/favorite_properties_page.dart';
 import 'package:gharmart/features/properties/presentation/pages/add_property_page.dart';
 import 'package:gharmart/features/home_listings/presentation/pages/edit_property_details.dart';
 import 'package:gharmart/features/home_listings/presentation/pages/property_details_Page.dart';
@@ -47,6 +48,11 @@ class MyRouter {
             path: EditProfilePage.routeName,
             name: EditProfilePage.routeName,
             builder: (context, state) => const EditProfilePage(),
+          ),
+          GoRoute(
+            path: FavoritePropertiesPage.routeName,
+            name: FavoritePropertiesPage.routeName,
+            builder: (context, state) => const FavoritePropertiesPage(),
           ),
         ],
       ),

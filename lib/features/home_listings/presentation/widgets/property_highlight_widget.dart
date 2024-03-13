@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gharmart/features/home_listings/domain/entities/property_entity.dart';
+import 'package:gharmart/features/home_listings/presentation/manager/report_property/report_property_cubit.dart';
+import 'package:gharmart/utils/constants.dart';
 
 import '../../../panel/presentation/widgets/home_screen_widgets/property_card_widget.dart';
 
 class PropertyHighlightsWidget extends StatelessWidget {
-
   final PropertyEntity property;
 
   @override
@@ -15,7 +17,7 @@ class PropertyHighlightsWidget extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           const Divider(height: 10, thickness: 1),
-           IntrinsicHeight(
+          IntrinsicHeight(
             child: Row(
               children: [
                 InfoTile(
@@ -33,7 +35,7 @@ class PropertyHighlightsWidget extends StatelessWidget {
             ),
           ),
           const Divider(height: 10, thickness: 1),
-           IntrinsicHeight(
+          IntrinsicHeight(
             child: Row(
               children: [
                 InfoTile(
@@ -51,7 +53,7 @@ class PropertyHighlightsWidget extends StatelessWidget {
             ),
           ),
           const Divider(height: 10, thickness: 1),
-           IntrinsicHeight(
+          IntrinsicHeight(
             child: Row(
               children: [
                 InfoTile(
@@ -69,7 +71,7 @@ class PropertyHighlightsWidget extends StatelessWidget {
             ),
           ),
           const Divider(height: 10, thickness: 1),
-           IntrinsicHeight(
+          IntrinsicHeight(
             child: Row(
               children: [
                 InfoTile(
@@ -87,7 +89,7 @@ class PropertyHighlightsWidget extends StatelessWidget {
             ),
           ),
           const Divider(height: 10, thickness: 1),
-           IntrinsicHeight(
+          IntrinsicHeight(
             child: Row(
               children: [
                 InfoTile(
@@ -135,54 +137,80 @@ class PropertyHighlightsWidget extends StatelessWidget {
             ),
           ),
           const Divider(height: 10, thickness: 1),
-          ListTile(
-            // shape: RoundedRectangleBorder(
-            //   borderRadius: BorderRadius.circular(25),
-            // ),
-            minLeadingWidth: 20,
-            tileColor: Colors.grey.shade200,
-            leading: const Icon(Icons.flag),
-            title: const Text("Report what was not correct in this property"),
-            subtitle: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Wrap(
-                spacing: 10,
-                runSpacing: 10,
-                children: [
-                  TextButton(
-                    onPressed: () {},
-                    style: TextButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(18.0),
-                        side: const BorderSide(color: Colors.black),
+          BlocListener<ReportPropertyCubit, ReportPropertyState>(
+            listener: (context, state) {
+              if (state is ReportPropertySuccess) {
+                MyConstants.mySnackBar(
+                  context,
+                  message: "Report Submitted Successfully !",
+                  color: Colors.indigo,
+                );
+              }
+            },
+            child: ListTile(
+              // shape: RoundedRectangleBorder(
+              //   borderRadius: BorderRadius.circular(25),
+              // ),
+              minLeadingWidth: 20,
+              tileColor: Colors.grey.shade200,
+              leading: const Icon(Icons.flag),
+              title: const Text("Report what was not correct in this property"),
+              subtitle: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Wrap(
+                  spacing: 10,
+                  runSpacing: 10,
+                  children: [
+                    TextButton(
+                      onPressed: () {
+                        context.read<ReportPropertyCubit>().submitReport(
+                              property.id,
+                              "Listed By Broker",
+                            );
+                      },
+                      style: TextButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(18.0),
+                          side: const BorderSide(color: Colors.black),
+                        ),
+                        backgroundColor: Colors.white,
                       ),
-                      backgroundColor: Colors.white,
+                      child: const Text("Listed By Broker"),
                     ),
-                    child: const Text("Listed By Broker"),
-                  ),
-                  TextButton(
-                    onPressed: () {},
-                    style: TextButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(18.0),
-                        side: const BorderSide(color: Colors.black),
+                    TextButton(
+                      onPressed: () {
+                        context.read<ReportPropertyCubit>().submitReport(
+                              property.id,
+                              "Rented Out",
+                            );
+                      },
+                      style: TextButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(18.0),
+                          side: const BorderSide(color: Colors.black),
+                        ),
+                        backgroundColor: Colors.white,
                       ),
-                      backgroundColor: Colors.white,
+                      child: const Text("Rented out"),
                     ),
-                    child: const Text("Rented out"),
-                  ),
-                  TextButton(
-                    onPressed: () {},
-                    style: TextButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(18.0),
-                        side: const BorderSide(color: Colors.black),
+                    TextButton(
+                      onPressed: () {
+                        context.read<ReportPropertyCubit>().submitReport(
+                              property.id,
+                              "Wrong Info",
+                            );
+                      },
+                      style: TextButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(18.0),
+                          side: const BorderSide(color: Colors.black),
+                        ),
+                        backgroundColor: Colors.white,
                       ),
-                      backgroundColor: Colors.white,
+                      child: const Text("Wrong Info"),
                     ),
-                    child: const Text("Wrong Info"),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),
@@ -192,7 +220,8 @@ class PropertyHighlightsWidget extends StatelessWidget {
     );
   }
 
-  const PropertyHighlightsWidget({super.key,
+  const PropertyHighlightsWidget({
+    super.key,
     required this.property,
   });
 }

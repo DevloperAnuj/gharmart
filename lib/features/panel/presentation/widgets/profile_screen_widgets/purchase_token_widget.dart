@@ -20,7 +20,7 @@ class PurchaseTokensWidget extends StatelessWidget {
             const RemainingTokensWidget(),
             const Divider(),
             Text(
-              "Purchase Membership Tokens",
+              "Purchase Membership Connections",
               style: Theme.of(context).textTheme.titleMedium!.copyWith(
                     color: Colors.black,
                     fontSize: 25,
@@ -32,13 +32,13 @@ class PurchaseTokensWidget extends StatelessWidget {
                   cardColour: Colors.yellow,
                   membershipName: "Gold",
                   membershipPrice: "1000",
-                  membershipInfo: "You Will Get 60 membership Tokens",
+                  membershipInfo: "You Will Get 60 Connections",
                 ),
                 MembershipCard(
                   cardColour: Colors.blueAccent,
                   membershipName: "Silver",
                   membershipPrice: "500",
-                  membershipInfo: "You Will Get 25 membership Tokens",
+                  membershipInfo: "You Will Get 25 Connections",
                 ),
               ],
             ),

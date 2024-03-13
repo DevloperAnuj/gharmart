@@ -1,31 +1,45 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gharmart/features/home_listings/domain/entities/property_entity.dart';
 import 'package:gharmart/features/home_listings/presentation/widgets/second_head_row_widget.dart';
 import 'package:gharmart/utils/my_layout_builder.dart';
 
+import '../../../../utils/config_file.dart';
+import '../manager/favorite_property/favorite_property_cubit.dart';
+import '../manager/report_property/report_property_cubit.dart';
 import '../widgets/description_widget.dart';
 import '../widgets/details_header_widget.dart';
 import '../widgets/property_highlight_widget.dart';
 import '../widgets/property_image_college.dart';
 
 class PropertyDetailsPage extends StatelessWidget {
-
   final PropertyEntity property;
 
   static const String routeName = "propertydetail";
 
   @override
   Widget build(BuildContext context) {
-    return  MyBuilder(
-      mobileView: const PropertyDetailsPageMobile(),
-      tabletView: const PropertyDetailsPageTablet(),
-      deskView: PropertyDetailsPageDesktop(
-        property: property,
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider.value(
+          value: serviceConfig.get<ReportPropertyCubit>(),
+        ),
+        BlocProvider.value(
+          value: serviceConfig.get<FavoritePropertyCubit>(),
+        ),
+      ],
+      child: MyBuilder(
+        mobileView: const PropertyDetailsPageMobile(),
+        tabletView: const PropertyDetailsPageTablet(),
+        deskView: PropertyDetailsPageDesktop(
+          property: property,
+        ),
       ),
     );
   }
 
-  const PropertyDetailsPage({super.key,
+  const PropertyDetailsPage({
+    super.key,
     required this.property,
   });
 }
@@ -63,7 +77,6 @@ class PropertyDetailsPageTablet extends StatelessWidget {
 }
 
 class PropertyDetailsPageDesktop extends StatelessWidget {
-
   final PropertyEntity property;
 
   @override
@@ -72,7 +85,7 @@ class PropertyDetailsPageDesktop extends StatelessWidget {
       body: Column(
         children: [
           const Divider(),
-           DetailsHeaderWidgetDesktop(
+          DetailsHeaderWidgetDesktop(
             property: property,
           ),
           const Divider(),
@@ -88,7 +101,7 @@ class PropertyDetailsPageDesktop extends StatelessWidget {
                     const Divider(),
                     SizedBox(
                       height: MediaQuery.of(context).size.height,
-                      child:  Row(
+                      child: Row(
                         children: [
                           PropertyImageCollageWidget(
                             imageList: property.picsUrl,
@@ -102,11 +115,11 @@ class PropertyDetailsPageDesktop extends StatelessWidget {
                       ),
                     ),
                     const Divider(),
-                     SecondHeadRowWidget(
+                    SecondHeadRowWidget(
                       property: property,
                     ),
                     const Divider(),
-                     DescriptionWidget(
+                    DescriptionWidget(
                       property: property,
                     ),
                     const Divider(),
@@ -124,5 +137,4 @@ class PropertyDetailsPageDesktop extends StatelessWidget {
     super.key,
     required this.property,
   });
-
 }

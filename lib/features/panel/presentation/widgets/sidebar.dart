@@ -68,7 +68,7 @@ class SideBar extends StatelessWidget {
             },
           ),
           SidebarXItem(
-            iconWidget: const SidebarIcon(iconData: Icons.military_tech),
+            iconWidget: const SidebarIcon(iconData: Icons.person),
             label: 'Profile',
             onTap: () {
               context.read<PanelLogicCubit>().toggleScreen(2);

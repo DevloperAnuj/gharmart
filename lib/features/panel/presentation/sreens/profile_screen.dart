@@ -4,6 +4,7 @@ import '../widgets/profile_screen_widgets/profile_widget.dart';
 import '../widgets/profile_screen_widgets/purchase_token_widget.dart';
 
 class ProfileScreenMobile extends StatelessWidget {
+
   const ProfileScreenMobile({super.key});
 
   @override
