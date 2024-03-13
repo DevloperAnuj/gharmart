@@ -88,45 +88,58 @@ class MyPropertyCardWidgetDesktop extends StatelessWidget {
                         ),
                       ),
                       const Divider(height: 10, thickness: 1),
-                      IntrinsicHeight(
-                        child: Row(
-                          children: [
-                            Expanded(
-                              flex: 4,
-                              child: ElevatedButton.icon(
-                                onPressed: () {},
-                                icon: const Icon(Icons.info),
-                                label: const Text(
-                                  "Get Owner Details",
-                                ),
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor:
-                                      const Color.fromRGBO(18, 132, 142, 1),
-                                  foregroundColor: Colors.white,
-                                ),
-                              ),
-                            ),
-                            Expanded(
-                              flex: 1,
-                              child: IconButton(
-                                onPressed: () {},
-                                icon: const Icon(
-                                  Icons.bookmark_add_outlined,
-                                ),
-                              ),
-                            ),
-                            Expanded(
-                              flex: 1,
-                              child: IconButton(
-                                onPressed: () {},
-                                icon: const Icon(
-                                  Icons.flag,
-                                ),
-                              ),
-                            ),
-                          ],
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: ElevatedButton.icon(
+                          onPressed: () {},
+                          icon: const Icon(Icons.delete),
+                          label: const Text(
+                            "De-list Property",
+                          ),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.blueGrey.shade500,
+                            foregroundColor: Colors.white,
+                          ),
                         ),
                       ),
+                      // IntrinsicHeight(
+                      //   child: Row(
+                      //     children: [
+                      //       Expanded(
+                      //         flex: 4,
+                      //         child: ElevatedButton.icon(
+                      //           onPressed: () {},
+                      //           icon: const Icon(Icons.info),
+                      //           label: const Text(
+                      //             "De-list Property",
+                      //           ),
+                      //           style: ElevatedButton.styleFrom(
+                      //             backgroundColor: Colors.red,
+                      //             foregroundColor: Colors.white,
+                      //           ),
+                      //         ),
+                      //       ),
+                      //       Expanded(
+                      //         flex: 1,
+                      //         child: IconButton(
+                      //           onPressed: () {},
+                      //           icon: const Icon(
+                      //             Icons.bookmark_add_outlined,
+                      //           ),
+                      //         ),
+                      //       ),
+                      //       Expanded(
+                      //         flex: 1,
+                      //         child: IconButton(
+                      //           onPressed: () {},
+                      //           icon: const Icon(
+                      //             Icons.flag,
+                      //           ),
+                      //         ),
+                      //       ),
+                      //     ],
+                      //   ),
+                      // ),
                     ],
                   ),
                 ),

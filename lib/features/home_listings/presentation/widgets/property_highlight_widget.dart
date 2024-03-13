@@ -113,7 +113,9 @@ class PropertyHighlightsWidget extends StatelessWidget {
                 Expanded(
                   flex: 4,
                   child: ElevatedButton.icon(
-                    onPressed: () {},
+                    onPressed: () {
+                      showOwnerTile(context, property.user);
+                    },
                     icon: const Icon(Icons.info),
                     label: const Text(
                       "Get Owner Details",

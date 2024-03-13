@@ -8,6 +8,7 @@ class FetchProfileInitial extends FetchProfileState {}
 class FetchProfileLoading extends FetchProfileState {}
 
 class FetchProfileSuccess extends FetchProfileState {
+
   final ProfileEntity profileEntity;
 
   FetchProfileSuccess({

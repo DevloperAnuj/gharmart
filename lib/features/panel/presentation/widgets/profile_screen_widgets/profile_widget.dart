@@ -3,10 +3,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gharmart/features/auth/presentation/manager/sign_in_cubit/sign_in_cubit.dart';
 import 'package:gharmart/features/profile/presentation/manager/fetch_profile/fetch_profile_cubit.dart';
 import 'package:gharmart/features/profile/presentation/pages/edit_profile_page.dart';
+import 'package:gharmart/features/subscription/presentation/manager/connections_management/connection_management_cubit.dart';
 import 'package:gharmart/utils/config_file.dart';
 import 'package:go_router/go_router.dart';
 
 class ProfileWidget extends StatelessWidget {
+
   const ProfileWidget({super.key});
 
   @override

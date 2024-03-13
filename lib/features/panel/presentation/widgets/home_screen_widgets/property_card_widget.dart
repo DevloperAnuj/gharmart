@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gharmart/features/home_listings/domain/entities/favorite_property_entity.dart';
 import 'package:gharmart/features/home_listings/domain/entities/property_entity.dart';
 import 'package:gharmart/features/home_listings/presentation/manager/favorite_property/favorite_property_cubit.dart';
 import 'package:gharmart/features/home_listings/presentation/pages/property_details_Page.dart';
@@ -126,7 +125,9 @@ class PropertyCardWidgetDesktop extends StatelessWidget {
                             Expanded(
                               flex: 4,
                               child: ElevatedButton.icon(
-                                onPressed: () {},
+                                onPressed: () {
+                                  showOwnerTile(context, property.user);
+                                },
                                 icon: const Icon(Icons.info),
                                 label: const Text(
                                   "Get Owner Details",

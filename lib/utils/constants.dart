@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../features/home_listings/domain/entities/property_entity.dart';
+import '../features/subscription/presentation/manager/connections_management/connection_management_cubit.dart';
+import 'config_file.dart';
 
 class MyConstants {
   static const String supabaseAnonKey =
@@ -17,4 +22,67 @@ class MyConstants {
       ),
     );
   }
+}
+
+void showOwnerTile(BuildContext context, User user) {
+  showAdaptiveDialog(
+    context: context,
+    builder: (context) {
+      return BlocProvider.value(
+        value: serviceConfig.get<ConnectionManagementCubit>(),
+        child: Builder(
+          builder: (context) {
+            return PopScope(
+              onPopInvoked: (_) {
+                if (_) {
+                  context.read<ConnectionManagementCubit>().handleConnection();
+                }
+              },
+              child: AlertDialog(
+                title: const Text("Owner Details"),
+                icon: const Icon(Icons.person, size: 50),
+                content: context.watch<ConnectionManagementCubit>().state > 0
+                    ? ExpansionTile(
+                        maintainState: true,
+                        title: const Text("Details"),
+                        children: [
+                          ListTile(
+                            title: SelectableText(
+                              user.name,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleMedium!
+                                  .copyWith(color: Colors.black),
+                            ),
+                            subtitle: const Text("Name"),
+                          ),
+                          ListTile(
+                            title: SelectableText(
+                              user.phone,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleMedium!
+                                  .copyWith(color: Colors.black),
+                            ),
+                            subtitle: const Text("Phone"),
+                          ),
+                        ],
+                      )
+                    : Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          "User Connections Are Expired Please Purchase it to Continue",
+                          style:
+                              Theme.of(context).textTheme.titleMedium!.copyWith(
+                                    color: Colors.red,
+                                  ),
+                        ),
+                      ),
+              ),
+            );
+          },
+        ),
+      );
+    },
+  );
 }
