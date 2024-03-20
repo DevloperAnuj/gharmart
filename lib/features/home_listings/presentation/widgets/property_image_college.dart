@@ -21,7 +21,6 @@ List<Img> imagesxList = [
 ];
 
 class PropertyImageCollageWidgetDesktop extends StatelessWidget {
-
   final List<String> imageList;
 
   @override
@@ -37,7 +36,7 @@ class PropertyImageCollageWidgetDesktop extends StatelessWidget {
             showAdaptiveDialog(
               context: context,
               builder: (context) =>
-                  PropertyImageCarouselWidget(imageList: imageList),
+                  PropertyImageCarouselWidgetDesktop(imageList: imageList),
             );
           },
         ),
@@ -51,9 +50,7 @@ class PropertyImageCollageWidgetDesktop extends StatelessWidget {
   });
 }
 
-
 class PropertyImageCollageWidgetMobile extends StatelessWidget {
-
   final List<String> imageList;
 
   @override
@@ -66,7 +63,7 @@ class PropertyImageCollageWidgetMobile extends StatelessWidget {
           showAdaptiveDialog(
             context: context,
             builder: (context) =>
-                PropertyImageCarouselWidget(imageList: imageList),
+                PropertyImageCarouselWidgetMobile(imageList: imageList),
           );
         },
       ),
@@ -80,7 +77,6 @@ class PropertyImageCollageWidgetMobile extends StatelessWidget {
 }
 
 class PropertyImageCollageWidgetTablet extends StatelessWidget {
-
   final List<String> imageList;
 
   @override
@@ -93,7 +89,7 @@ class PropertyImageCollageWidgetTablet extends StatelessWidget {
           showAdaptiveDialog(
             context: context,
             builder: (context) =>
-                PropertyImageCarouselWidget(imageList: imageList),
+                PropertyImageCarouselWidgetTablet(imageList: imageList),
           );
         },
       ),
@@ -106,8 +102,8 @@ class PropertyImageCollageWidgetTablet extends StatelessWidget {
   });
 }
 
-class PropertyImageCarouselWidget extends StatelessWidget {
-  const PropertyImageCarouselWidget({
+class PropertyImageCarouselWidgetDesktop extends StatelessWidget {
+  const PropertyImageCarouselWidgetDesktop({
     super.key,
     required this.imageList,
   });
@@ -147,6 +143,92 @@ class PropertyImageCarouselWidget extends StatelessWidget {
         options: CarouselOptions(
           enableInfiniteScroll: true,
         ),
+      ),
+    );
+  }
+}
+
+class PropertyImageCarouselWidgetMobile extends StatelessWidget {
+  const PropertyImageCarouselWidgetMobile({
+    super.key,
+    required this.imageList,
+  });
+
+  final List<String> imageList;
+
+  @override
+  Widget build(BuildContext context) {
+    return FlutterCarousel(
+      items: imageList
+          .map(
+            (e) => Stack(
+              children: [
+                Center(
+                  child: Image.network(
+                    e,
+                    fit: BoxFit.contain,
+                    alignment: Alignment.center,
+                  ),
+                ),
+                Center(
+                  child: Text(
+                    "GharMarket",
+                    style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                          color: Colors.white.withOpacity(0.6),
+                          fontSize: 50,
+                          fontWeight: FontWeight.bold,
+                        ),
+                  ),
+                ),
+              ],
+            ),
+          )
+          .toList(),
+      options: CarouselOptions(
+        enableInfiniteScroll: true,
+      ),
+    );
+  }
+}
+
+class PropertyImageCarouselWidgetTablet extends StatelessWidget {
+  const PropertyImageCarouselWidgetTablet({
+    super.key,
+    required this.imageList,
+  });
+
+  final List<String> imageList;
+
+  @override
+  Widget build(BuildContext context) {
+    return FlutterCarousel(
+      items: imageList
+          .map(
+            (e) => Stack(
+              children: [
+                Center(
+                  child: Image.network(
+                    e,
+                    fit: BoxFit.contain,
+                    alignment: Alignment.center,
+                  ),
+                ),
+                Center(
+                  child: Text(
+                    "GharMart",
+                    style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                          color: Colors.white.withOpacity(0.6),
+                          fontSize: 50,
+                          fontWeight: FontWeight.bold,
+                        ),
+                  ),
+                ),
+              ],
+            ),
+          )
+          .toList(),
+      options: CarouselOptions(
+        enableInfiniteScroll: true,
       ),
     );
   }
