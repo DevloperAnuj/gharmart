@@ -10,28 +10,160 @@ import '../../../../../utils/constants.dart';
 import '../../../../home_listings/presentation/manager/report_property/report_property_cubit.dart';
 
 class PropertyCardWidgetMobile extends StatelessWidget {
-  const PropertyCardWidgetMobile({super.key});
+  final PropertyEntity property;
+
+  const PropertyCardWidgetMobile({super.key, required this.property});
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
-      child: Container(
-        decoration: BoxDecoration(border: Border.all(color: Colors.grey)),
-        child: const SizedBox(),
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
+      decoration: BoxDecoration(border: Border.all(color: Colors.grey)),
+      padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+      child: Column(
+        children: [
+          ListTile(
+            onTap: () {
+              context.pushNamed(PropertyDetailsPage.routeName, extra: property);
+            },
+            title: Text(
+              property.title,
+              maxLines: 2,
+              style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                  ),
+            ),
+            subtitle: Text(
+              property.address,
+              maxLines: 1,
+              style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                    color: Colors.black,
+                    fontWeight: FontWeight.normal,
+                    fontSize: 15,
+                  ),
+            ),
+            trailing: AddToFavoriteButton(property: property),
+          ),
+          Image.network(
+            property.picsUrl.first,
+            height: 250,
+            fit: BoxFit.cover,
+          ),
+          ListTile(
+            leading: const Icon(Icons.currency_rupee_outlined),
+            title: Text(
+              property.propertyType == "Rent"
+                  ? property.rentPrice.toString()
+                  : property.sellPrice.toString(),
+              style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                  ),
+            ),
+            subtitle: Text(
+              "${property.propertyType}"
+              "\n${property.propertyType == "Rent" ? property.rentNego ? "(Negotiable)" : "" : property.sellNego ? "(Negotiable)" : ""}",
+              style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                    color: Colors.black,
+                    fontWeight: FontWeight.normal,
+                    fontSize: 14,
+                  ),
+            ),
+            trailing: ElevatedButton(
+              onPressed: () {
+                showOwnerTile(context, property.user);
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Theme.of(context).primaryColor,
+                foregroundColor: Colors.white,
+              ),
+              child: const Text("Contact Owner"),
+            ),
+          ),
+        ],
       ),
     );
   }
 }
 
 class PropertyCardWidgetTablet extends StatelessWidget {
-  const PropertyCardWidgetTablet({super.key});
+  final PropertyEntity property;
+
+  const PropertyCardWidgetTablet({super.key, required this.property});
 
   @override
   Widget build(BuildContext context) {
     return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
       decoration: BoxDecoration(border: Border.all(color: Colors.grey)),
-      child: const Card(),
+      padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+      child: Column(
+        children: [
+          ListTile(
+            onTap: () {
+              context.pushNamed(PropertyDetailsPage.routeName, extra: property);
+            },
+            title: Text(
+              property.title,
+              maxLines: 2,
+              style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                  ),
+            ),
+            subtitle: Text(
+              property.address,
+              maxLines: 1,
+              style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                    color: Colors.black,
+                    fontWeight: FontWeight.normal,
+                    fontSize: 15,
+                  ),
+            ),
+            trailing: AddToFavoriteButton(property: property),
+          ),
+          Image.network(
+            property.picsUrl.first,
+            height: 250,
+            fit: BoxFit.cover,
+          ),
+          ListTile(
+            leading: const Icon(Icons.currency_rupee_outlined),
+            title: Text(
+              property.propertyType == "Rent"
+                  ? property.rentPrice.toString()
+                  : property.sellPrice.toString(),
+              style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                  ),
+            ),
+            subtitle: Text(
+              "${property.propertyType}"
+              "\n${property.propertyType == "Rent" ? property.rentNego ? "(Negotiable)" : "" : property.sellNego ? "(Negotiable)" : ""}",
+              style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                    color: Colors.black,
+                    fontWeight: FontWeight.normal,
+                    fontSize: 14,
+                  ),
+            ),
+            trailing: ElevatedButton(
+              onPressed: () {
+                showOwnerTile(context, property.user);
+              },
+              style: ElevatedButton.styleFrom(
+                  backgroundColor: Theme.of(context).primaryColor,
+                  foregroundColor: Colors.white),
+              child: const Text("Contact Owner"),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
@@ -249,8 +381,8 @@ class InfoTile extends StatelessWidget {
       child: ListTile(
         minLeadingWidth: 5,
         leading: leading,
-        title: FittedBox(fit: BoxFit.scaleDown, child: title),
-        subtitle: FittedBox(fit: BoxFit.scaleDown, child: subtitle),
+        title: title,
+        subtitle: subtitle,
         titleTextStyle: Theme.of(context).textTheme.titleMedium!.copyWith(
               fontSize: 16,
               fontWeight: FontWeight.bold,
@@ -265,6 +397,38 @@ class InfoTile extends StatelessWidget {
   }
 
   const InfoTile({
+    super.key,
+    required this.leading,
+    required this.title,
+    required this.subtitle,
+  });
+}
+
+class InfoTileMobile extends StatelessWidget {
+  final Widget leading;
+  final Widget title;
+  final Widget subtitle;
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      minLeadingWidth: 5,
+      leading: leading,
+      title: title,
+      subtitle: subtitle,
+      titleTextStyle: Theme.of(context).textTheme.titleMedium!.copyWith(
+        fontSize: 16,
+        fontWeight: FontWeight.bold,
+        color: Colors.black,
+      ),
+      subtitleTextStyle: Theme.of(context).textTheme.titleMedium!.copyWith(
+        fontSize: 14,
+        color: Colors.black,
+      ),
+    );
+  }
+
+  const InfoTileMobile({
     super.key,
     required this.leading,
     required this.title,

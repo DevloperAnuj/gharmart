@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_social_button/flutter_social_button.dart';
 
 import '../features/home_listings/domain/entities/property_entity.dart';
 import '../features/subscription/presentation/manager/connections_management/connection_management_cubit.dart';
@@ -71,13 +72,31 @@ void showOwnerTile(BuildContext context, User user) {
                     : Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
-                          "User Connections Are Expired Please Purchase it to Continue",
+                          "🤝🏻 User Connections Are Expired Please Purchase it to Continue",
                           style:
                               Theme.of(context).textTheme.titleMedium!.copyWith(
                                     color: Colors.red,
                                   ),
                         ),
                       ),
+                actionsAlignment: MainAxisAlignment.center,
+                actions: context.watch<ConnectionManagementCubit>().state > 0
+                    ? [
+                        FlutterSocialButton(
+                          mini: true,
+                          title: "Call Now",
+                          buttonType: ButtonType.phone,
+                          onTap: () {},
+                        ),
+                        FlutterSocialButton(
+                          mini: true,
+                          title: "WhatsApp",
+                          buttonType: ButtonType.whatsapp,
+                          iconColor: Colors.white,
+                          onTap: () {},
+                        ),
+                      ]
+                    : null,
               ),
             );
           },

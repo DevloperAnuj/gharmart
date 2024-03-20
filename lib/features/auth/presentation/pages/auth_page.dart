@@ -43,16 +43,61 @@ class AuthPageMobile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold();
+    return Scaffold(
+      body: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: Container(
+          padding: const EdgeInsets.all(20),
+          decoration: BoxDecoration(
+            border: Border.all(color: Colors.black),
+            borderRadius: BorderRadius.circular(20),
+          ),
+          child: SingleChildScrollView(
+            child: BlocBuilder<AuthToggleCubit, bool>(
+              builder: (context, state) {
+                if (state) {
+                  return const SignUpFormWidget();
+                } else {
+                  return const LoginFormWidget();
+                }
+              },
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }
 
 class AuthPageTablet extends StatelessWidget {
+
   const AuthPageTablet({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold();
+    return Scaffold(
+      body: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: Container(
+          padding: const EdgeInsets.all(20),
+          decoration: BoxDecoration(
+            border: Border.all(color: Colors.black),
+            borderRadius: BorderRadius.circular(20),
+          ),
+          child: SingleChildScrollView(
+            child: BlocBuilder<AuthToggleCubit, bool>(
+              builder: (context, state) {
+                if (state) {
+                  return const SignUpFormWidget();
+                } else {
+                  return const LoginFormWidget();
+                }
+              },
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }
 

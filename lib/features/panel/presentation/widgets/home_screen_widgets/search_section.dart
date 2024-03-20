@@ -19,7 +19,11 @@ class SearchSectionMobile extends StatelessWidget {
                 color: Colors.black,
                 fontSize: 12,
               ),
-              onChanged: (_) {},
+              onChanged: (text) {
+                context
+                    .read<DisplayPropertiesCubit>()
+                    .displayPropertiesBySearch(text);
+              },
               decoration: InputDecoration(
                 filled: true,
                 fillColor: const Color(0xfff1f1f1),
@@ -38,13 +42,13 @@ class SearchSectionMobile extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: IconButton(
             onPressed: () {
-              context.read<FetchPropertiesCubit>().fetchProperties();
+              _showAlertDialog(context);
             },
             style: ElevatedButton.styleFrom(
               backgroundColor: const Color.fromRGBO(18, 132, 142, 1),
               foregroundColor: Colors.white,
             ),
-            icon: const Icon(Icons.search),
+            icon: const Icon(Icons.filter_alt),
           ),
         ),
       ],
@@ -66,7 +70,11 @@ class SearchSectionTablet extends StatelessWidget {
               style: const TextStyle(
                 color: Colors.black,
               ),
-              onChanged: (_) {},
+              onChanged: (text) {
+                context
+                    .read<DisplayPropertiesCubit>()
+                    .displayPropertiesBySearch(text);
+              },
               decoration: InputDecoration(
                 filled: true,
                 fillColor: const Color(0xfff1f1f1),
@@ -84,12 +92,14 @@ class SearchSectionTablet extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: IconButton(
-            onPressed: () {},
+            onPressed: () {
+              _showAlertDialog(context);
+            },
             style: ElevatedButton.styleFrom(
               backgroundColor: const Color.fromRGBO(18, 132, 142, 1),
               foregroundColor: Colors.white,
             ),
-            icon: const Icon(Icons.search),
+            icon: const Icon(Icons.filter_alt),
           ),
         ),
       ],
@@ -161,17 +171,19 @@ class SearchbarSectionDesktop extends StatelessWidget {
     );
   }
 
-  Future<void> _showAlertDialog(BuildContext context) async {
-    return showDialog<void>(
-      context: context,
-      //barrierDismissible: false, // user must tap button!
-      builder: (BuildContext context) {
-        return const AlertDialog(
-          // <-- SEE HERE
-          title: Text('Apply Filter'),
-          content: FilterWidgetDesktop(),
-        );
-      },
-    );
-  }
+
+}
+
+Future<void> _showAlertDialog(BuildContext context) async {
+  return showDialog<void>(
+    context: context,
+    //barrierDismissible: false, // user must tap button!
+    builder: (BuildContext context) {
+      return const AlertDialog(
+        // <-- SEE HERE
+        title: Text('Apply Filter'),
+        content: FilterWidgetDesktop(),
+      );
+    },
+  );
 }

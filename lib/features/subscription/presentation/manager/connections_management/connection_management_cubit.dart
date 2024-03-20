@@ -4,14 +4,15 @@ import 'package:meta/meta.dart';
 part 'connection_management_state.dart';
 
 class ConnectionManagementCubit extends Cubit<int> {
+
   ConnectionManagementCubit() : super(0);
 
   initConnections(int conn) {
     emit(conn);
   }
 
-  void addConnections() {
-    emit(state + 1);
+  void addConnections(int conn) {
+    emit(conn);
   }
 
   void handleConnection() {

@@ -13,10 +13,33 @@ class PropertiesListWidgetMobile extends StatelessWidget {
     return Expanded(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10),
-        child: ListView.builder(
-          itemCount: 2,
-          itemBuilder: (c, i) {
-            return const PropertyCardWidgetMobile();
+        child: BlocConsumer<FetchPropertiesCubit, FetchPropertiesState>(
+          listener: (context, state) {
+            if (state.properties.isNotEmpty) {
+              context.read<DisplayPropertiesCubit>().displayProperties();
+              context.read<GetUserPropertiesCubit>().getUserProperties();
+            }
+          },
+          builder: (context, state) {
+            if (state.properties.isEmpty) {
+              return const Center(child: CircularProgressIndicator());
+            }
+            return SizedBox(
+              child:
+              BlocBuilder<DisplayPropertiesCubit, DisplayPropertiesState>(
+                builder: (context, state) {
+                  return ListView.builder(
+                    itemCount: state.properties.length,
+                    itemBuilder: (c, i) {
+                      final property = state.properties[i];
+                      return PropertyCardWidgetMobile(
+                        property: property,
+                      );
+                    },
+                  );
+                },
+              ),
+            );
           },
         ),
       ),
@@ -30,14 +53,34 @@ class PropertiesListWidgetTablet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: ListView.builder(
-          itemCount: 10,
-          itemBuilder: (c, i) {
-            return const PropertyCardWidgetTablet();
-          },
-        ),
+      child: BlocConsumer<FetchPropertiesCubit, FetchPropertiesState>(
+        listener: (context, state) {
+          if (state.properties.isNotEmpty) {
+            context.read<DisplayPropertiesCubit>().displayProperties();
+            context.read<GetUserPropertiesCubit>().getUserProperties();
+          }
+        },
+        builder: (context, state) {
+          if (state.properties.isEmpty) {
+            return const Center(child: CircularProgressIndicator());
+          }
+          return SizedBox(
+            child:
+            BlocBuilder<DisplayPropertiesCubit, DisplayPropertiesState>(
+              builder: (context, state) {
+                return ListView.builder(
+                  itemCount: state.properties.length,
+                  itemBuilder: (c, i) {
+                    final property = state.properties[i];
+                    return PropertyCardWidgetMobile(
+                      property: property,
+                    );
+                  },
+                );
+              },
+            ),
+          );
+        },
       ),
     );
   }

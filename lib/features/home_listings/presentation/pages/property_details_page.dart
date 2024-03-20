@@ -5,6 +5,8 @@ import 'package:gharmart/features/home_listings/presentation/widgets/second_head
 import 'package:gharmart/utils/my_layout_builder.dart';
 
 import '../../../../utils/config_file.dart';
+import '../../../../utils/constants.dart';
+import '../../../panel/presentation/widgets/home_screen_widgets/property_card_widget.dart';
 import '../manager/favorite_property/favorite_property_cubit.dart';
 import '../manager/report_property/report_property_cubit.dart';
 import '../widgets/description_widget.dart';
@@ -29,8 +31,12 @@ class PropertyDetailsPage extends StatelessWidget {
         ),
       ],
       child: MyBuilder(
-        mobileView: const PropertyDetailsPageMobile(),
-        tabletView: const PropertyDetailsPageTablet(),
+        mobileView: PropertyDetailsPageMobile(
+          property: property,
+        ),
+        tabletView: PropertyDetailsPageTablet(
+          property: property,
+        ),
         deskView: PropertyDetailsPageDesktop(
           property: property,
         ),
@@ -45,32 +51,104 @@ class PropertyDetailsPage extends StatelessWidget {
 }
 
 class PropertyDetailsPageMobile extends StatelessWidget {
-  const PropertyDetailsPageMobile({super.key});
+  final PropertyEntity property;
+
+  const PropertyDetailsPageMobile({super.key, required this.property});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
         children: [
-          AppBar(),
-          Container(),
+          PropertyDetailHeaderMobile(property: property),
+          PropertyOverviewWidgetsMobile(property: property),
         ],
+      ),
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Row(
+          children: [
+            Expanded(
+              flex: 4,
+              child: ElevatedButton.icon(
+                onPressed: () {
+                  showOwnerTile(context, property.user);
+                },
+                icon: const Icon(Icons.info),
+                label: const Text(
+                  "Get Owner Details",
+                ),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color.fromRGBO(18, 132, 142, 1),
+                  foregroundColor: Colors.white,
+                ),
+              ),
+            ),
+            Expanded(
+              flex: 1,
+              child: IconButton(
+                onPressed: () {
+                  showReportTile(context, property.id);
+                },
+                icon: const Icon(
+                  Icons.flag,
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
 }
 
 class PropertyDetailsPageTablet extends StatelessWidget {
-  const PropertyDetailsPageTablet({super.key});
+  final PropertyEntity property;
+
+  const PropertyDetailsPageTablet({super.key, required this.property});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
         children: [
-          AppBar(),
-          Container(),
+          PropertyDetailHeaderTablet(property: property),
+          PropertyOverviewWidgetsTablet(property: property),
         ],
+      ),
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Row(
+          children: [
+            Expanded(
+              flex: 4,
+              child: ElevatedButton.icon(
+                onPressed: () {
+                  showOwnerTile(context, property.user);
+                },
+                icon: const Icon(Icons.info),
+                label: const Text(
+                  "Get Owner Details",
+                ),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color.fromRGBO(18, 132, 142, 1),
+                  foregroundColor: Colors.white,
+                ),
+              ),
+            ),
+            Expanded(
+              flex: 1,
+              child: IconButton(
+                onPressed: () {
+                  showReportTile(context, property.id);
+                },
+                icon: const Icon(
+                  Icons.flag,
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -98,19 +176,16 @@ class PropertyDetailsPageDesktop extends StatelessWidget {
                 ),
                 child: Column(
                   children: [
-                    const Divider(),
                     SizedBox(
                       height: MediaQuery.of(context).size.height,
                       child: Row(
                         children: [
-                          PropertyImageCollageWidget(
+                          PropertyImageCollageWidgetDesktop(
                             imageList: property.picsUrl,
                           ),
-                          const VerticalDivider(),
                           PropertyHighlightsWidget(
                             property: property,
                           ),
-                          const VerticalDivider(),
                         ],
                       ),
                     ),
@@ -122,7 +197,6 @@ class PropertyDetailsPageDesktop extends StatelessWidget {
                     DescriptionWidget(
                       property: property,
                     ),
-                    const Divider(),
                   ],
                 ),
               ),

@@ -20,14 +20,15 @@ List<Img> imagesxList = [
           "https://images.unsplash.com/photo-1503554855957-bed27c962921?q=80&w=1633&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"),
 ];
 
-class PropertyImageCollageWidget extends StatelessWidget {
+class PropertyImageCollageWidgetDesktop extends StatelessWidget {
+
   final List<String> imageList;
 
   @override
   Widget build(BuildContext context) {
-    return Flexible(
+    return Expanded(
       flex: 3,
-      fit: FlexFit.loose,
+      // fit: FlexFit.loose,
       child: Padding(
         padding: const EdgeInsets.all(10.0),
         child: ImageCollage(
@@ -44,7 +45,62 @@ class PropertyImageCollageWidget extends StatelessWidget {
     );
   }
 
-  const PropertyImageCollageWidget({
+  const PropertyImageCollageWidgetDesktop({
+    super.key,
+    required this.imageList,
+  });
+}
+
+
+class PropertyImageCollageWidgetMobile extends StatelessWidget {
+
+  final List<String> imageList;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(10.0),
+      child: ImageCollage(
+        images: imageList.map((image) => Img(image: image)).toList(),
+        onClick: (clickedImage, imagesList) {
+          showAdaptiveDialog(
+            context: context,
+            builder: (context) =>
+                PropertyImageCarouselWidget(imageList: imageList),
+          );
+        },
+      ),
+    );
+  }
+
+  const PropertyImageCollageWidgetMobile({
+    super.key,
+    required this.imageList,
+  });
+}
+
+class PropertyImageCollageWidgetTablet extends StatelessWidget {
+
+  final List<String> imageList;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(10.0),
+      child: ImageCollage(
+        images: imageList.map((image) => Img(image: image)).toList(),
+        onClick: (clickedImage, imagesList) {
+          showAdaptiveDialog(
+            context: context,
+            builder: (context) =>
+                PropertyImageCarouselWidget(imageList: imageList),
+          );
+        },
+      ),
+    );
+  }
+
+  const PropertyImageCollageWidgetTablet({
     super.key,
     required this.imageList,
   });

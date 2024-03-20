@@ -14,42 +14,40 @@ class SecondHeadRowWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  IntrinsicHeight(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(
-          horizontal: 20,
-          vertical: 10,
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            const VerticalDivider(),
-            InfoTile(
-              leading: const Icon(Icons.balcony),
-              title: Text("${property.balkNo}"),
-              subtitle: const Text("Balcony's"),
-            ),
-            const VerticalDivider(),
-            InfoTile(
-              leading: const Icon(Icons.handyman),
-              title: Text("${property.ment} /M"),
-              subtitle: const Text("Maintenance"),
-            ),
-            const VerticalDivider(),
-            InfoTile(
-              leading: const Icon(Icons.cake),
-              title: Text("${property.age}+ Years"),
-              subtitle: const Text("Age"),
-            ),
-            const VerticalDivider(),
-            InfoTile(
-              leading: const Icon(Icons.calendar_month_rounded),
-              title: Text(DateFormat.yMMMd().format(property.createdAt)),
-              subtitle: const Text("Posted On"),
-            ),
-            const VerticalDivider(),
-          ],
-        ),
+    return  Padding(
+      padding: const EdgeInsets.symmetric(
+        horizontal: 20,
+        vertical: 10,
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          const VerticalDivider(),
+          InfoTile(
+            leading: const Icon(Icons.balcony),
+            title: Text("${property.balkNo}"),
+            subtitle: const Text("Balcony's"),
+          ),
+          const VerticalDivider(),
+          InfoTile(
+            leading: const Icon(Icons.handyman),
+            title: Text("${property.ment} /M"),
+            subtitle: const Text("Maintenance"),
+          ),
+          const VerticalDivider(),
+          InfoTile(
+            leading: const Icon(Icons.cake),
+            title: Text("${property.age}+ Years"),
+            subtitle: const Text("Age"),
+          ),
+          const VerticalDivider(),
+          InfoTile(
+            leading: const Icon(Icons.calendar_month_rounded),
+            title: Text(DateFormat.yMMMd().format(property.createdAt)),
+            subtitle: const Text("Posted On"),
+          ),
+          const VerticalDivider(),
+        ],
       ),
     );
   }
