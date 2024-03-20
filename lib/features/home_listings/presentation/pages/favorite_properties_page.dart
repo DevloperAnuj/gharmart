@@ -30,9 +30,22 @@ class FavoritePropertiesPageMobile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: Column(
-        children: [],
+        children: [
+          AppBar(
+            title: FittedBox(
+              child: Text(
+                "Your Favorite Properties",
+                style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                    ),
+              ),
+            ),
+          ),
+          const FavoritePropertiesListWidgetMobile(),
+        ],
       ),
     );
   }
@@ -43,9 +56,22 @@ class FavoritePropertiesPageTablet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: Column(
-        children: [],
+        children: [
+          AppBar(
+            title: FittedBox(
+              child: Text(
+                "Your Favorite Properties",
+                style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                    ),
+              ),
+            ),
+          ),
+          const FavoritePropertiesListWidgetTablet(),
+        ],
       ),
     );
   }
@@ -103,6 +129,68 @@ class FavoritePropertiesListWidgetDesktop extends StatelessWidget {
                 itemBuilder: (c, i) {
                   final property = state.favoritePropertyList[i];
                   return PropertyCardWidgetDesktop(
+                    property: property,
+                  );
+                },
+              );
+            },
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class FavoritePropertiesListWidgetMobile extends StatelessWidget {
+  const FavoritePropertiesListWidgetMobile({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      flex: 2,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 10),
+        child: SizedBox(
+          child: BlocBuilder<FavoritePropertyCubit, FavoritePropertyState>(
+            builder: (context, state) {
+              return ListView.builder(
+                itemCount: state.favoritePropertyList.length,
+                itemBuilder: (c, i) {
+                  final property = state.favoritePropertyList[i];
+                  return PropertyCardWidgetMobile(
+                    property: property,
+                  );
+                },
+              );
+            },
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class FavoritePropertiesListWidgetTablet extends StatelessWidget {
+  const FavoritePropertiesListWidgetTablet({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      flex: 2,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 10),
+        child: SizedBox(
+          child: BlocBuilder<FavoritePropertyCubit, FavoritePropertyState>(
+            builder: (context, state) {
+              return ListView.builder(
+                itemCount: state.favoritePropertyList.length,
+                itemBuilder: (c, i) {
+                  final property = state.favoritePropertyList[i];
+                  return PropertyCardWidgetTablet(
                     property: property,
                   );
                 },

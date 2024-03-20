@@ -5,7 +5,6 @@ import 'package:gharmart/features/home_listings/presentation/pages/favorite_prop
 import 'package:go_router/go_router.dart';
 
 class MyAppBar extends StatelessWidget {
-
   const MyAppBar({super.key});
 
   @override
@@ -17,12 +16,7 @@ class MyAppBar extends StatelessWidget {
       actions: [
         BlocBuilder<FavoritePropertyCubit, FavoritePropertyState>(
           builder: (context, state) {
-            return IconButton(
-              onPressed: () {
-                context.pushNamed(FavoritePropertiesPage.routeName);
-              },
-              icon: const Icon(Icons.bookmark_border),
-            );
+            return const SizedBox.shrink();
           },
         ),
         TextButton.icon(

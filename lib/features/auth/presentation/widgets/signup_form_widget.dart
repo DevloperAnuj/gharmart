@@ -104,7 +104,10 @@ class _SignUpFormWidgetState extends State<SignUpFormWidget> {
           style: TextButton.styleFrom(
             foregroundColor: Colors.black,
           ),
-          child: const Text("Already Have an Account? Click Here Log In"),
+          child: const Text(
+            "Already Have an Account? Click Here Log In",
+            textAlign: TextAlign.center,
+          ),
         ),
       ],
     );

@@ -17,7 +17,7 @@ class MyBuilder extends StatelessWidget {
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
-        if (constraints.maxWidth < 430) {
+        if (constraints.maxWidth < 439) {
           //Iphone SE
           return mobileView;
         } else if (constraints.maxWidth < 850) {

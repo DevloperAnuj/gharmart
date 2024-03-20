@@ -15,12 +15,15 @@ class RemainingTokensWidget extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text(
-            "Your Remaining Connections",
-            style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                  color: Colors.black,
-                  fontSize: 25,
-                ),
+          Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Text(
+              "Your Remaining Connections",
+              style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                    color: Colors.black,
+                    fontSize: 25,
+                  ),
+            ),
           ),
           const SizedBox(
             height: 20,

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gharmart/features/home_listings/presentation/pages/edit_property_details.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../../utils/constants.dart';
 import '../../../../home_listings/domain/entities/property_entity.dart';
 import '../../../../home_listings/presentation/pages/property_details_Page.dart';
 import '../home_screen_widgets/property_card_widget.dart';
@@ -240,4 +241,170 @@ Color getTileStatusColour(int status) {
     return Colors.red.shade100;
   }
   return Colors.white;
+}
+
+
+
+class MyPropertyCardWidgetMobile extends StatelessWidget {
+  final PropertyEntity property;
+
+  const MyPropertyCardWidgetMobile({super.key, required this.property});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
+      decoration: BoxDecoration(border: Border.all(color: Colors.grey)),
+      padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+      child: Column(
+        children: [
+          ListTile(
+            tileColor: getTileStatusColour(property.status),
+            onTap: () {
+              context.pushNamed(PropertyDetailsPage.routeName, extra: property);
+            },
+            title: Text(
+              property.title,
+              maxLines: 2,
+              style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                color: Colors.black,
+                fontWeight: FontWeight.bold,
+                fontSize: 16,
+              ),
+            ),
+            subtitle: Text(
+              property.address,
+              maxLines: 1,
+              style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                color: Colors.black,
+                fontWeight: FontWeight.normal,
+                fontSize: 15,
+              ),
+            ),
+            trailing: AddToFavoriteButton(property: property),
+          ),
+          Image.network(
+            property.picsUrl.first,
+            height: 250,
+            fit: BoxFit.cover,
+          ),
+          ListTile(
+            leading: const Icon(Icons.currency_rupee_outlined),
+            title: Text(
+              property.propertyType == "Rent"
+                  ? property.rentPrice.toString()
+                  : property.sellPrice.toString(),
+              style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                color: Colors.black,
+                fontWeight: FontWeight.bold,
+                fontSize: 16,
+              ),
+            ),
+            subtitle: Text(
+              "${property.propertyType}"
+                  "\n${property.propertyType == "Rent" ? property.rentNego ? "(Negotiable)" : "" : property.sellNego ? "(Negotiable)" : ""}",
+              style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                color: Colors.black,
+                fontWeight: FontWeight.normal,
+                fontSize: 14,
+              ),
+            ),
+            trailing: ElevatedButton.icon(
+              onPressed: () {},
+              icon: const Icon(Icons.delete),
+              label: const Text(
+                "De-list Property",
+              ),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.blueGrey.shade500,
+                foregroundColor: Colors.white,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class MyPropertyCardWidgetTablet extends StatelessWidget {
+  final PropertyEntity property;
+
+  const MyPropertyCardWidgetTablet({super.key, required this.property});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
+      decoration: BoxDecoration(border: Border.all(color: Colors.grey)),
+      padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+      child: Column(
+        children: [
+          ListTile(
+            tileColor: getTileStatusColour(property.status),
+            onTap: () {
+              context.pushNamed(PropertyDetailsPage.routeName, extra: property);
+            },
+            title: Text(
+              property.title,
+              maxLines: 2,
+              style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                color: Colors.black,
+                fontWeight: FontWeight.bold,
+                fontSize: 16,
+              ),
+            ),
+            subtitle: Text(
+              property.address,
+              maxLines: 1,
+              style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                color: Colors.black,
+                fontWeight: FontWeight.normal,
+                fontSize: 15,
+              ),
+            ),
+            trailing: AddToFavoriteButton(property: property),
+          ),
+          Image.network(
+            property.picsUrl.first,
+            height: 250,
+            fit: BoxFit.cover,
+          ),
+          ListTile(
+            leading: const Icon(Icons.currency_rupee_outlined),
+            title: Text(
+              property.propertyType == "Rent"
+                  ? property.rentPrice.toString()
+                  : property.sellPrice.toString(),
+              style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                color: Colors.black,
+                fontWeight: FontWeight.bold,
+                fontSize: 16,
+              ),
+            ),
+            subtitle: Text(
+              "${property.propertyType}"
+                  "\n${property.propertyType == "Rent" ? property.rentNego ? "(Negotiable)" : "" : property.sellNego ? "(Negotiable)" : ""}",
+              style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                color: Colors.black,
+                fontWeight: FontWeight.normal,
+                fontSize: 14,
+              ),
+            ),
+            trailing: ElevatedButton.icon(
+              onPressed: () {},
+              icon: const Icon(Icons.delete),
+              label: const Text(
+                "De-list Property",
+              ),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.blueGrey.shade500,
+                foregroundColor: Colors.white,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 }

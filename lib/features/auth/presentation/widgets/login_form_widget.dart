@@ -86,7 +86,10 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
           style: TextButton.styleFrom(
             foregroundColor: Colors.black,
           ),
-          child: const Text("Don't Have an Account? Click Here Register"),
+          child: const Text(
+            "Don't Have an Account? Click Here Register",
+            textAlign: TextAlign.center,
+          ),
         ),
       ],
     );

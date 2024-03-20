@@ -7,9 +7,10 @@ import 'package:gharmart/features/subscription/presentation/manager/connections_
 import 'package:gharmart/utils/config_file.dart';
 import 'package:go_router/go_router.dart';
 
-class ProfileWidget extends StatelessWidget {
+import '../../../../home_listings/presentation/pages/favorite_properties_page.dart';
 
-  const ProfileWidget({super.key});
+class ProfileWidgetDesktop extends StatelessWidget {
+  const ProfileWidgetDesktop({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -31,48 +32,48 @@ class ProfileWidget extends StatelessWidget {
               return const CircularProgressIndicator();
             }
             if (state is FetchProfileSuccess) {
-              return FittedBox(
-                fit: BoxFit.scaleDown,
-                child: Column(
-                  children: [
-                    const Icon(
-                      Icons.person,
-                      size: 75,
-                    ),
-                    const Divider(),
-                    Text(
-                      state.profileEntity.name,
-                      style: Theme.of(context)
-                          .textTheme
-                          .titleMedium!
-                          .copyWith(color: Colors.black),
-                    ),
-                    const SizedBox(height: 15),
-                    Text(
-                      state.profileEntity.email,
-                      style: Theme.of(context)
-                          .textTheme
-                          .titleMedium!
-                          .copyWith(color: Colors.black),
-                    ),
-                    const SizedBox(height: 15),
-                    Text(
-                      state.profileEntity.phone,
-                      style: Theme.of(context)
-                          .textTheme
-                          .titleMedium!
-                          .copyWith(color: Colors.black),
-                    ),
-                    const SizedBox(height: 15),
-                    Text(
-                      state.profileEntity.city,
-                      style: Theme.of(context)
-                          .textTheme
-                          .titleMedium!
-                          .copyWith(color: Colors.black),
-                    ),
-                    const SizedBox(height: 15),
-                    ElevatedButton.icon(
+              return Column(
+                children: [
+                  const Icon(
+                    Icons.person,
+                    size: 75,
+                  ),
+                  const Divider(),
+                  Text(
+                    state.profileEntity.name,
+                    style: Theme.of(context)
+                        .textTheme
+                        .titleMedium!
+                        .copyWith(color: Colors.black),
+                  ),
+                  const SizedBox(height: 15),
+                  Text(
+                    state.profileEntity.email,
+                    style: Theme.of(context)
+                        .textTheme
+                        .titleMedium!
+                        .copyWith(color: Colors.black),
+                  ),
+                  const SizedBox(height: 15),
+                  Text(
+                    state.profileEntity.phone,
+                    style: Theme.of(context)
+                        .textTheme
+                        .titleMedium!
+                        .copyWith(color: Colors.black),
+                  ),
+                  const SizedBox(height: 15),
+                  Text(
+                    state.profileEntity.city,
+                    style: Theme.of(context)
+                        .textTheme
+                        .titleMedium!
+                        .copyWith(color: Colors.black),
+                  ),
+                  const SizedBox(height: 15),
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton.icon(
                       onPressed: () {
                         context.pushNamed(EditProfilePage.routeName);
                       },
@@ -83,8 +84,11 @@ class ProfileWidget extends StatelessWidget {
                         foregroundColor: Colors.white,
                       ),
                     ),
-                    const SizedBox(height: 15),
-                    ElevatedButton.icon(
+                  ),
+                  const SizedBox(height: 15),
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton.icon(
                       onPressed: () {},
                       label: const Text("Change Password"),
                       icon: const Icon(Icons.password),
@@ -93,8 +97,52 @@ class ProfileWidget extends StatelessWidget {
                         foregroundColor: Colors.white,
                       ),
                     ),
-                    const SizedBox(height: 15),
-                    ElevatedButton.icon(
+                  ),
+                  const SizedBox(height: 15),
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton.icon(
+                      onPressed: () {},
+                      label: const Text("My Connections"),
+                      icon: const Icon(Icons.handshake),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Theme.of(context).primaryColor,
+                        foregroundColor: Colors.white,
+                      ),
+                    ),
+                  ),
+                  // const SizedBox(height: 15),
+                  // SizedBox(
+                  //   width: double.infinity,
+                  //   child: ElevatedButton.icon(
+                  //     onPressed: () {},
+                  //     label: const Text("My plans"),
+                  //     icon: const Icon(Icons.monetization_on_rounded),
+                  //     style: ElevatedButton.styleFrom(
+                  //       backgroundColor: Theme.of(context).primaryColor,
+                  //       foregroundColor: Colors.white,
+                  //     ),
+                  //   ),
+                  // ),
+                  const SizedBox(height: 15),
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton.icon(
+                      onPressed: () {
+                        context.pushNamed(FavoritePropertiesPage.routeName);
+                      },
+                      label: const Text("Shortlisted"),
+                      icon: const Icon(Icons.bookmark),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Theme.of(context).primaryColor,
+                        foregroundColor: Colors.white,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 15),
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton.icon(
                       onPressed: () {
                         context.read<SignInCubit>().logOut();
                       },
@@ -105,8 +153,8 @@ class ProfileWidget extends StatelessWidget {
                         foregroundColor: Colors.white,
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               );
             }
             if (state is FetchProfileFailed) {
@@ -118,6 +166,157 @@ class ProfileWidget extends StatelessWidget {
             return const SizedBox();
           },
         ),
+      ),
+    );
+  }
+}
+
+class ProfileWidgetMobile extends StatelessWidget {
+  const ProfileWidgetMobile({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(10.0),
+      child: BlocBuilder<FetchProfileCubit, FetchProfileState>(
+        builder: (context, state) {
+          if (state is FetchProfileLoading) {
+            return const CircularProgressIndicator();
+          }
+          if (state is FetchProfileSuccess) {
+            return Column(
+              children: [
+                const Icon(
+                  Icons.person,
+                  size: 75,
+                ),
+                const Divider(),
+                Text(
+                  state.profileEntity.name,
+                  style: Theme.of(context)
+                      .textTheme
+                      .titleMedium!
+                      .copyWith(color: Colors.black),
+                ),
+                const SizedBox(height: 15),
+                Text(
+                  state.profileEntity.email,
+                  style: Theme.of(context)
+                      .textTheme
+                      .titleMedium!
+                      .copyWith(color: Colors.black),
+                ),
+                const SizedBox(height: 15),
+                Text(
+                  state.profileEntity.phone,
+                  style: Theme.of(context)
+                      .textTheme
+                      .titleMedium!
+                      .copyWith(color: Colors.black),
+                ),
+                const SizedBox(height: 15),
+                Text(
+                  state.profileEntity.city,
+                  style: Theme.of(context)
+                      .textTheme
+                      .titleMedium!
+                      .copyWith(color: Colors.black),
+                ),
+                const SizedBox(height: 15),
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton.icon(
+                    onPressed: () {
+                      context.pushNamed(EditProfilePage.routeName);
+                    },
+                    label: const Text("Edit Profile"),
+                    icon: const Icon(Icons.edit),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Theme.of(context).primaryColor,
+                      foregroundColor: Colors.white,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 15),
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton.icon(
+                    onPressed: () {},
+                    label: const Text("Change Password"),
+                    icon: const Icon(Icons.password),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Theme.of(context).primaryColor,
+                      foregroundColor: Colors.white,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 15),
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton.icon(
+                    onPressed: () {
+                      context.pushNamed(FavoritePropertiesPage.routeName);
+                    },
+                    label: const Text("Shortlisted"),
+                    icon: const Icon(Icons.bookmark_add),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Theme.of(context).primaryColor,
+                      foregroundColor: Colors.white,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 15),
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton.icon(
+                    onPressed: () {},
+                    label: const Text("My Connections"),
+                    icon: const Icon(Icons.handshake),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Theme.of(context).primaryColor,
+                      foregroundColor: Colors.white,
+                    ),
+                  ),
+                ),
+                // const SizedBox(height: 15),
+                // SizedBox(
+                //   width: double.infinity,
+                //   child: ElevatedButton.icon(
+                //     onPressed: () {},
+                //     label: const Text("My plans"),
+                //     icon: const Icon(Icons.monetization_on_rounded),
+                //     style: ElevatedButton.styleFrom(
+                //       backgroundColor: Theme.of(context).primaryColor,
+                //       foregroundColor: Colors.white,
+                //     ),
+                //   ),
+                // ),
+                const SizedBox(height: 15),
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton.icon(
+                    onPressed: () {
+                      context.read<SignInCubit>().logOut();
+                    },
+                    label: const Text("Sign Out"),
+                    icon: const Icon(Icons.logout_outlined),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.red,
+                      foregroundColor: Colors.white,
+                    ),
+                  ),
+                ),
+              ],
+            );
+          }
+          if (state is FetchProfileFailed) {
+            return const Icon(
+              Icons.error_rounded,
+              size: 50,
+            );
+          }
+          return const SizedBox();
+        },
       ),
     );
   }

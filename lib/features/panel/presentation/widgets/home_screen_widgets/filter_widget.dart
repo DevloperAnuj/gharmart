@@ -380,6 +380,7 @@ class FilterWidgetDesktop extends StatelessWidget {
                         context
                             .read<DisplayPropertiesCubit>()
                             .displayFilteredProperties();
+                        Navigator.pop(context);
                       },
                       icon: const Icon(Icons.filter_alt),
                       label: const Text("Apply Filter"),
