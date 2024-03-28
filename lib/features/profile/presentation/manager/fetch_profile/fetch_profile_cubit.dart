@@ -18,6 +18,9 @@ class FetchProfileCubit extends Cubit<FetchProfileState> {
   final connections = serviceConfig.get<ConnectionManagementCubit>();
 
   void fetchProfile() async {
+    if (client.auth.currentUser == null) {
+      return;
+    }
     try {
       emit(FetchProfileLoading());
       final result = await client

@@ -16,7 +16,7 @@ class PropertiesListWidgetMobile extends StatelessWidget {
         child: BlocConsumer<FetchPropertiesCubit, FetchPropertiesState>(
           listener: (context, state) {
             if (state.properties.isNotEmpty) {
-              context.read<DisplayPropertiesCubit>().displayProperties();
+              context.read<DisplayPropertiesCubit>().displayLandingProperties();
               context.read<GetUserPropertiesCubit>().getUserProperties();
             }
           },
@@ -26,7 +26,7 @@ class PropertiesListWidgetMobile extends StatelessWidget {
             }
             return SizedBox(
               child:
-              BlocBuilder<DisplayPropertiesCubit, DisplayPropertiesState>(
+                  BlocBuilder<DisplayPropertiesCubit, DisplayPropertiesState>(
                 builder: (context, state) {
                   return ListView.builder(
                     itemCount: state.properties.length,
@@ -56,7 +56,7 @@ class PropertiesListWidgetTablet extends StatelessWidget {
       child: BlocConsumer<FetchPropertiesCubit, FetchPropertiesState>(
         listener: (context, state) {
           if (state.properties.isNotEmpty) {
-            context.read<DisplayPropertiesCubit>().displayProperties();
+            context.read<DisplayPropertiesCubit>().displayLandingProperties();
             context.read<GetUserPropertiesCubit>().getUserProperties();
           }
         },
@@ -65,8 +65,7 @@ class PropertiesListWidgetTablet extends StatelessWidget {
             return const Center(child: CircularProgressIndicator());
           }
           return SizedBox(
-            child:
-            BlocBuilder<DisplayPropertiesCubit, DisplayPropertiesState>(
+            child: BlocBuilder<DisplayPropertiesCubit, DisplayPropertiesState>(
               builder: (context, state) {
                 return ListView.builder(
                   itemCount: state.properties.length,
@@ -100,7 +99,7 @@ class PropertiesListWidgetDesktop extends StatelessWidget {
         child: BlocConsumer<FetchPropertiesCubit, FetchPropertiesState>(
           listener: (context, state) {
             if (state.properties.isNotEmpty) {
-              context.read<DisplayPropertiesCubit>().displayProperties();
+              context.read<DisplayPropertiesCubit>().displayLandingProperties();
               context.read<GetUserPropertiesCubit>().getUserProperties();
             }
           },

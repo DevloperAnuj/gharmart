@@ -3,7 +3,7 @@ import 'package:gharmart/utils/my_layout_builder.dart';
 
 class EditPropertyDetailsPage extends StatelessWidget {
 
-  static const String routeName = "editproperty";
+  static const String routeName = "/editproperty";
 
   const EditPropertyDetailsPage({super.key});
 

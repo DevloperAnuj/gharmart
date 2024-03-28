@@ -201,34 +201,37 @@ class PropertyImageCarouselWidgetTablet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FlutterCarousel(
-      items: imageList
-          .map(
-            (e) => Stack(
-              children: [
-                Center(
-                  child: Image.network(
-                    e,
-                    fit: BoxFit.contain,
-                    alignment: Alignment.center,
+    return SizedBox(
+      height: 500,
+      child: FlutterCarousel(
+        items: imageList
+            .map(
+              (e) => Stack(
+                children: [
+                  Center(
+                    child: Image.network(
+                      e,
+                      fit: BoxFit.contain,
+                      alignment: Alignment.center,
+                    ),
                   ),
-                ),
-                Center(
-                  child: Text(
-                    "GharMart",
-                    style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                          color: Colors.white.withOpacity(0.6),
-                          fontSize: 50,
-                          fontWeight: FontWeight.bold,
-                        ),
+                  Center(
+                    child: Text(
+                      "GharMart",
+                      style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                            color: Colors.white.withOpacity(0.6),
+                            fontSize: 50,
+                            fontWeight: FontWeight.bold,
+                          ),
+                    ),
                   ),
-                ),
-              ],
-            ),
-          )
-          .toList(),
-      options: CarouselOptions(
-        enableInfiniteScroll: true,
+                ],
+              ),
+            )
+            .toList(),
+        options: CarouselOptions(
+          enableInfiniteScroll: true,
+        ),
       ),
     );
   }

@@ -13,7 +13,7 @@ import '../widgets/add_property_form.dart';
 class AddPropertyPage extends StatelessWidget {
   const AddPropertyPage({super.key});
 
-  static const String routeName = "addproperty";
+  static const String routeName = "/addproperty";
 
   @override
   Widget build(BuildContext context) {
@@ -44,6 +44,7 @@ class AddPropertyPageMobile extends StatelessWidget {
       body: Column(
         children: [
           AppBar(
+            leading: const SizedBox.shrink(),
             title: Text(
               "Add Property",
               style: Theme.of(context).textTheme.titleMedium!.copyWith(
@@ -117,6 +118,7 @@ class AddPropertyPageTablet extends StatelessWidget {
       body: Column(
         children: [
           AppBar(
+            leading: const SizedBox.shrink(),
             title: Text(
               "Add Property",
               style: Theme.of(context).textTheme.titleMedium!.copyWith(
@@ -195,6 +197,7 @@ class AddPropertyPageDesktop extends StatelessWidget {
           return Column(
             children: [
               AppBar(
+                leading: const SizedBox.shrink(),
                 title: Text(
                   "Add Property",
                   style: Theme.of(context).textTheme.titleMedium!.copyWith(

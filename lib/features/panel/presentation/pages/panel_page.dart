@@ -10,6 +10,7 @@ import 'package:gharmart/features/home_listings/presentation/manager/get_user_pr
 import 'package:gharmart/features/home_listings/presentation/manager/report_property/report_property_cubit.dart';
 import 'package:gharmart/features/panel/presentation/manager/panel_logic/panel_logic_cubit.dart';
 import 'package:gharmart/features/panel/presentation/widgets/panel_section.dart';
+import 'package:gharmart/features/profile/presentation/manager/fetch_connections/fetch_connections_cubit.dart';
 import 'package:gharmart/features/profile/presentation/manager/fetch_profile/fetch_profile_cubit.dart';
 import 'package:gharmart/features/subscription/presentation/manager/connections_management/connection_management_cubit.dart';
 import 'package:gharmart/utils/config_file.dart';
@@ -46,7 +47,8 @@ class PanelPage extends StatelessWidget {
           value: serviceConfig.get<ListingFilterCubit>(),
         ),
         BlocProvider.value(
-          value: serviceConfig.get<DisplayPropertiesCubit>(),
+          value: serviceConfig.get<DisplayPropertiesCubit>()
+            ..displayFilteredProperties(),
         ),
         BlocProvider.value(
           value: serviceConfig.get<GetUserPropertiesCubit>(),
@@ -57,6 +59,10 @@ class PanelPage extends StatelessWidget {
         BlocProvider.value(
           value: serviceConfig.get<FavoritePropertyCubit>()
             ..fetchFavoriteProperties(),
+        ),
+        BlocProvider.value(
+          value: serviceConfig.get<FetchConnectionsCubit>()
+            ..fetchConnectionsProperties(),
         ),
       ],
       child: BlocBuilder<FetchProfileCubit, FetchProfileState>(

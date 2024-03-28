@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gharmart/features/home_listings/domain/entities/property_entity.dart';
 import 'package:gharmart/features/home_listings/presentation/manager/favorite_property/favorite_property_cubit.dart';
 import 'package:gharmart/features/home_listings/presentation/pages/property_details_Page.dart';
+import 'package:gharmart/features/profile/presentation/manager/fetch_connections/fetch_connections_cubit.dart';
+import 'package:gharmart/features/profile/presentation/pages/connections_property_page.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../../utils/config_file.dart';
@@ -22,6 +24,11 @@ class PropertyCardWidgetMobile extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
       child: Column(
         children: [
+          Image.network(
+            property.picsUrl.first,
+            height: 250,
+            fit: BoxFit.cover,
+          ),
           ListTile(
             onTap: () {
               context.pushNamed(PropertyDetailsPage.routeName, extra: property);
@@ -44,46 +51,101 @@ class PropertyCardWidgetMobile extends StatelessWidget {
                     fontSize: 15,
                   ),
             ),
-            trailing: AddToFavoriteButton(property: property),
-          ),
-          Image.network(
-            property.picsUrl.first,
-            height: 250,
-            fit: BoxFit.cover,
-          ),
-          ListTile(
-            leading: const Icon(Icons.currency_rupee_outlined),
-            title: Text(
-              property.propertyType == "Rent"
-                  ? property.rentPrice.toString()
-                  : property.sellPrice.toString(),
-              style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
+            trailing: context
+                    .watch<FetchConnectionsCubit>()
+                    .state
+                    .connectionList
+                    .any((myProperty) => myProperty.id == property.id)
+                ? ElevatedButton.icon(
+                    onPressed: () {
+                      showConnectedOwnerTile(context, property);
+                    },
+                    icon: const Icon(Icons.info),
+                    label: const Text(
+                      "Contacted",
+                    ),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.green,
+                      foregroundColor: Colors.white,
+                    ),
+                  )
+                : ElevatedButton.icon(
+                    onPressed: () {
+                      if (toAuthWrap(context)) {
+                        showOwnerTile(context, property);
+                      }
+                    },
+                    icon: const Icon(Icons.info),
+                    label: const Text(
+                      "Get Owner",
+                    ),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color.fromRGBO(18, 132, 142, 1),
+                      foregroundColor: Colors.white,
+                    ),
                   ),
-            ),
-            subtitle: Text(
-              "${property.propertyType}"
-              "\n${property.propertyType == "Rent" ? property.rentNego ? "(Negotiable)" : "" : property.sellNego ? "(Negotiable)" : ""}",
-              style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                    color: Colors.black,
-                    fontWeight: FontWeight.normal,
-                    fontSize: 14,
-                  ),
-            ),
-            trailing: ElevatedButton(
-              onPressed: () {
-                showOwnerTile(context, property.user);
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Theme.of(context).primaryColor,
-                foregroundColor: Colors.white,
+          ),
+          const Divider(),
+          Row(
+            children: [
+              HighLightRow(
+                title: property.propertyType == "Rent"
+                    ? "${property.rentPrice} /-"
+                    : "${property.sellPrice} /-",
+                subTitle: property.propertyType,
               ),
-              child: const Text("Contact Owner"),
-            ),
+              HighLightRow(
+                title: "${property.deposit} /-",
+                subTitle: "Deposit",
+              ),
+              HighLightRow(
+                title: "${property.area} sqft",
+                subTitle: "Built Area",
+              ),
+              HighLightRow(
+                title: property.prefTene,
+                subTitle: "Pref. Tenet",
+              ),
+              AddToFavoriteButton(property: property),
+            ],
           ),
         ],
+      ),
+    );
+  }
+}
+
+class HighLightRow extends StatelessWidget {
+  final String title;
+  final String subTitle;
+
+  const HighLightRow({
+    super.key,
+    required this.title,
+    required this.subTitle,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Flexible(
+      child: ListTile(
+        dense: true,
+        title: Text(
+          title,
+          style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                color: Colors.black,
+                fontWeight: FontWeight.bold,
+                fontSize: 12,
+              ),
+        ),
+        subtitle: Text(
+          subTitle,
+          style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                color: Colors.black,
+                fontWeight: FontWeight.normal,
+                fontSize: 11,
+              ),
+        ),
       ),
     );
   }
@@ -152,15 +214,43 @@ class PropertyCardWidgetTablet extends StatelessWidget {
                     fontSize: 14,
                   ),
             ),
-            trailing: ElevatedButton(
-              onPressed: () {
-                showOwnerTile(context, property.user);
-              },
-              style: ElevatedButton.styleFrom(
-                  backgroundColor: Theme.of(context).primaryColor,
-                  foregroundColor: Colors.white),
-              child: const Text("Contact Owner"),
-            ),
+            trailing: context
+                    .watch<FetchConnectionsCubit>()
+                    .state
+                    .connectionList
+                    .any((myProperty) => myProperty.id == property.id)
+                ? ElevatedButton.icon(
+                    onPressed: () {
+                      showConnectedOwnerTile(context, property);
+                    },
+                    icon: const Icon(Icons.info),
+                    label: const Text(
+                      "Contacted",
+                    ),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.green,
+                      foregroundColor: Colors.white,
+                    ),
+                  )
+                : ElevatedButton.icon(
+                    onPressed: () {
+                      if (toAuthWrap(context)) {
+                        showOwnerTile(context, property);
+                      }
+                    },
+                    icon: const Icon(Icons.info),
+                    label: const Text(
+                      "Owner Details",
+                    ),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color.fromRGBO(18, 132, 142, 1),
+                      foregroundColor: Colors.white,
+                    ),
+                  ),
+          ),
+          const Divider(),
+          const Row(
+            children: [],
           ),
         ],
       ),
@@ -254,23 +344,48 @@ class PropertyCardWidgetDesktop extends StatelessWidget {
                       IntrinsicHeight(
                         child: Row(
                           children: [
-                            Expanded(
-                              flex: 4,
-                              child: ElevatedButton.icon(
-                                onPressed: () {
-                                  showOwnerTile(context, property.user);
-                                },
-                                icon: const Icon(Icons.info),
-                                label: const Text(
-                                  "Get Owner Details",
-                                ),
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor:
-                                      const Color.fromRGBO(18, 132, 142, 1),
-                                  foregroundColor: Colors.white,
-                                ),
-                              ),
-                            ),
+                            context
+                                    .watch<FetchConnectionsCubit>()
+                                    .state
+                                    .connectionList
+                                    .any((myProperty) =>
+                                        myProperty.id == property.id)
+                                ? Expanded(
+                                    flex: 4,
+                                    child: ElevatedButton.icon(
+                                      onPressed: () {
+                                        showConnectedOwnerTile(
+                                            context, property);
+                                      },
+                                      icon: const Icon(Icons.info),
+                                      label: const Text(
+                                        "Owner Already Contacted",
+                                      ),
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor: Colors.green,
+                                        foregroundColor: Colors.white,
+                                      ),
+                                    ),
+                                  )
+                                : Expanded(
+                                    flex: 4,
+                                    child: ElevatedButton.icon(
+                                      onPressed: () {
+                                        if (toAuthWrap(context)) {
+                                          showOwnerTile(context, property);
+                                        }
+                                      },
+                                      icon: const Icon(Icons.info),
+                                      label: const Text(
+                                        "Get Owner Details",
+                                      ),
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor: const Color.fromRGBO(
+                                            18, 132, 142, 1),
+                                        foregroundColor: Colors.white,
+                                      ),
+                                    ),
+                                  ),
                             Expanded(
                               flex: 1,
                               child: AddToFavoriteButton(property: property),
@@ -279,7 +394,9 @@ class PropertyCardWidgetDesktop extends StatelessWidget {
                               flex: 1,
                               child: IconButton(
                                 onPressed: () {
-                                  showReportTile(context, property.id);
+                                  if (toAuthWrap(context)) {
+                                    showReportTile(context, property.id);
+                                  }
                                 },
                                 icon: const Icon(
                                   Icons.flag,
@@ -352,7 +469,9 @@ class AddToFavoriteButton extends StatelessWidget {
       builder: (context, state) {
         return IconButton(
           onPressed: () {
-            context.read<FavoritePropertyCubit>().toggleFavorite(property);
+            if (toAuthWrap(context)) {
+              context.read<FavoritePropertyCubit>().toggleFavorite(property);
+            }
           },
           icon: Icon(
             state.favoritePropertyList
@@ -417,14 +536,14 @@ class InfoTileMobile extends StatelessWidget {
       title: title,
       subtitle: subtitle,
       titleTextStyle: Theme.of(context).textTheme.titleMedium!.copyWith(
-        fontSize: 16,
-        fontWeight: FontWeight.bold,
-        color: Colors.black,
-      ),
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+            color: Colors.black,
+          ),
       subtitleTextStyle: Theme.of(context).textTheme.titleMedium!.copyWith(
-        fontSize: 14,
-        color: Colors.black,
-      ),
+            fontSize: 14,
+            color: Colors.black,
+          ),
     );
   }
 

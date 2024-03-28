@@ -14,11 +14,9 @@ class PropertyDetailHeaderMobile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: IconButton(
-        onPressed: () {
-          Navigator.pop(context);
-        },
-        icon: const Icon(Icons.home),
+      leading: const IconButton(
+        onPressed: null,
+        icon: Icon(Icons.home),
       ),
       title: Text(
         property.title,
@@ -55,9 +53,7 @@ class PropertyDetailHeaderTablet extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       leading: IconButton(
-        onPressed: () {
-          Navigator.pop(context);
-        },
+        onPressed: null,
         icon: const Icon(Icons.home),
       ),
       title: Text(
@@ -97,14 +93,12 @@ class DetailsHeaderWidgetDesktop extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           const VerticalDivider(),
-          IconButton(
-            icon: const Icon(
+          const IconButton(
+            icon: Icon(
               Icons.home_filled,
               size: 50,
             ),
-            onPressed: () {
-              Navigator.pop(context);
-            },
+            onPressed: null,
           ),
           const VerticalDivider(),
           Expanded(

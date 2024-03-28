@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_social_button/flutter_social_button.dart';
+import 'package:gharmart/features/auth/presentation/pages/auth_wrapper_page.dart';
+import 'package:gharmart/features/profile/presentation/manager/fetch_connections/fetch_connections_cubit.dart';
+import 'package:go_router/go_router.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../features/home_listings/domain/entities/property_entity.dart';
 import '../features/subscription/presentation/manager/connections_management/connection_management_cubit.dart';
@@ -25,12 +29,19 @@ class MyConstants {
   }
 }
 
-void showOwnerTile(BuildContext context, User user) {
+void showOwnerTile(BuildContext context, PropertyEntity property) {
   showAdaptiveDialog(
     context: context,
     builder: (context) {
-      return BlocProvider.value(
-        value: serviceConfig.get<ConnectionManagementCubit>(),
+      return MultiBlocProvider(
+        providers: [
+          BlocProvider.value(
+            value: serviceConfig.get<ConnectionManagementCubit>(),
+          ),
+          BlocProvider.value(
+            value: serviceConfig.get<FetchConnectionsCubit>(),
+          ),
+        ],
         child: Builder(
           builder: (context) {
             return PopScope(
@@ -44,12 +55,17 @@ void showOwnerTile(BuildContext context, User user) {
                 icon: const Icon(Icons.person, size: 50),
                 content: context.watch<ConnectionManagementCubit>().state > 0
                     ? ExpansionTile(
+                        onExpansionChanged: (_) {
+                          context
+                              .read<FetchConnectionsCubit>()
+                              .addToConnection(property);
+                        },
                         maintainState: true,
                         title: const Text("Details"),
                         children: [
                           ListTile(
                             title: SelectableText(
-                              user.name,
+                              property.user.name,
                               style: Theme.of(context)
                                   .textTheme
                                   .titleMedium!
@@ -59,7 +75,7 @@ void showOwnerTile(BuildContext context, User user) {
                           ),
                           ListTile(
                             title: SelectableText(
-                              user.phone,
+                              property.user.phone,
                               style: Theme.of(context)
                                   .textTheme
                                   .titleMedium!
@@ -104,4 +120,18 @@ void showOwnerTile(BuildContext context, User user) {
       );
     },
   );
+}
+
+bool toAuthWrap(BuildContext context) {
+  final supabase = serviceConfig.get<SupabaseClient>();
+  if (supabase.auth.currentUser == null) {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => const AuthWrapperPage(),
+      ),
+    );
+    return false;
+  } else {
+    return true;
+  }
 }

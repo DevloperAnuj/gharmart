@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gharmart/features/auth/presentation/manager/sign_in_cubit/sign_in_cubit.dart';
+import 'package:gharmart/features/auth/presentation/pages/auth_wrapper_page.dart';
 import 'package:gharmart/features/profile/presentation/manager/fetch_profile/fetch_profile_cubit.dart';
+import 'package:gharmart/features/profile/presentation/pages/connections_property_page.dart';
 import 'package:gharmart/features/profile/presentation/pages/edit_profile_page.dart';
+import 'package:gharmart/features/profile/presentation/pages/purchase_connections_page.dart';
 import 'package:gharmart/features/subscription/presentation/manager/connections_management/connection_management_cubit.dart';
 import 'package:gharmart/utils/config_file.dart';
 import 'package:go_router/go_router.dart';
@@ -34,41 +37,65 @@ class ProfileWidgetDesktop extends StatelessWidget {
             if (state is FetchProfileSuccess) {
               return Column(
                 children: [
-                  const Icon(
-                    Icons.person,
-                    size: 75,
-                  ),
                   const Divider(),
                   Text(
+                    "Welcome",
+                    style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 25,
+                        ),
+                  ),
+                  Text(
                     state.profileEntity.name,
-                    style: Theme.of(context)
-                        .textTheme
-                        .titleMedium!
-                        .copyWith(color: Colors.black),
+                    style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                          color: Theme.of(context).primaryColor,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 40,
+                        ),
                   ),
                   const SizedBox(height: 15),
-                  Text(
-                    state.profileEntity.email,
-                    style: Theme.of(context)
-                        .textTheme
-                        .titleMedium!
-                        .copyWith(color: Colors.black),
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton.icon(
+                      onPressed: () {
+                        context.pushNamed(ConnectionsPropertiesPage.routeName);
+                      },
+                      label: const Text("My Connections"),
+                      icon: const Icon(Icons.handshake),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Theme.of(context).primaryColor,
+                        foregroundColor: Colors.white,
+                      ),
+                    ),
                   ),
                   const SizedBox(height: 15),
-                  Text(
-                    state.profileEntity.phone,
-                    style: Theme.of(context)
-                        .textTheme
-                        .titleMedium!
-                        .copyWith(color: Colors.black),
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton.icon(
+                      onPressed: () {},
+                      label: const Text("Purchase plans"),
+                      icon: const Icon(Icons.monetization_on_rounded),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Theme.of(context).primaryColor,
+                        foregroundColor: Colors.white,
+                      ),
+                    ),
                   ),
                   const SizedBox(height: 15),
-                  Text(
-                    state.profileEntity.city,
-                    style: Theme.of(context)
-                        .textTheme
-                        .titleMedium!
-                        .copyWith(color: Colors.black),
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton.icon(
+                      onPressed: () {
+                        context.pushNamed(FavoritePropertiesPage.routeName);
+                      },
+                      label: const Text("Shortlisted"),
+                      icon: const Icon(Icons.bookmark_add),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Theme.of(context).primaryColor,
+                        foregroundColor: Colors.white,
+                      ),
+                    ),
                   ),
                   const SizedBox(height: 15),
                   SizedBox(
@@ -102,49 +129,13 @@ class ProfileWidgetDesktop extends StatelessWidget {
                   SizedBox(
                     width: double.infinity,
                     child: ElevatedButton.icon(
-                      onPressed: () {},
-                      label: const Text("My Connections"),
-                      icon: const Icon(Icons.handshake),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Theme.of(context).primaryColor,
-                        foregroundColor: Colors.white,
-                      ),
-                    ),
-                  ),
-                  // const SizedBox(height: 15),
-                  // SizedBox(
-                  //   width: double.infinity,
-                  //   child: ElevatedButton.icon(
-                  //     onPressed: () {},
-                  //     label: const Text("My plans"),
-                  //     icon: const Icon(Icons.monetization_on_rounded),
-                  //     style: ElevatedButton.styleFrom(
-                  //       backgroundColor: Theme.of(context).primaryColor,
-                  //       foregroundColor: Colors.white,
-                  //     ),
-                  //   ),
-                  // ),
-                  const SizedBox(height: 15),
-                  SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton.icon(
-                      onPressed: () {
-                        context.pushNamed(FavoritePropertiesPage.routeName);
-                      },
-                      label: const Text("Shortlisted"),
-                      icon: const Icon(Icons.bookmark),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Theme.of(context).primaryColor,
-                        foregroundColor: Colors.white,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 15),
-                  SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton.icon(
                       onPressed: () {
                         context.read<SignInCubit>().logOut();
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => const AuthWrapperPage(),
+                          ),
+                        );
                       },
                       label: const Text("Sign Out"),
                       icon: const Icon(Icons.logout_outlined),
@@ -177,7 +168,7 @@ class ProfileWidgetMobile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(10.0),
+      padding: const EdgeInsets.all(20.0),
       child: BlocBuilder<FetchProfileCubit, FetchProfileState>(
         builder: (context, state) {
           if (state is FetchProfileLoading) {
@@ -186,51 +177,32 @@ class ProfileWidgetMobile extends StatelessWidget {
           if (state is FetchProfileSuccess) {
             return Column(
               children: [
-                const Icon(
-                  Icons.person,
-                  size: 75,
-                ),
                 const Divider(),
                 Text(
+                  "Welcome",
+                  style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 25,
+                      ),
+                ),
+                Text(
                   state.profileEntity.name,
-                  style: Theme.of(context)
-                      .textTheme
-                      .titleMedium!
-                      .copyWith(color: Colors.black),
-                ),
-                const SizedBox(height: 15),
-                Text(
-                  state.profileEntity.email,
-                  style: Theme.of(context)
-                      .textTheme
-                      .titleMedium!
-                      .copyWith(color: Colors.black),
-                ),
-                const SizedBox(height: 15),
-                Text(
-                  state.profileEntity.phone,
-                  style: Theme.of(context)
-                      .textTheme
-                      .titleMedium!
-                      .copyWith(color: Colors.black),
-                ),
-                const SizedBox(height: 15),
-                Text(
-                  state.profileEntity.city,
-                  style: Theme.of(context)
-                      .textTheme
-                      .titleMedium!
-                      .copyWith(color: Colors.black),
+                  style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                        color: Theme.of(context).primaryColor,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 40,
+                      ),
                 ),
                 const SizedBox(height: 15),
                 SizedBox(
                   width: double.infinity,
                   child: ElevatedButton.icon(
                     onPressed: () {
-                      context.pushNamed(EditProfilePage.routeName);
+                      context.pushNamed(ConnectionsPropertiesPage.routeName);
                     },
-                    label: const Text("Edit Profile"),
-                    icon: const Icon(Icons.edit),
+                    label: const Text("My Connections"),
+                    icon: const Icon(Icons.handshake),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Theme.of(context).primaryColor,
                       foregroundColor: Colors.white,
@@ -241,9 +213,11 @@ class ProfileWidgetMobile extends StatelessWidget {
                 SizedBox(
                   width: double.infinity,
                   child: ElevatedButton.icon(
-                    onPressed: () {},
-                    label: const Text("Change Password"),
-                    icon: const Icon(Icons.password),
+                    onPressed: () {
+                      context.pushNamed(PurchaseConnectionPage.routeName);
+                    },
+                    label: const Text("Purchase Plans"),
+                    icon: const Icon(Icons.monetization_on_rounded),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Theme.of(context).primaryColor,
                       foregroundColor: Colors.white,
@@ -269,9 +243,11 @@ class ProfileWidgetMobile extends StatelessWidget {
                 SizedBox(
                   width: double.infinity,
                   child: ElevatedButton.icon(
-                    onPressed: () {},
-                    label: const Text("My Connections"),
-                    icon: const Icon(Icons.handshake),
+                    onPressed: () {
+                      context.pushNamed(EditProfilePage.routeName);
+                    },
+                    label: const Text("Edit Profile"),
+                    icon: const Icon(Icons.edit),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Theme.of(context).primaryColor,
                       foregroundColor: Colors.white,
@@ -283,8 +259,8 @@ class ProfileWidgetMobile extends StatelessWidget {
                 //   width: double.infinity,
                 //   child: ElevatedButton.icon(
                 //     onPressed: () {},
-                //     label: const Text("My plans"),
-                //     icon: const Icon(Icons.monetization_on_rounded),
+                //     label: const Text("Change Password"),
+                //     icon: const Icon(Icons.password),
                 //     style: ElevatedButton.styleFrom(
                 //       backgroundColor: Theme.of(context).primaryColor,
                 //       foregroundColor: Colors.white,
@@ -297,6 +273,11 @@ class ProfileWidgetMobile extends StatelessWidget {
                   child: ElevatedButton.icon(
                     onPressed: () {
                       context.read<SignInCubit>().logOut();
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => const AuthWrapperPage(),
+                        ),
+                      );
                     },
                     label: const Text("Sign Out"),
                     icon: const Icon(Icons.logout_outlined),

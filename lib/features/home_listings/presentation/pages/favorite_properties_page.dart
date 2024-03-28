@@ -2,20 +2,29 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gharmart/features/home_listings/presentation/manager/favorite_property/favorite_property_cubit.dart';
 import 'package:gharmart/features/panel/presentation/widgets/home_screen_widgets/my_app_bar.dart';
+import 'package:gharmart/features/profile/presentation/manager/fetch_connections/fetch_connections_cubit.dart';
 import 'package:gharmart/utils/config_file.dart';
 import 'package:gharmart/utils/my_layout_builder.dart';
 
 import '../../../panel/presentation/widgets/home_screen_widgets/property_card_widget.dart';
 
 class FavoritePropertiesPage extends StatelessWidget {
+
   const FavoritePropertiesPage({super.key});
 
-  static const String routeName = "myfav";
+  static const String routeName = "/myfav";
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider.value(
-      value: serviceConfig.get<FavoritePropertyCubit>(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider.value(
+          value: serviceConfig.get<FavoritePropertyCubit>(),
+        ),
+        BlocProvider.value(
+          value: serviceConfig.get<FetchConnectionsCubit>(),
+        ),
+      ],
       child: const MyBuilder(
         mobileView: FavoritePropertiesPageMobile(),
         tabletView: FavoritePropertiesPageTablet(),

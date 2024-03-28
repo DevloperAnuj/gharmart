@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gharmart/features/home_listings/presentation/manager/favorite_property/favorite_property_cubit.dart';
-import 'package:gharmart/features/home_listings/presentation/pages/favorite_properties_page.dart';
-import 'package:go_router/go_router.dart';
+import 'package:gharmart/utils/constants.dart';
 
 class MyAppBar extends StatelessWidget {
   const MyAppBar({super.key});
@@ -22,7 +21,9 @@ class MyAppBar extends StatelessWidget {
         TextButton.icon(
           label: const Text("Menu"),
           onPressed: () {
-            Scaffold.of(context).openEndDrawer();
+            if (toAuthWrap(context)) {
+              Scaffold.of(context).openEndDrawer();
+            }
           },
           icon: const Icon(Icons.menu),
         ),

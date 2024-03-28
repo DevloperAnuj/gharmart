@@ -36,6 +36,7 @@ class FilterWidgetDesktop extends StatelessWidget {
                         const BoxDecoration(color: Colors.white),
                     currentCity: "Pune",
                     currentState: "Maharashtra",
+                    currentCountry: "India",
                     onCountryChanged: (country) {
                       context.read<ListingFilterCubit>().applyCountry(country);
                     },
@@ -46,10 +47,10 @@ class FilterWidgetDesktop extends StatelessWidget {
                           .applyState(selectedState);
                     },
                     onCityChanged: (city) {
-                      String selectedCity = city ?? "Pune";
+                      String? selectedCity = city == "City" ? "Pune" : city;
                       context
                           .read<ListingFilterCubit>()
-                          .applyCity(selectedCity);
+                          .applyCity(selectedCity!);
                     },
                   ),
                   Padding(
@@ -195,6 +196,23 @@ class FilterWidgetDesktop extends StatelessWidget {
                         },
                       ),
                     ),
+                  if (filterState.propertyType == "Rent")
+                    Row(
+                      children: [
+                        Flexible(
+                          child: ListTile(
+                            title: Text(MyFormattedMoney(filterState.rentMin)),
+                            subtitle: const Text("Min"),
+                          ),
+                        ),
+                        Flexible(
+                          child: ListTile(
+                            title: Text(MyFormattedMoney(filterState.rentMax)),
+                            subtitle: const Text("Max"),
+                          ),
+                        ),
+                      ],
+                    ),
                   //For Selling Slider
                   if (filterState.propertyType == "Sell")
                     SizedBox(
@@ -216,6 +234,23 @@ class FilterWidgetDesktop extends StatelessWidget {
                               );
                         },
                       ),
+                    ),
+                  if (filterState.propertyType == "Sell")
+                    Row(
+                      children: [
+                        Flexible(
+                          child: ListTile(
+                            title: Text(MyFormattedMoney(filterState.priceMin)),
+                            subtitle: const Text("Min"),
+                          ),
+                        ),
+                        Flexible(
+                          child: ListTile(
+                            title: Text(MyFormattedMoney(filterState.priceMax)),
+                            subtitle: const Text("Max"),
+                          ),
+                        ),
+                      ],
                     ),
                   Padding(
                     padding: const EdgeInsets.symmetric(

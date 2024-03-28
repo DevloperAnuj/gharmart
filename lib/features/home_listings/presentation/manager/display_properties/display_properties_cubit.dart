@@ -52,4 +52,24 @@ class DisplayPropertiesCubit extends Cubit<DisplayPropertiesState> {
         .toList();
     emit(state.copyWith(properties: list));
   }
+
+  displayLandingProperties() {
+    searchList = fetchedProperties.state.properties;
+    final List<PropertyEntity> list = fetchedProperties.state.properties
+        .where((property) =>
+            property.propertyType == filter.state.propertyType &&
+            property.country == filter.state.country &&
+            property.city == filter.state.city &&
+            property.state == filter.state.state &&
+            property.bhkType == filter.state.bhkType &&
+            (property.propertyType == "Rent"
+                ? property.rentPrice >= filter.state.rentMin
+                : property.sellPrice >= filter.state.priceMin) &&
+            (property.propertyType == "Rent"
+                ? property.rentPrice <= filter.state.rentMax
+                : property.sellPrice <= filter.state.priceMax))
+        .toList();
+    searchList = list;
+    emit(state.copyWith(properties: list));
+  }
 }

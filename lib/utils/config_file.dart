@@ -7,6 +7,7 @@ import 'package:gharmart/features/home_listings/presentation/manager/fetch_prope
 import 'package:gharmart/features/home_listings/presentation/manager/filter/listing_filter_cubit.dart';
 import 'package:gharmart/features/home_listings/presentation/manager/get_user_properties/get_user_properties_cubit.dart';
 import 'package:gharmart/features/home_listings/presentation/manager/report_property/report_property_cubit.dart';
+import 'package:gharmart/features/profile/presentation/manager/fetch_connections/fetch_connections_cubit.dart';
 import 'package:gharmart/features/profile/presentation/manager/fetch_profile/fetch_profile_cubit.dart';
 import 'package:gharmart/features/properties/presentation/manager/add_property_temp_cubit/add_property_cubit.dart';
 import 'package:gharmart/features/properties/presentation/manager/upload_property_database/upload_property_database_cubit.dart';
@@ -68,6 +69,10 @@ void configSetup() {
 
   serviceConfig.registerLazySingleton<ConnectionManagementCubit>(
     () => ConnectionManagementCubit(),
+  );
+
+  serviceConfig.registerLazySingleton<FetchConnectionsCubit>(
+        () => FetchConnectionsCubit(),
   );
 
 }

@@ -96,7 +96,9 @@ class PropertyHighlightsWidget extends StatelessWidget {
                 flex: 4,
                 child: ElevatedButton.icon(
                   onPressed: () {
-                    showOwnerTile(context, property.user);
+                    if (toAuthWrap(context)) {
+                      showOwnerTile(context, property);
+                    }
                   },
                   icon: const Icon(Icons.info),
                   label: const Text(
@@ -141,10 +143,12 @@ class PropertyHighlightsWidget extends StatelessWidget {
                   children: [
                     TextButton(
                       onPressed: () {
-                        context.read<ReportPropertyCubit>().submitReport(
-                              property.id,
-                              "Listed By Broker",
-                            );
+                        if (toAuthWrap(context)) {
+                          context.read<ReportPropertyCubit>().submitReport(
+                                property.id,
+                                "Listed By Broker",
+                              );
+                        }
                       },
                       style: TextButton.styleFrom(
                         shape: RoundedRectangleBorder(
@@ -157,10 +161,12 @@ class PropertyHighlightsWidget extends StatelessWidget {
                     ),
                     TextButton(
                       onPressed: () {
-                        context.read<ReportPropertyCubit>().submitReport(
-                              property.id,
-                              "Rented Out",
-                            );
+                        if (toAuthWrap(context)) {
+                          context.read<ReportPropertyCubit>().submitReport(
+                                property.id,
+                                "Rented Out",
+                              );
+                        }
                       },
                       style: TextButton.styleFrom(
                         shape: RoundedRectangleBorder(
@@ -173,10 +179,12 @@ class PropertyHighlightsWidget extends StatelessWidget {
                     ),
                     TextButton(
                       onPressed: () {
-                        context.read<ReportPropertyCubit>().submitReport(
-                              property.id,
-                              "Wrong Info",
-                            );
+                        if (toAuthWrap(context)) {
+                          context.read<ReportPropertyCubit>().submitReport(
+                                property.id,
+                                "Wrong Info",
+                              );
+                        }
                       },
                       style: TextButton.styleFrom(
                         shape: RoundedRectangleBorder(
@@ -217,9 +225,10 @@ class PropertyOverviewWidgetsMobile extends StatelessWidget {
       child: ListView(
         shrinkWrap: true,
         children: [
-          PropertyImageCollageWidgetMobile(
-            imageList: property.picsUrl,
-          ),
+          PropertyImageCarouselWidgetMobile(imageList: property.picsUrl),
+          // PropertyImageCollageWidgetMobile(
+          //   imageList: property.picsUrl,
+          // ),
           InfoTileMobile(
             leading: const Icon(Icons.currency_rupee),
             title: Text(property.propertyType == "Rent"
@@ -362,9 +371,10 @@ class PropertyOverviewWidgetsTablet extends StatelessWidget {
     return Expanded(
       child: ListView(
         children: [
-          PropertyImageCollageWidgetTablet(
-            imageList: property.picsUrl,
-          ),
+          PropertyImageCarouselWidgetTablet(imageList: property.picsUrl),
+          // PropertyImageCollageWidgetTablet(
+          //   imageList: property.picsUrl,
+          // ),
           Row(
             children: [
               InfoTile(

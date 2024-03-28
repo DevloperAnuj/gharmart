@@ -17,7 +17,7 @@ import '../widgets/property_image_college.dart';
 class PropertyDetailsPage extends StatelessWidget {
   final PropertyEntity property;
 
-  static const String routeName = "propertydetail";
+  static const String routeName = "/propertydetail";
 
   @override
   Widget build(BuildContext context) {
@@ -72,7 +72,9 @@ class PropertyDetailsPageMobile extends StatelessWidget {
               flex: 4,
               child: ElevatedButton.icon(
                 onPressed: () {
-                  showOwnerTile(context, property.user);
+                  if (toAuthWrap(context)) {
+                    showOwnerTile(context, property);
+                  }
                 },
                 icon: const Icon(Icons.info),
                 label: const Text(
@@ -88,7 +90,9 @@ class PropertyDetailsPageMobile extends StatelessWidget {
               flex: 1,
               child: IconButton(
                 onPressed: () {
-                  showReportTile(context, property.id);
+                  if (toAuthWrap(context)) {
+                    showReportTile(context, property.id);
+                  }
                 },
                 icon: const Icon(
                   Icons.flag,
@@ -124,7 +128,9 @@ class PropertyDetailsPageTablet extends StatelessWidget {
               flex: 4,
               child: ElevatedButton.icon(
                 onPressed: () {
-                  showOwnerTile(context, property.user);
+                  if (toAuthWrap(context)) {
+                    showOwnerTile(context, property);
+                  }
                 },
                 icon: const Icon(Icons.info),
                 label: const Text(
@@ -140,7 +146,9 @@ class PropertyDetailsPageTablet extends StatelessWidget {
               flex: 1,
               child: IconButton(
                 onPressed: () {
-                  showReportTile(context, property.id);
+                  if (toAuthWrap(context)) {
+                    showReportTile(context, property.id);
+                  }
                 },
                 icon: const Icon(
                   Icons.flag,

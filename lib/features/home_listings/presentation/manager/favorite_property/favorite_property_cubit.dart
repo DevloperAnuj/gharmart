@@ -19,6 +19,9 @@ class FavoritePropertyCubit extends Cubit<FavoritePropertyState> {
   List<String> tempFavoritesId = [];
 
   void fetchFavoriteProperties() async {
+    if (client.auth.currentUser == null) {
+      return;
+    }
     final String userId = client.auth.currentUser!.id;
     try {
       final result = await client.from("favorites").select(
