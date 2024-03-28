@@ -275,6 +275,115 @@ class LandingPageMobile extends StatelessWidget {
                 child: const Text("Find Property"),
               ),
             ),
+            Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.grey.shade300,
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                padding: const EdgeInsets.all(10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                      Icon(
+                       Icons.done_outline,
+                       size: 80,
+                       color: Theme.of(context).primaryColor,
+                     ),
+                    Text(
+                      "100% Genuine \nOwner",
+                      style: Theme.of(context)
+                          .textTheme
+                          .titleLarge!
+                          .copyWith(color: Colors.black),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.grey.shade300,
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                padding: const EdgeInsets.all(10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Text(
+                      "Zero Brokers \nNo Middleman",
+                      style: Theme.of(context)
+                          .textTheme
+                          .titleLarge!
+                          .copyWith(color: Colors.black),
+                    ),
+                    Icon(
+                      Icons.person_off_sharp,
+                      size: 80,
+                      color: Theme.of(context).primaryColor,
+                    ),
+
+                  ],
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.grey.shade300,
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                padding: const EdgeInsets.all(10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                     Icon(
+                      Icons.handshake_outlined,
+                      size: 80,
+                      color: Theme.of(context).primaryColor,
+                    ),
+                    Text(
+                      "Save on \nBrokerage",
+                      style: Theme.of(context)
+                          .textTheme
+                          .titleLarge!
+                          .copyWith(color: Colors.black),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.grey.shade300,
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                padding: const EdgeInsets.all(10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Text(
+                      "Cost Effective",
+                      style: Theme.of(context)
+                          .textTheme
+                          .titleLarge!
+                          .copyWith(color: Colors.black),
+                    ),
+                     Icon(
+                      Icons.currency_rupee,
+                      size: 80,
+                      color: Theme.of(context).primaryColor,
+                    ),
+                  ],
+                ),
+              ),
+            ),
           ],
         ),
       ),
@@ -434,8 +543,8 @@ class LandingPageDesktop extends StatelessWidget {
               children: [
                 Expanded(
                   child: Padding(
-                    padding:
-                    const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 20.0, vertical: 10),
                     child: Theme(
                       data: ThemeData(),
                       child: DropdownButtonFormField<String>(
@@ -446,18 +555,23 @@ class LandingPageDesktop extends StatelessWidget {
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(40),
                             borderSide: BorderSide(
-                                color: Theme.of(context).primaryColor, width: 2),
+                                color: Theme.of(context).primaryColor,
+                                width: 2),
                           ),
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(40),
                             borderSide: BorderSide(
-                                color: Theme.of(context).primaryColor, width: 3),
+                                color: Theme.of(context).primaryColor,
+                                width: 3),
                           ),
                         ),
                         hint: const Text('Select BHK Type'),
-                        value: context.watch<ListingFilterCubit>().state.bhkType,
+                        value:
+                            context.watch<ListingFilterCubit>().state.bhkType,
                         onChanged: (String? newValue) {
-                          context.read<ListingFilterCubit>().applyBhkType(newValue!);
+                          context
+                              .read<ListingFilterCubit>()
+                              .applyBhkType(newValue!);
                         },
                         items: <String>[
                           '1 RK',
@@ -480,8 +594,8 @@ class LandingPageDesktop extends StatelessWidget {
                     "Rent")
                   Expanded(
                     child: Padding(
-                      padding:
-                      const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 20.0, vertical: 10),
                       child: Theme(
                         data: ThemeData(),
                         child: DropdownButtonFormField<String>(
@@ -492,12 +606,14 @@ class LandingPageDesktop extends StatelessWidget {
                             enabledBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(40),
                               borderSide: BorderSide(
-                                  color: Theme.of(context).primaryColor, width: 2),
+                                  color: Theme.of(context).primaryColor,
+                                  width: 2),
                             ),
                             focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(40),
                               borderSide: BorderSide(
-                                  color: Theme.of(context).primaryColor, width: 3),
+                                  color: Theme.of(context).primaryColor,
+                                  width: 3),
                             ),
                           ),
                           hint: const Text('Select Rent Range'),
@@ -528,8 +644,8 @@ class LandingPageDesktop extends StatelessWidget {
                     "Sell")
                   Expanded(
                     child: Padding(
-                      padding:
-                      const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 20.0, vertical: 10),
                       child: Theme(
                         data: ThemeData(),
                         child: DropdownButtonFormField<String>(
@@ -540,12 +656,14 @@ class LandingPageDesktop extends StatelessWidget {
                             enabledBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(40),
                               borderSide: BorderSide(
-                                  color: Theme.of(context).primaryColor, width: 2),
+                                  color: Theme.of(context).primaryColor,
+                                  width: 2),
                             ),
                             focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(40),
                               borderSide: BorderSide(
-                                  color: Theme.of(context).primaryColor, width: 3),
+                                  color: Theme.of(context).primaryColor,
+                                  width: 3),
                             ),
                           ),
                           hint: const Text('Select Rent Range'),
@@ -589,6 +707,133 @@ class LandingPageDesktop extends StatelessWidget {
                 ),
                 child: const Text("Find Property"),
               ),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Flexible(
+                  child: Padding(
+                    padding: const EdgeInsets.all(15.0),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.grey.shade300,
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      padding: const EdgeInsets.all(10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Icon(
+                            Icons.done_outline,
+                            size: 80,
+                            color: Theme.of(context).primaryColor,
+                          ),
+                          Text(
+                            "100% Genuine \nOwner",
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleLarge!
+                                .copyWith(color: Colors.black),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                Flexible(
+                  child: Padding(
+                    padding: const EdgeInsets.all(15.0),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.grey.shade300,
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      padding: const EdgeInsets.all(10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Text(
+                            "Zero Brokers \nNo Middleman",
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleLarge!
+                                .copyWith(color: Colors.black),
+                          ),
+                          Icon(
+                            Icons.person_off_sharp,
+                            size: 80,
+                            color: Theme.of(context).primaryColor,
+                          ),
+
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Flexible(
+                  child: Padding(
+                    padding: const EdgeInsets.all(15.0),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.grey.shade300,
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      padding: const EdgeInsets.all(10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Icon(
+                            Icons.handshake_outlined,
+                            size: 80,
+                            color: Theme.of(context).primaryColor,
+                          ),
+                          Text(
+                            "Save on \nBrokerage",
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleLarge!
+                                .copyWith(color: Colors.black),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                Flexible(
+                  child: Padding(
+                    padding: const EdgeInsets.all(15.0),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.grey.shade300,
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      padding: const EdgeInsets.all(10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Text(
+                            "Cost Effective",
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleLarge!
+                                .copyWith(color: Colors.black),
+                          ),
+                          Icon(
+                            Icons.currency_rupee,
+                            size: 80,
+                            color: Theme.of(context).primaryColor,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
           ],
         ),
