@@ -5,6 +5,7 @@ import 'package:gharmart/features/home_listings/presentation/manager/fetch_prope
 import 'package:gharmart/features/panel/presentation/widgets/home_screen_widgets/filter_widget.dart';
 
 class SearchSectionMobile extends StatelessWidget {
+
   const SearchSectionMobile({super.key});
 
   @override
@@ -13,7 +14,7 @@ class SearchSectionMobile extends StatelessWidget {
       children: [
         Flexible(
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
+            padding: const EdgeInsets.symmetric(horizontal: 10),
             child: TextField(
               style: const TextStyle(
                 color: Colors.black,
@@ -49,6 +50,20 @@ class SearchSectionMobile extends StatelessWidget {
               foregroundColor: Colors.white,
             ),
             icon: const Icon(Icons.filter_alt),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 5),
+          child: IconButton(
+            onPressed: () {
+              //TODO: Scramble list
+
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: const Color.fromRGBO(18, 132, 142, 1),
+              foregroundColor: Colors.white,
+            ),
+            icon: const Icon(Icons.compare_arrows),
           ),
         ),
       ],

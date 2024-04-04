@@ -5,6 +5,7 @@ class ListingFilterState {
   final String state;
   final String city;
   final String propertyType;
+  final String propertyCat;
   final String bhkType;
   final int priceMin;
   final int priceMax;
@@ -20,6 +21,7 @@ class ListingFilterState {
       state: "Maharashtra",
       city: "Pune",
       propertyType: "Rent",
+      propertyCat: "Room",
       bhkType: "1 BHK",
       priceMin: 100000,
       priceMax: 10000000,
@@ -36,6 +38,7 @@ class ListingFilterState {
     required this.state,
     required this.city,
     required this.propertyType,
+    required this.propertyCat,
     required this.bhkType,
     required this.priceMin,
     required this.priceMax,
@@ -51,6 +54,7 @@ class ListingFilterState {
     String? state,
     String? city,
     String? propertyType,
+    String? propertyCat,
     String? bhkType,
     int? priceMin,
     int? priceMax,
@@ -65,6 +69,7 @@ class ListingFilterState {
       state: state ?? this.state,
       city: city ?? this.city,
       propertyType: propertyType ?? this.propertyType,
+      propertyCat: propertyCat ?? this.propertyCat,
       bhkType: bhkType ?? this.bhkType,
       priceMin: priceMin ?? this.priceMin,
       priceMax: priceMax ?? this.priceMax,

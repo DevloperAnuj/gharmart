@@ -119,6 +119,36 @@ class PurchaseConnectionPageDesktop extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const PurchaseTokensWidget();
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          const RemainingTokensWidget(),
+          const Divider(),
+          Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Text(
+              "Purchase Membership Connections",
+              style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                    color: Colors.black,
+                    fontSize: 25,
+                  ),
+              textAlign: TextAlign.center,
+            ),
+          ),
+          const MembershipCard(
+            cardColour: Colors.yellow,
+            membershipName: "Gold",
+            membershipPrice: "1000",
+            membershipInfo: "You Will Get 60 Connections",
+          ),
+          const MembershipCard(
+            cardColour: Colors.blueAccent,
+            membershipName: "Silver",
+            membershipPrice: "500",
+            membershipInfo: "You Will Get 25 Connections",
+          ),
+        ],
+      ),
+    );
   }
 }

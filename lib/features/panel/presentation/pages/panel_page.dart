@@ -12,10 +12,12 @@ import 'package:gharmart/features/panel/presentation/manager/panel_logic/panel_l
 import 'package:gharmart/features/panel/presentation/widgets/panel_section.dart';
 import 'package:gharmart/features/profile/presentation/manager/fetch_connections/fetch_connections_cubit.dart';
 import 'package:gharmart/features/profile/presentation/manager/fetch_profile/fetch_profile_cubit.dart';
+import 'package:gharmart/features/properties/presentation/manager/delist_property/delist_property_cubit.dart';
 import 'package:gharmart/features/subscription/presentation/manager/connections_management/connection_management_cubit.dart';
 import 'package:gharmart/utils/config_file.dart';
 import 'package:gharmart/utils/my_layout_builder.dart';
 
+import '../../../../utils/constants.dart';
 import '../widgets/home_screen_widgets/my_app_bar.dart';
 import '../widgets/sidebar.dart';
 
@@ -55,6 +57,9 @@ class PanelPage extends StatelessWidget {
         ),
         BlocProvider.value(
           value: serviceConfig.get<ConnectionManagementCubit>(),
+        ),
+        BlocProvider.value(
+          value: serviceConfig.get<DelistPropertyCubit>(),
         ),
         BlocProvider.value(
           value: serviceConfig.get<FavoritePropertyCubit>()

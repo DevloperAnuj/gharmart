@@ -5,6 +5,7 @@ import 'package:gharmart/features/auth/presentation/pages/auth_wrapper_page.dart
 import 'package:gharmart/features/profile/presentation/manager/fetch_connections/fetch_connections_cubit.dart';
 import 'package:go_router/go_router.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../features/home_listings/domain/entities/property_entity.dart';
 import '../features/subscription/presentation/manager/connections_management/connection_management_cubit.dart';
@@ -102,14 +103,26 @@ void showOwnerTile(BuildContext context, PropertyEntity property) {
                           mini: true,
                           title: "Call Now",
                           buttonType: ButtonType.phone,
-                          onTap: () {},
+                          onTap: () async {
+                            final url =
+                                Uri.parse("tel://${property.user.phone}");
+                            if (!await launchUrl(url)) {
+                              throw Exception('Could not launch $url');
+                            }
+                          },
                         ),
                         FlutterSocialButton(
                           mini: true,
                           title: "WhatsApp",
                           buttonType: ButtonType.whatsapp,
                           iconColor: Colors.white,
-                          onTap: () {},
+                          onTap: () async {
+                            final url = Uri.parse(
+                                "https://wa.me/91${property.user.phone}");
+                            if (!await launchUrl(url)) {
+                              throw Exception('Could not launch $url');
+                            }
+                          },
                         ),
                       ]
                     : null,

@@ -25,6 +25,10 @@ class ListingFilterCubit extends Cubit<ListingFilterState> {
     emit(state.copyWith(bhkType: bhk));
   }
 
+  applyPropertyCat(String cat) {
+    emit(state.copyWith(propertyCat: cat));
+  }
+
   applyPrice(int min, int max) {
     emit(state.copyWith(priceMin: min, priceMax: max));
   }

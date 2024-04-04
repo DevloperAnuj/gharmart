@@ -28,6 +28,9 @@ class PropertiesListWidgetMobile extends StatelessWidget {
               child:
                   BlocBuilder<DisplayPropertiesCubit, DisplayPropertiesState>(
                 builder: (context, state) {
+                  if (state.properties.isEmpty) {
+                    return const Center(child: Text("No Properties Found"));
+                  }
                   return ListView.builder(
                     itemCount: state.properties.length,
                     itemBuilder: (c, i) {
@@ -67,6 +70,9 @@ class PropertiesListWidgetTablet extends StatelessWidget {
           return SizedBox(
             child: BlocBuilder<DisplayPropertiesCubit, DisplayPropertiesState>(
               builder: (context, state) {
+                if (state.properties.isEmpty) {
+                  return const Center(child: Text("No Properties Found"));
+                }
                 return ListView.builder(
                   itemCount: state.properties.length,
                   itemBuilder: (c, i) {
@@ -111,6 +117,9 @@ class PropertiesListWidgetDesktop extends StatelessWidget {
               child:
                   BlocBuilder<DisplayPropertiesCubit, DisplayPropertiesState>(
                 builder: (context, state) {
+                  if (state.properties.isEmpty) {
+                    return const Center(child: Text("No Properties Found"));
+                  }
                   return ListView.builder(
                     itemCount: state.properties.length,
                     itemBuilder: (c, i) {

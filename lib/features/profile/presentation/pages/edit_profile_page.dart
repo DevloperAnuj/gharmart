@@ -24,11 +24,16 @@ class EditProfilePageMobile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: Icon(
-        Icons.person_search_outlined,
-        size: 75,
-      ),
+    return const Column(
+      children: [
+        Center(
+          child: Icon(
+            Icons.person_search_outlined,
+            size: 75,
+          ),
+        ),
+        Text("Require Payment ID")
+      ],
     );
   }
 }
@@ -38,11 +43,16 @@ class EditProfilePageTablet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: Icon(
-        Icons.person_search_outlined,
-        size: 75,
-      ),
+    return const Column(
+      children: [
+        Center(
+          child: Icon(
+            Icons.person_search_outlined,
+            size: 75,
+          ),
+        ),
+        Text("Require Payment ID")
+      ],
     );
   }
 }
@@ -52,11 +62,16 @@ class EditProfilePageDesktop extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: Icon(
-        Icons.person_search_outlined,
-        size: 75,
-      ),
+    return const Column(
+      children: [
+        Center(
+          child: Icon(
+            Icons.person_search_outlined,
+            size: 75,
+          ),
+        ),
+        Text("Require Payment ID")
+      ],
     );
   }
 }

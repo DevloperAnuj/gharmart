@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gharmart/features/home_listings/presentation/pages/edit_property_details.dart';
+import 'package:gharmart/features/properties/presentation/manager/delist_property/delist_property_cubit.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../../utils/constants.dart';
@@ -91,17 +93,35 @@ class MyPropertyCardWidgetDesktop extends StatelessWidget {
                       const Divider(height: 10, thickness: 1),
                       Align(
                         alignment: Alignment.centerLeft,
-                        child: ElevatedButton.icon(
-                          onPressed: () {},
-                          icon: const Icon(Icons.delete),
-                          label: const Text(
-                            "De-list Property",
-                          ),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.blueGrey.shade500,
-                            foregroundColor: Colors.white,
-                          ),
-                        ),
+                        child: property.status != 3
+                            ? ElevatedButton.icon(
+                                onPressed: () {
+                                  context
+                                      .read<DelistPropertyCubit>()
+                                      .delistCurrentProperty(property.id);
+                                  MyConstants.mySnackBar(context,
+                                      message:
+                                          "Property Sent for Review to Delisted",
+                                      color: Colors.green);
+                                },
+                                icon: const Icon(Icons.delete),
+                                label: const Text(
+                                  "De-list Property",
+                                ),
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.blueGrey.shade500,
+                                  foregroundColor: Colors.white,
+                                ),
+                              )
+                            : Text(
+                                "De-Listed",
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleMedium!
+                                    .copyWith(
+                                      color: Colors.red,
+                                    ),
+                              ),
                       ),
                       // IntrinsicHeight(
                       //   child: Row(
@@ -243,8 +263,6 @@ Color getTileStatusColour(int status) {
   return Colors.white;
 }
 
-
-
 class MyPropertyCardWidgetMobile extends StatelessWidget {
   final PropertyEntity property;
 
@@ -267,19 +285,19 @@ class MyPropertyCardWidgetMobile extends StatelessWidget {
               property.title,
               maxLines: 2,
               style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                color: Colors.black,
-                fontWeight: FontWeight.bold,
-                fontSize: 16,
-              ),
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                  ),
             ),
             subtitle: Text(
               property.address,
               maxLines: 1,
               style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                color: Colors.black,
-                fontWeight: FontWeight.normal,
-                fontSize: 15,
-              ),
+                    color: Colors.black,
+                    fontWeight: FontWeight.normal,
+                    fontSize: 15,
+                  ),
             ),
             trailing: AddToFavoriteButton(property: property),
           ),
@@ -295,31 +313,45 @@ class MyPropertyCardWidgetMobile extends StatelessWidget {
                   ? property.rentPrice.toString()
                   : property.sellPrice.toString(),
               style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                color: Colors.black,
-                fontWeight: FontWeight.bold,
-                fontSize: 16,
-              ),
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                  ),
             ),
             subtitle: Text(
               "${property.propertyType}"
-                  "\n${property.propertyType == "Rent" ? property.rentNego ? "(Negotiable)" : "" : property.sellNego ? "(Negotiable)" : ""}",
+              "\n${property.propertyType == "Rent" ? property.rentNego ? "(Negotiable)" : "" : property.sellNego ? "(Negotiable)" : ""}",
               style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                color: Colors.black,
-                fontWeight: FontWeight.normal,
-                fontSize: 14,
-              ),
+                    color: Colors.black,
+                    fontWeight: FontWeight.normal,
+                    fontSize: 14,
+                  ),
             ),
-            trailing: ElevatedButton.icon(
-              onPressed: () {},
-              icon: const Icon(Icons.delete),
-              label: const Text(
-                "De-list Property",
-              ),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.blueGrey.shade500,
-                foregroundColor: Colors.white,
-              ),
-            ),
+            trailing: property.status != 3
+                ? ElevatedButton.icon(
+                    onPressed: () {
+                      context
+                          .read<DelistPropertyCubit>()
+                          .delistCurrentProperty(property.id);
+                      MyConstants.mySnackBar(context,
+                          message: "Property Sent for Review to Delisted",
+                          color: Colors.green);
+                    },
+                    icon: const Icon(Icons.delete),
+                    label: const Text(
+                      "De-list Property",
+                    ),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.blueGrey.shade500,
+                      foregroundColor: Colors.white,
+                    ),
+                  )
+                : Text(
+                    "De-Listed",
+                    style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                          color: Colors.red,
+                        ),
+                  ),
           ),
         ],
       ),
@@ -349,19 +381,19 @@ class MyPropertyCardWidgetTablet extends StatelessWidget {
               property.title,
               maxLines: 2,
               style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                color: Colors.black,
-                fontWeight: FontWeight.bold,
-                fontSize: 16,
-              ),
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                  ),
             ),
             subtitle: Text(
               property.address,
               maxLines: 1,
               style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                color: Colors.black,
-                fontWeight: FontWeight.normal,
-                fontSize: 15,
-              ),
+                    color: Colors.black,
+                    fontWeight: FontWeight.normal,
+                    fontSize: 15,
+                  ),
             ),
             trailing: AddToFavoriteButton(property: property),
           ),
@@ -377,19 +409,19 @@ class MyPropertyCardWidgetTablet extends StatelessWidget {
                   ? property.rentPrice.toString()
                   : property.sellPrice.toString(),
               style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                color: Colors.black,
-                fontWeight: FontWeight.bold,
-                fontSize: 16,
-              ),
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                  ),
             ),
             subtitle: Text(
               "${property.propertyType}"
-                  "\n${property.propertyType == "Rent" ? property.rentNego ? "(Negotiable)" : "" : property.sellNego ? "(Negotiable)" : ""}",
+              "\n${property.propertyType == "Rent" ? property.rentNego ? "(Negotiable)" : "" : property.sellNego ? "(Negotiable)" : ""}",
               style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                color: Colors.black,
-                fontWeight: FontWeight.normal,
-                fontSize: 14,
-              ),
+                    color: Colors.black,
+                    fontWeight: FontWeight.normal,
+                    fontSize: 14,
+                  ),
             ),
             trailing: ElevatedButton.icon(
               onPressed: () {},

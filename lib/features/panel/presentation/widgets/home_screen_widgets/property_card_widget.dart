@@ -135,7 +135,7 @@ class HighLightRow extends StatelessWidget {
           style: Theme.of(context).textTheme.titleMedium!.copyWith(
                 color: Colors.black,
                 fontWeight: FontWeight.bold,
-                fontSize: 12,
+                fontSize: 9,
               ),
         ),
         subtitle: Text(
@@ -143,7 +143,7 @@ class HighLightRow extends StatelessWidget {
           style: Theme.of(context).textTheme.titleMedium!.copyWith(
                 color: Colors.black,
                 fontWeight: FontWeight.normal,
-                fontSize: 11,
+                fontSize: 8,
               ),
         ),
       ),

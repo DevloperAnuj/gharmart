@@ -44,6 +44,7 @@ class ConnectionPropertiesPageMobile extends StatelessWidget {
       body: Column(
         children: [
           AppBar(
+            leading: const SizedBox.shrink(),
             title: FittedBox(
               child: Text(
                 "Your Connected Properties",
@@ -70,6 +71,7 @@ class ConnectionPropertiesPageTablet extends StatelessWidget {
       body: Column(
         children: [
           AppBar(
+            leading: const SizedBox.shrink(),
             title: FittedBox(
               child: Text(
                 "Your Connected Properties",
@@ -96,6 +98,7 @@ class ConnectionPropertiesPageDesktop extends StatelessWidget {
       body: Column(
         children: [
           AppBar(
+            leading: const SizedBox.shrink(),
             title: Text(
               "Your Connected Properties",
               style: Theme.of(context).textTheme.titleMedium!.copyWith(
