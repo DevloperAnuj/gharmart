@@ -5,7 +5,7 @@ part 'connection_management_state.dart';
 
 class ConnectionManagementCubit extends Cubit<int> {
 
-  ConnectionManagementCubit() : super(0);
+  ConnectionManagementCubit() : super(0); 
 
   initConnections(int conn) {
     emit(conn);

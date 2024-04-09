@@ -9,7 +9,6 @@ import 'package:gharmart/utils/my_layout_builder.dart';
 import '../../../panel/presentation/widgets/home_screen_widgets/property_card_widget.dart';
 
 class FavoritePropertiesPage extends StatelessWidget {
-
   const FavoritePropertiesPage({super.key});
 
   static const String routeName = "/myfav";
@@ -19,7 +18,7 @@ class FavoritePropertiesPage extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider.value(
-          value: serviceConfig.get<FavoritePropertyCubit>(),
+          value: serviceConfig.get<FavoritePropertyCubit>()..fetchFavoriteProperties(),
         ),
         BlocProvider.value(
           value: serviceConfig.get<FetchConnectionsCubit>(),
@@ -39,22 +38,35 @@ class FavoritePropertiesPageMobile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-        children: [
-          AppBar(
-            title: FittedBox(
-              child: Text(
-                "Your Favorite Properties",
-                style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                    ),
+    return Container(
+      decoration:  BoxDecoration(
+        image: DecorationImage(
+          image: const AssetImage('assets/images/lbg.png'),
+          repeat: ImageRepeat.repeatY,
+          colorFilter: ColorFilter.mode(
+            Colors.white.withOpacity(0.5),
+            BlendMode.dstATop,
+          ),
+        ),
+      ),
+      child: Scaffold(
+        body: Column(
+          children: [
+            AppBar(
+              leading: const SizedBox.shrink(),
+              title: FittedBox(
+                child: Text(
+                  "Your Favorite Properties",
+                  style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                      ),
+                ),
               ),
             ),
-          ),
-          const FavoritePropertiesListWidgetMobile(),
-        ],
+            const FavoritePropertiesListWidgetMobile(),
+          ],
+        ),
       ),
     );
   }
@@ -65,22 +77,35 @@ class FavoritePropertiesPageTablet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-        children: [
-          AppBar(
-            title: FittedBox(
-              child: Text(
-                "Your Favorite Properties",
-                style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                    ),
+    return Container(
+      decoration:  BoxDecoration(
+        image: DecorationImage(
+          image: const AssetImage('assets/images/lbg.png'),
+          repeat: ImageRepeat.repeatY,
+          colorFilter: ColorFilter.mode(
+            Colors.white.withOpacity(0.5),
+            BlendMode.dstATop,
+          ),
+        ),
+      ),
+      child: Scaffold(
+        body: Column(
+          children: [
+            AppBar(
+              leading: const SizedBox.shrink(),
+              title: FittedBox(
+                child: Text(
+                  "Your Favorite Properties",
+                  style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                      ),
+                ),
               ),
             ),
-          ),
-          const FavoritePropertiesListWidgetTablet(),
-        ],
+            const FavoritePropertiesListWidgetTablet(),
+          ],
+        ),
       ),
     );
   }
@@ -91,29 +116,42 @@ class FavoritePropertiesPageDesktop extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-        children: [
-          AppBar(
-            title: Text(
-              "Your Favorite Properties",
-              style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
+    return Container(
+      decoration:  BoxDecoration(
+        image: DecorationImage(
+          image: const AssetImage('assets/images/lbg.png'),
+          repeat: ImageRepeat.repeatY,
+          colorFilter: ColorFilter.mode(
+            Colors.white.withOpacity(0.5),
+            BlendMode.dstATop,
+          ),
+        ),
+      ),
+      child: Scaffold(
+        body: Column(
+          children: [
+            AppBar(
+              leading: const SizedBox.shrink(),
+              title: Text(
+                "Your Favorite Properties",
+                style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                    ),
+              ),
+            ),
+            const Expanded(
+              child: Row(
+                children: [
+                  Expanded(
+                    child: SizedBox(),
                   ),
+                  FavoritePropertiesListWidgetDesktop(),
+                ],
+              ),
             ),
-          ),
-          const Expanded(
-            child: Row(
-              children: [
-                Expanded(
-                  child: SizedBox(),
-                ),
-                FavoritePropertiesListWidgetDesktop(),
-              ],
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

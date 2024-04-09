@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gharmart/features/home_listings/presentation/manager/filter/listing_filter_cubit.dart';
 import 'package:gharmart/features/panel/presentation/pages/panel_page.dart';
 import 'package:gharmart/features/panel/presentation/widgets/home_screen_widgets/my_app_bar.dart';
+import 'package:gharmart/features/profile/presentation/manager/fetch_profile/fetch_profile_cubit.dart';
 import 'package:gharmart/utils/config_file.dart';
 import 'package:gharmart/utils/constants.dart';
 import 'package:gharmart/utils/my_layout_builder.dart';
@@ -23,6 +24,9 @@ class LandingPage extends StatelessWidget {
       providers: [
         BlocProvider.value(
           value: serviceConfig.get<FetchPropertiesCubit>()..fetchProperties(),
+        ),
+        BlocProvider.value(
+          value: serviceConfig.get<FetchProfileCubit>()..fetchProfile(),
         ),
         BlocProvider.value(
           value: serviceConfig.get<ListingFilterCubit>(),
@@ -46,22 +50,27 @@ class LandingPageMobile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: const BoxDecoration(
+      decoration:  BoxDecoration(
         image: DecorationImage(
-            image: AssetImage('assets/images/lbg.png'),
-            opacity: 0.2,
-            fit: BoxFit.fitHeight),
+          image: const AssetImage('assets/images/lbg.png'),
+          repeat: ImageRepeat.repeatY,
+          colorFilter: ColorFilter.mode(
+            Colors.white.withOpacity(0.5),
+            BlendMode.dstATop,
+          ),
+        ),
       ),
       child: Scaffold(
         appBar: AppBar(
+          leading: const SizedBox.shrink(),
           elevation: 2,
-          title: const Text("GharMarket"),
-          centerTitle: true,
+          title: const Text("Gharmarket"),
           titleTextStyle: Theme.of(context).textTheme.titleMedium!.copyWith(
                 color: Theme.of(context).primaryColor,
                 fontWeight: FontWeight.bold,
                 fontSize: 25,
               ),
+          actions: const [MyPopUpMenuButton()],
         ),
         body: SingleChildScrollView(
           child: Column(
@@ -622,7 +631,7 @@ class LandingPageTablet extends StatelessWidget {
       body: Column(
         children: [
           AppBar(
-            title: const Text("GharMarket"),
+            title: const Text("Gharmarket"),
           ),
         ],
       ),
@@ -636,22 +645,27 @@ class LandingPageDesktop extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         image: DecorationImage(
-          image: AssetImage('assets/images/lbg.png'),
-          opacity: 0.3,
+          image: const AssetImage('assets/images/lbg.png'),
+          colorFilter: ColorFilter.mode(
+            Colors.white.withOpacity(0.2),
+            BlendMode.dstATop,
+          ),
         ),
       ),
       child: Scaffold(
         appBar: AppBar(
+          leading: const SizedBox.shrink(),
           elevation: 2,
-          title: const Text("GharMarket"),
+          title: const Text("Gharmarket"),
           centerTitle: true,
           titleTextStyle: Theme.of(context).textTheme.titleMedium!.copyWith(
-            color: Theme.of(context).primaryColor,
-            fontWeight: FontWeight.bold,
-            fontSize: 25,
-          ),
+                color: Theme.of(context).primaryColor,
+                fontWeight: FontWeight.bold,
+                fontSize: 25,
+              ),
+          actions: const [MyPopUpMenuButton()],
         ),
         body: SingleChildScrollView(
           child: Column(

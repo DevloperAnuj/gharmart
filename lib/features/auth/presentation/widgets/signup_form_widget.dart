@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gharmart/features/auth/presentation/manager/sign_up_cubit/sign_up_cubit.dart';
 import 'package:gharmart/utils/constants.dart';
 
+import '../../../profile/presentation/manager/fetch_profile/fetch_profile_cubit.dart';
 import '../manager/auth_toggle_cubit/auth_toggle_cubit.dart';
 import 'my_auth_text_field.dart';
 
@@ -26,6 +27,7 @@ class _SignUpFormWidgetState extends State<SignUpFormWidget> {
   Widget build(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisSize: MainAxisSize.min,
       children: [
         FittedBox(
           fit: BoxFit.scaleDown,
@@ -80,6 +82,10 @@ class _SignUpFormWidgetState extends State<SignUpFormWidget> {
                       message: state.err,
                       color: Colors.red,
                     );
+                  }
+                  if (state is SignUpSuccess) {
+                    context.read<FetchProfileCubit>().fetchProfile();
+                    Navigator.of(context).pop();
                   }
                 },
                 builder: (context, state) {

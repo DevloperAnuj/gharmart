@@ -14,192 +14,97 @@ class MyPropertyCardWidgetDesktop extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-      decoration: BoxDecoration(border: Border.all(color: Colors.grey)),
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-      child: Column(
-        children: [
-          ListTile(
-            tileColor: getTileStatusColour(property.status),
-            onTap: () {
-              context.pushNamed(PropertyDetailsPage.routeName, extra: property);
-            },
-            leading: const Icon(Icons.my_location),
-            titleTextStyle: Theme.of(context).textTheme.titleMedium!.copyWith(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
+    return InkWell(
+      onTap: (){
+        context.pushNamed(PropertyDetailsPage.routeName, extra: property);
+      },
+      child: Card(
+        margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+        color: Colors.white,
+        elevation: 1,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            children: [
+              Expanded(
+                flex: 1,
+                child: Image(
+                  image: NetworkImage(property.picsUrl.first),
+                  fit: BoxFit.cover,
+                  height: 100,
                 ),
-            title: Text(property.title),
-            subtitle: Text(property.address),
-            trailing: const Icon(Icons.remove_red_eye_rounded),
-          ),
-          const Divider(height: 10, thickness: 1),
-          IntrinsicHeight(
-            child: Row(
-              children: [
-                Expanded(
-                  flex: 1,
-                  child: Image.network(
-                    property.picsUrl.first,
-                    fit: BoxFit.cover,
-                    height: 225,
-                  ),
-                ),
-                const VerticalDivider(width: 10, thickness: 1),
-                Expanded(
-                  flex: 2,
+              ),
+              Expanded(
+                flex: 4,
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 20, right: 10, bottom: 10),
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      IntrinsicHeight(
-                        child: Row(
-                          children: [
-                            InfoTile(
-                              title: Text("${property.furnishing} Furnished"),
-                              subtitle: const Text("Furnishing"),
-                              leading: const Icon(Icons.chair),
-                            ),
-                            const VerticalDivider(width: 10, thickness: 1),
-                            InfoTile(
-                              title: Text(property.bhkType),
-                              subtitle: const Text("Apartment Type"),
-                              leading: const Icon(Icons.apartment),
-                            ),
-                            const VerticalDivider(width: 10, thickness: 1),
-                          ],
+                      Text(
+                        property.status == 3
+                            ? " Property Rented Out ."
+                            : " Property is Currently Active .",
+                        style: TextStyle(
+                          backgroundColor:
+                          property.status == 3 ? Colors.red : Colors.green,
+                          fontSize: 10,
+                          color: Colors.white,
                         ),
                       ),
-                      const Divider(height: 10, thickness: 1),
-                      IntrinsicHeight(
-                        child: Row(
-                          children: [
-                            InfoTile(
-                              title: Text(property.prefTene),
-                              subtitle: const Text("Preferred Tenants"),
-                              leading: const Icon(Icons.person),
-                            ),
-                            const VerticalDivider(width: 10, thickness: 1),
-                            InfoTile(
-                              title: Text(property.parking),
-                              subtitle: const Text("Parking"),
-                              leading: const Icon(Icons.local_parking),
-                            ),
-                            const VerticalDivider(width: 10, thickness: 1),
-                          ],
-                        ),
-                      ),
-                      const Divider(height: 10, thickness: 1),
+                      const SizedBox(height: 10),
                       Align(
                         alignment: Alignment.centerLeft,
-                        child: property.status != 3
-                            ? ElevatedButton.icon(
-                                onPressed: () {
-                                  context
-                                      .read<DelistPropertyCubit>()
-                                      .delistCurrentProperty(property.id);
-                                  MyConstants.mySnackBar(context,
-                                      message:
-                                          "Property Sent for Review to Delisted",
-                                      color: Colors.green);
-                                },
-                                icon: const Icon(Icons.delete),
-                                label: const Text(
-                                  "De-list Property",
-                                ),
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: Colors.blueGrey.shade500,
-                                  foregroundColor: Colors.white,
-                                ),
-                              )
-                            : Text(
-                                "De-Listed",
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .titleMedium!
-                                    .copyWith(
-                                      color: Colors.red,
-                                    ),
-                              ),
+                        child: Text(
+                          property.title,
+                          maxLines: 1,
+                          style:
+                          Theme.of(context).textTheme.titleMedium!.copyWith(
+                            color: Theme.of(context).primaryColor,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                          ),
+                        ),
                       ),
-                      // IntrinsicHeight(
-                      //   child: Row(
-                      //     children: [
-                      //       Expanded(
-                      //         flex: 4,
-                      //         child: ElevatedButton.icon(
-                      //           onPressed: () {},
-                      //           icon: const Icon(Icons.info),
-                      //           label: const Text(
-                      //             "De-list Property",
-                      //           ),
-                      //           style: ElevatedButton.styleFrom(
-                      //             backgroundColor: Colors.red,
-                      //             foregroundColor: Colors.white,
-                      //           ),
-                      //         ),
-                      //       ),
-                      //       Expanded(
-                      //         flex: 1,
-                      //         child: IconButton(
-                      //           onPressed: () {},
-                      //           icon: const Icon(
-                      //             Icons.bookmark_add_outlined,
-                      //           ),
-                      //         ),
-                      //       ),
-                      //       Expanded(
-                      //         flex: 1,
-                      //         child: IconButton(
-                      //           onPressed: () {},
-                      //           icon: const Icon(
-                      //             Icons.flag,
-                      //           ),
-                      //         ),
-                      //       ),
-                      //     ],
-                      //   ),
-                      // ),
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          property.title,
+                          maxLines: 1,
+                          style:
+                          Theme.of(context).textTheme.titleMedium!.copyWith(
+                            color: Colors.grey,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14,
+                          ),
+                        ),
+                      ),
+                      const Divider(),
+                      if (property.status == 3)
+                        ElevatedButton(
+                          onPressed: () {},
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Theme.of(context).primaryColor,
+                            foregroundColor: Colors.white,
+                          ),
+                          child: const Text("Re-Activate"),
+                        ),
+                      if (property.status == 0)
+                        ElevatedButton(
+                          onPressed: () {},
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.red,
+                            foregroundColor: Colors.white,
+                          ),
+                          child: const Text("De-Activate"),
+                        ),
                     ],
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
-          const Divider(height: 10, thickness: 1),
-          IntrinsicHeight(
-            child: Row(
-              children: [
-                const VerticalDivider(width: 10, thickness: 1),
-                InfoTile(
-                  leading: const Icon(Icons.currency_rupee),
-                  title: Text(property.propertyType == "Rent"
-                      ? "${property.rentPrice}"
-                      : "${property.sellPrice}"),
-                  subtitle: property.propertyType == "Rent"
-                      ? Text("${property.propertyType}"
-                          "${property.rentNego ? "(Negotiable)" : ""}")
-                      : Text("${property.propertyType}"
-                          "${property.sellNego ? "(Negotiable)" : ""}"),
-                ),
-                const VerticalDivider(width: 10, thickness: 1),
-                InfoTile(
-                  leading: const Icon(Icons.currency_rupee_outlined),
-                  title: Text("${property.deposit}"),
-                  subtitle: const Text("Deposit"),
-                ),
-                const VerticalDivider(width: 10, thickness: 1),
-                InfoTile(
-                  leading: const Icon(Icons.square_foot),
-                  title: Text("${property.area}" " sqft"),
-                  subtitle: const Text("BuiltUp"),
-                ),
-                const VerticalDivider(width: 10, thickness: 1),
-              ],
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }
@@ -270,90 +175,97 @@ class MyPropertyCardWidgetMobile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
-      decoration: BoxDecoration(border: Border.all(color: Colors.grey)),
-      padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-      child: Column(
-        children: [
-          ListTile(
-            tileColor: getTileStatusColour(property.status),
-            onTap: () {
-              context.pushNamed(PropertyDetailsPage.routeName, extra: property);
-            },
-            title: Text(
-              property.title,
-              maxLines: 2,
-              style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
-                  ),
-            ),
-            subtitle: Text(
-              property.address,
-              maxLines: 1,
-              style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                    color: Colors.black,
-                    fontWeight: FontWeight.normal,
-                    fontSize: 15,
-                  ),
-            ),
-            trailing: AddToFavoriteButton(property: property),
-          ),
-          Image.network(
-            property.picsUrl.first,
-            height: 250,
-            fit: BoxFit.cover,
-          ),
-          ListTile(
-            leading: const Icon(Icons.currency_rupee_outlined),
-            title: Text(
-              property.propertyType == "Rent"
-                  ? property.rentPrice.toString()
-                  : property.sellPrice.toString(),
-              style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
-                  ),
-            ),
-            subtitle: Text(
-              "${property.propertyType}"
-              "\n${property.propertyType == "Rent" ? property.rentNego ? "(Negotiable)" : "" : property.sellNego ? "(Negotiable)" : ""}",
-              style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                    color: Colors.black,
-                    fontWeight: FontWeight.normal,
-                    fontSize: 14,
-                  ),
-            ),
-            trailing: property.status != 3
-                ? ElevatedButton.icon(
-                    onPressed: () {
-                      context
-                          .read<DelistPropertyCubit>()
-                          .delistCurrentProperty(property.id);
-                      MyConstants.mySnackBar(context,
-                          message: "Property Sent for Review to Delisted",
-                          color: Colors.green);
-                    },
-                    icon: const Icon(Icons.delete),
-                    label: const Text(
-                      "De-list Property",
-                    ),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.blueGrey.shade500,
-                      foregroundColor: Colors.white,
-                    ),
-                  )
-                : Text(
-                    "De-Listed",
-                    style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                          color: Colors.red,
+    return InkWell(
+      onTap: (){
+        context.pushNamed(PropertyDetailsPage.routeName, extra: property);
+      },
+      child: Card(
+        margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+        color: Colors.white,
+        elevation: 1,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            children: [
+              Expanded(
+                flex: 1,
+                child: Image(
+                  image: NetworkImage(property.picsUrl.first),
+                  fit: BoxFit.cover,
+                  height: 100,
+                ),
+              ),
+              Expanded(
+                flex: 4,
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 20, right: 10, bottom: 10),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Text(
+                        property.status == 3
+                            ? " Property Rented Out ."
+                            : " Property is Currently Active .",
+                        style: TextStyle(
+                          backgroundColor:
+                              property.status == 3 ? Colors.red : Colors.green,
+                          fontSize: 10,
+                          color: Colors.white,
                         ),
+                      ),
+                      const SizedBox(height: 10),
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          property.title,
+                          maxLines: 1,
+                          style:
+                              Theme.of(context).textTheme.titleMedium!.copyWith(
+                                    color: Theme.of(context).primaryColor,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 16,
+                                  ),
+                        ),
+                      ),
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          property.title,
+                          maxLines: 1,
+                          style:
+                              Theme.of(context).textTheme.titleMedium!.copyWith(
+                                    color: Colors.grey,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 14,
+                                  ),
+                        ),
+                      ),
+                      const Divider(),
+                      if (property.status == 3)
+                        ElevatedButton(
+                          onPressed: () {},
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Theme.of(context).primaryColor,
+                            foregroundColor: Colors.white,
+                          ),
+                          child: const Text("Re-Activate"),
+                        ),
+                      if (property.status == 0)
+                        ElevatedButton(
+                          onPressed: () {},
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.red,
+                            foregroundColor: Colors.white,
+                          ),
+                          child: const Text("De-Activate"),
+                        ),
+                    ],
                   ),
+                ),
+              ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }
@@ -366,76 +278,97 @@ class MyPropertyCardWidgetTablet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
-      decoration: BoxDecoration(border: Border.all(color: Colors.grey)),
-      padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-      child: Column(
-        children: [
-          ListTile(
-            tileColor: getTileStatusColour(property.status),
-            onTap: () {
-              context.pushNamed(PropertyDetailsPage.routeName, extra: property);
-            },
-            title: Text(
-              property.title,
-              maxLines: 2,
-              style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
-                  ),
-            ),
-            subtitle: Text(
-              property.address,
-              maxLines: 1,
-              style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                    color: Colors.black,
-                    fontWeight: FontWeight.normal,
-                    fontSize: 15,
-                  ),
-            ),
-            trailing: AddToFavoriteButton(property: property),
-          ),
-          Image.network(
-            property.picsUrl.first,
-            height: 250,
-            fit: BoxFit.cover,
-          ),
-          ListTile(
-            leading: const Icon(Icons.currency_rupee_outlined),
-            title: Text(
-              property.propertyType == "Rent"
-                  ? property.rentPrice.toString()
-                  : property.sellPrice.toString(),
-              style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
-                  ),
-            ),
-            subtitle: Text(
-              "${property.propertyType}"
-              "\n${property.propertyType == "Rent" ? property.rentNego ? "(Negotiable)" : "" : property.sellNego ? "(Negotiable)" : ""}",
-              style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                    color: Colors.black,
-                    fontWeight: FontWeight.normal,
-                    fontSize: 14,
-                  ),
-            ),
-            trailing: ElevatedButton.icon(
-              onPressed: () {},
-              icon: const Icon(Icons.delete),
-              label: const Text(
-                "De-list Property",
+    return InkWell(
+      onTap: (){
+        context.pushNamed(PropertyDetailsPage.routeName, extra: property);
+      },
+      child: Card(
+        margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+        color: Colors.white,
+        elevation: 1,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            children: [
+              Expanded(
+                flex: 1,
+                child: Image(
+                  image: NetworkImage(property.picsUrl.first),
+                  fit: BoxFit.cover,
+                  height: 100,
+                ),
               ),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.blueGrey.shade500,
-                foregroundColor: Colors.white,
+              Expanded(
+                flex: 4,
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 20, right: 10, bottom: 10),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Text(
+                        property.status == 3
+                            ? " Property Rented Out ."
+                            : " Property is Currently Active .",
+                        style: TextStyle(
+                          backgroundColor:
+                          property.status == 3 ? Colors.red : Colors.green,
+                          fontSize: 10,
+                          color: Colors.white,
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          property.title,
+                          maxLines: 1,
+                          style:
+                          Theme.of(context).textTheme.titleMedium!.copyWith(
+                            color: Theme.of(context).primaryColor,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                          ),
+                        ),
+                      ),
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          property.title,
+                          maxLines: 1,
+                          style:
+                          Theme.of(context).textTheme.titleMedium!.copyWith(
+                            color: Colors.grey,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14,
+                          ),
+                        ),
+                      ),
+                      const Divider(),
+                      if (property.status == 3)
+                        ElevatedButton(
+                          onPressed: () {},
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Theme.of(context).primaryColor,
+                            foregroundColor: Colors.white,
+                          ),
+                          child: const Text("Re-Activate"),
+                        ),
+                      if (property.status == 0)
+                        ElevatedButton(
+                          onPressed: () {},
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.red,
+                            foregroundColor: Colors.white,
+                          ),
+                          child: const Text("De-Activate"),
+                        ),
+                    ],
+                  ),
+                ),
               ),
-            ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }

@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gharmart/features/home_listings/presentation/manager/favorite_property/favorite_property_cubit.dart';
+import 'package:gharmart/features/landing_page/presentation/pages/landing_page.dart';
+import 'package:gharmart/features/panel/presentation/sreens/listings_screen.dart';
+import 'package:gharmart/features/panel/presentation/sreens/profile_screen.dart';
+import 'package:gharmart/features/profile/presentation/manager/fetch_profile/fetch_profile_cubit.dart';
+import 'package:gharmart/utils/config_file.dart';
 import 'package:gharmart/utils/constants.dart';
 import 'package:go_router/go_router.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -27,15 +32,17 @@ class MyAppBar extends StatelessWidget {
             return const SizedBox.shrink();
           },
         ),
-        // TextButton.icon(
-        //   label: const Text("Menu"),
-        //   onPressed: () {
-        //     if (toAuthWrap(context)) {
-        //       Scaffold.of(context).openEndDrawer();
-        //     }
-        //   },
-        //   icon: const Icon(Icons.menu),
-        // ),
+        IconButton(
+          onPressed: () {
+            if (toAuthWrap(context)) {
+              context.pushNamed(FavoritePropertiesPage.routeName);
+            }
+          },
+          icon: const Icon(
+            Icons.favorite,
+            color: Colors.red,
+          ),
+        ),
         const MyPopUpMenuButton(),
       ],
     );
@@ -49,82 +56,83 @@ class MyPopUpMenuButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return PopupMenuButton(
-        icon: const Icon(Icons.menu),
-        itemBuilder: (context) {
-          if (toAuthWrap(context)) {
-            return [
-              PopupMenuItem(
-                child: const ListTile(
-                  title: Text("Home"),
-                  leading: Icon(Icons.home),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider.value(
+          value: serviceConfig.get<FetchProfileCubit>()..fetchProfile(),
+        ),
+        BlocProvider(
+          create: (context) => SignInCubit(),
+        ),
+      ],
+      child: PopupMenuButton(
+          icon: const Icon(Icons.menu),
+          itemBuilder: (context) {
+            if (toAuthWrap(context)) {
+              return [
+                PopupMenuItem(
+                  child: const ListTile(
+                    title: Text("Profile"),
+                    leading: Icon(Icons.person),
+                  ),
+                  onTap: () {
+                    context.pushNamed(ProfilePage.routeName);
+                  },
                 ),
-                onTap: () {
-                  context.read<PanelLogicCubit>().toggleScreen(0);
-                },
-              ),
-              PopupMenuItem(
-                child: const ListTile(
-                  title: Text("Profile"),
-                  leading: Icon(Icons.person),
+                PopupMenuItem(
+                  child: const ListTile(
+                    title: Text("My Connections"),
+                    leading: Icon(Icons.handshake),
+                  ),
+                  onTap: () {
+                    context.pushNamed(ConnectionsPropertiesPage.routeName);
+                  },
                 ),
-                onTap: () {
-                  context.read<PanelLogicCubit>().toggleScreen(2);
-                },
-              ),
-              PopupMenuItem(
-                child: const ListTile(
-                  title: Text("My Connections"),
-                  leading: Icon(Icons.handshake),
+                PopupMenuItem(
+                  child: const ListTile(
+                    title: Text("My Plans"),
+                    leading: Icon(Icons.attach_money_outlined),
+                  ),
+                  onTap: () {
+                    context.pushNamed(PurchaseConnectionPage.routeName);
+                  },
                 ),
-                onTap: () {
-                  context.pushNamed(ConnectionsPropertiesPage.routeName);
-                },
-              ),
-              PopupMenuItem(
-                child: const ListTile(
-                  title: Text("My Plans"),
-                  leading: Icon(Icons.attach_money_outlined),
+                PopupMenuItem(
+                  child: const ListTile(
+                    title: Text("My Listings"),
+                    leading: Icon(Icons.list),
+                  ),
+                  onTap: () {
+                    context.pushNamed(MyPropertiesListingPage.routeName);
+                  },
                 ),
-                onTap: () {
-                  context.pushNamed(PurchaseConnectionPage.routeName);
-                },
-              ),
-              PopupMenuItem(
-                child: const ListTile(
-                  title: Text("My Listings"),
-                  leading: Icon(Icons.list),
+                PopupMenuItem(
+                  child: const ListTile(
+                    title: Text("Favorites"),
+                    leading: Icon(Icons.favorite),
+                  ),
+                  onTap: () {
+                    context.pushNamed(FavoritePropertiesPage.routeName);
+                  },
                 ),
-                onTap: () {
-                  context.read<PanelLogicCubit>().toggleScreen(1);
-                },
-              ),
-              PopupMenuItem(
-                child: const ListTile(
-                  title: Text("Favorites"),
-                  leading: Icon(Icons.favorite),
+                PopupMenuItem(
+                  child: const ListTile(
+                    title: Text("Log Out"),
+                    leading: Icon(Icons.logout_outlined),
+                  ),
+                  onTap: () {
+                    context.read<SignInCubit>().logOut();
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => const LandingPage(),
+                      ),
+                    );
+                  },
                 ),
-                onTap: () {
-                  context.pushNamed(FavoritePropertiesPage.routeName);
-                },
-              ),
-              PopupMenuItem(
-                child: const ListTile(
-                  title: Text("Log Out"),
-                  leading: Icon(Icons.logout_outlined),
-                ),
-                onTap: () {
-                  context.read<SignInCubit>().logOut();
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => const AuthWrapperPage(),
-                    ),
-                  );
-                },
-              ),
-            ];
-          }
-          return [];
-        });
+              ];
+            }
+            return [];
+          }),
+    );
   }
 }

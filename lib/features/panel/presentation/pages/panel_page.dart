@@ -88,13 +88,25 @@ class MobilePanelPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      endDrawer: SideBar(),
-      body: Column(
-        children: [
-          MyAppBar(),
-          MobilePanelSection(),
-        ],
+    return Container(
+      decoration:  BoxDecoration(
+        image: DecorationImage(
+          image: const AssetImage('assets/images/lbg.png'),
+          repeat: ImageRepeat.repeatY,
+          colorFilter: ColorFilter.mode(
+            Colors.white.withOpacity(0.5),
+            BlendMode.dstATop,
+          ),
+        ),
+      ),
+      child: const Scaffold(
+        endDrawer: SideBar(),
+        body: Column(
+          children: [
+            MyAppBar(),
+            MobilePanelSection(),
+          ],
+        ),
       ),
     );
   }
@@ -105,13 +117,25 @@ class TabletPanelPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      endDrawer: SideBar(),
-      body: Column(
-        children: [
-          MyAppBar(),
-          TabletPanelSection(),
-        ],
+    return Container(
+      decoration:  BoxDecoration(
+        image: DecorationImage(
+          image: const AssetImage('assets/images/lbg.png'),
+          repeat: ImageRepeat.repeatY,
+          colorFilter: ColorFilter.mode(
+            Colors.white.withOpacity(0.5),
+            BlendMode.dstATop,
+          ),
+        ),
+      ),
+      child: const Scaffold(
+        endDrawer: SideBar(),
+        body: Column(
+          children: [
+            MyAppBar(),
+            TabletPanelSection(),
+          ],
+        ),
       ),
     );
   }
@@ -122,17 +146,29 @@ class DesktopPanelPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      endDrawer: const SideBar(),
-      body: Builder(
-        builder: (context) {
-          return const Column(
-            children: [
-              MyAppBar(),
-              DesktopPanelSection(),
-            ],
-          );
-        },
+    return Container(
+      decoration:  BoxDecoration(
+        image: DecorationImage(
+          image: const AssetImage('assets/images/lbg.png'),
+          repeat: ImageRepeat.repeatY,
+          colorFilter: ColorFilter.mode(
+            Colors.white.withOpacity(0.5),
+            BlendMode.dstATop,
+          ),
+        ),
+      ),
+      child: Scaffold(
+        endDrawer: const SideBar(),
+        body: Builder(
+          builder: (context) {
+            return const Column(
+              children: [
+                MyAppBar(),
+                DesktopPanelSection(),
+              ],
+            );
+          },
+        ),
       ),
     );
   }

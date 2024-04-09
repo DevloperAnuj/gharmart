@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gharmart/features/auth/presentation/pages/auth_page.dart';
+import 'package:gharmart/features/landing_page/presentation/pages/landing_page.dart';
 import 'package:gharmart/features/panel/presentation/pages/panel_page.dart';
 import 'package:gharmart/utils/config_file.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -16,7 +17,7 @@ class AuthWrapperPage extends StatelessWidget {
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           if (snapshot.data!.session == null) {
-            return const AuthPage();
+            return const LandingPage();
           } else {
             return const PanelPage();
           }

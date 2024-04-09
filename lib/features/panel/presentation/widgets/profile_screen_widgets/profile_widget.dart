@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gharmart/features/auth/presentation/manager/sign_in_cubit/sign_in_cubit.dart';
@@ -35,117 +36,177 @@ class ProfileWidgetDesktop extends StatelessWidget {
               return const CircularProgressIndicator();
             }
             if (state is FetchProfileSuccess) {
-              return Column(
-                children: [
-                  const Divider(),
-                  Text(
-                    "Welcome",
-                    style: Theme.of(context).textTheme.titleMedium!.copyWith(
+              return Center(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    const Divider(),
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        "Edit Profile",
+                        style: Theme.of(context).textTheme.titleMedium!.copyWith(
                           color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 25,
+                          fontWeight: FontWeight.normal,
+                          fontSize: 16,
                         ),
-                  ),
-                  Text(
-                    state.profileEntity.name,
-                    style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                          color: Theme.of(context).primaryColor,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 40,
-                        ),
-                  ),
-                  const SizedBox(height: 15),
-                  SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton.icon(
-                      onPressed: () {
-                        context.pushNamed(ConnectionsPropertiesPage.routeName);
-                      },
-                      label: const Text("My Connections"),
-                      icon: const Icon(Icons.handshake),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Theme.of(context).primaryColor,
-                        foregroundColor: Colors.white,
                       ),
                     ),
-                  ),
-                  const SizedBox(height: 15),
-                  SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton.icon(
-                      onPressed: () {},
-                      label: const Text("Purchase plans"),
-                      icon: const Icon(Icons.monetization_on_rounded),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Theme.of(context).primaryColor,
-                        foregroundColor: Colors.white,
+                    ListTile(
+                      leading: CircleAvatar(),
+                      title: Text(state.profileEntity.name),
+                      titleTextStyle:
+                      Theme.of(context).textTheme.titleMedium!.copyWith(
+                        color: Theme.of(context).primaryColor,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 22,
+                      ),
+                      subtitle: const Text("Membership Level"),
+                      trailing: IconButton(
+                        onPressed: () {},
+                        icon: const Icon(Icons.edit),
                       ),
                     ),
-                  ),
-                  const SizedBox(height: 15),
-                  SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton.icon(
-                      onPressed: () {
-                        context.pushNamed(FavoritePropertiesPage.routeName);
-                      },
-                      label: const Text("Shortlisted"),
-                      icon: const Icon(Icons.bookmark_add),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Theme.of(context).primaryColor,
-                        foregroundColor: Colors.white,
+                    ListTile(
+                      title: const Text("Phone No"),
+                      subtitle: Text("91 - ${state.profileEntity.phone}"),
+                      subtitleTextStyle:
+                      Theme.of(context).textTheme.titleMedium!.copyWith(
+                        color: Theme.of(context).primaryColor,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 22,
+                      ),
+                      trailing: IconButton(
+                        onPressed: () {},
+                        icon: const Icon(Icons.edit),
                       ),
                     ),
-                  ),
-                  const SizedBox(height: 15),
-                  SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton.icon(
-                      onPressed: () {
-                        context.pushNamed(EditProfilePage.routeName);
-                      },
-                      label: const Text("Edit Profile"),
-                      icon: const Icon(Icons.edit),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Theme.of(context).primaryColor,
-                        foregroundColor: Colors.white,
+                    ListTile(
+                      title: const Text("Email"),
+                      subtitle: Text(state.profileEntity.email),
+                      subtitleTextStyle:
+                      Theme.of(context).textTheme.titleMedium!.copyWith(
+                        color: Theme.of(context).primaryColor,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 22,
                       ),
                     ),
-                  ),
-                  const SizedBox(height: 15),
-                  SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton.icon(
-                      onPressed: () {},
-                      label: const Text("Change Password"),
-                      icon: const Icon(Icons.password),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Theme.of(context).primaryColor,
-                        foregroundColor: Colors.white,
+                    const SizedBox(height: 40),
+                    Text(
+                      "Get Update On WhatsApp",
+                      style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                        color: Colors.grey,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18,
                       ),
                     ),
-                  ),
-                  const SizedBox(height: 15),
-                  SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton.icon(
-                      onPressed: () {
-                        context.read<SignInCubit>().logOut();
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (context) => const AuthWrapperPage(),
-                          ),
-                        );
-                      },
-                      label: const Text("Sign Out"),
-                      icon: const Icon(Icons.logout_outlined),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.red,
-                        foregroundColor: Colors.white,
-                      ),
+                    CupertinoSwitch(
+                      value: true,
+                      onChanged: (value) {},
                     ),
-                  ),
-                ],
+                    // Text(
+                    //   state.profileEntity.name,
+                    //   style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                    //         color: Theme.of(context).primaryColor,
+                    //         fontWeight: FontWeight.bold,
+                    //         fontSize: 40,
+                    //       ),
+                    // ),
+                    // const SizedBox(height: 15),
+                    // SizedBox(
+                    //   width: double.infinity,
+                    //   child: ElevatedButton.icon(
+                    //     onPressed: () {
+                    //       context.pushNamed(ConnectionsPropertiesPage.routeName);
+                    //     },
+                    //     label: const Text("My Connections"),
+                    //     icon: const Icon(Icons.handshake),
+                    //     style: ElevatedButton.styleFrom(
+                    //       backgroundColor: Theme.of(context).primaryColor,
+                    //       foregroundColor: Colors.white,
+                    //     ),
+                    //   ),
+                    // ),
+                    // const SizedBox(height: 15),
+                    // SizedBox(
+                    //   width: double.infinity,
+                    //   child: ElevatedButton.icon(
+                    //     onPressed: () {
+                    //       context.pushNamed(PurchaseConnectionPage.routeName);
+                    //     },
+                    //     label: const Text("Purchase Plans"),
+                    //     icon: const Icon(Icons.monetization_on_rounded),
+                    //     style: ElevatedButton.styleFrom(
+                    //       backgroundColor: Theme.of(context).primaryColor,
+                    //       foregroundColor: Colors.white,
+                    //     ),
+                    //   ),
+                    // ),
+                    // const SizedBox(height: 15),
+                    // SizedBox(
+                    //   width: double.infinity,
+                    //   child: ElevatedButton.icon(
+                    //     onPressed: () {
+                    //       context.pushNamed(FavoritePropertiesPage.routeName);
+                    //     },
+                    //     label: const Text("Shortlisted"),
+                    //     icon: const Icon(Icons.bookmark_add),
+                    //     style: ElevatedButton.styleFrom(
+                    //       backgroundColor: Theme.of(context).primaryColor,
+                    //       foregroundColor: Colors.white,
+                    //     ),
+                    //   ),
+                    // ),
+                    // const SizedBox(height: 15),
+                    // SizedBox(
+                    //   width: double.infinity,
+                    //   child: ElevatedButton.icon(
+                    //     onPressed: () {
+                    //       context.pushNamed(EditProfilePage.routeName);
+                    //     },
+                    //     label: const Text("Edit Profile"),
+                    //     icon: const Icon(Icons.edit),
+                    //     style: ElevatedButton.styleFrom(
+                    //       backgroundColor: Theme.of(context).primaryColor,
+                    //       foregroundColor: Colors.white,
+                    //     ),
+                    //   ),
+                    // ),
+                    // // const SizedBox(height: 15),
+                    // // SizedBox(
+                    // //   width: double.infinity,
+                    // //   child: ElevatedButton.icon(
+                    // //     onPressed: () {},
+                    // //     label: const Text("Change Password"),
+                    // //     icon: const Icon(Icons.password),
+                    // //     style: ElevatedButton.styleFrom(
+                    // //       backgroundColor: Theme.of(context).primaryColor,
+                    // //       foregroundColor: Colors.white,
+                    // //     ),
+                    // //   ),
+                    // // ),
+                    // const SizedBox(height: 15),
+                    // SizedBox(
+                    //   width: double.infinity,
+                    //   child: ElevatedButton.icon(
+                    //     onPressed: () {
+                    //       context.read<SignInCubit>().logOut();
+                    //       Navigator.of(context).push(
+                    //         MaterialPageRoute(
+                    //           builder: (context) => const AuthWrapperPage(),
+                    //         ),
+                    //       );
+                    //     },
+                    //     label: const Text("Sign Out"),
+                    //     icon: const Icon(Icons.logout_outlined),
+                    //     style: ElevatedButton.styleFrom(
+                    //       backgroundColor: Colors.red,
+                    //       foregroundColor: Colors.white,
+                    //     ),
+                    //   ),
+                    // ),
+                  ],
+                ),
               );
             }
             if (state is FetchProfileFailed) {
@@ -175,119 +236,177 @@ class ProfileWidgetMobile extends StatelessWidget {
             return const CircularProgressIndicator();
           }
           if (state is FetchProfileSuccess) {
-            return Column(
-              children: [
-                const Divider(),
-                Text(
-                  "Welcome",
-                  style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 25,
-                      ),
-                ),
-                Text(
-                  state.profileEntity.name,
-                  style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                        color: Theme.of(context).primaryColor,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 40,
-                      ),
-                ),
-                const SizedBox(height: 15),
-                SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton.icon(
-                    onPressed: () {
-                      context.pushNamed(ConnectionsPropertiesPage.routeName);
-                    },
-                    label: const Text("My Connections"),
-                    icon: const Icon(Icons.handshake),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Theme.of(context).primaryColor,
-                      foregroundColor: Colors.white,
+            return Center(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const Divider(),
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      "Edit Profile",
+                      style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                            color: Colors.black,
+                            fontWeight: FontWeight.normal,
+                            fontSize: 16,
+                          ),
                     ),
                   ),
-                ),
-                const SizedBox(height: 15),
-                SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton.icon(
-                    onPressed: () {
-                      context.pushNamed(PurchaseConnectionPage.routeName);
-                    },
-                    label: const Text("Purchase Plans"),
-                    icon: const Icon(Icons.monetization_on_rounded),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Theme.of(context).primaryColor,
-                      foregroundColor: Colors.white,
+                  ListTile(
+                    leading: CircleAvatar(),
+                    title: Text(state.profileEntity.name),
+                    titleTextStyle:
+                        Theme.of(context).textTheme.titleMedium!.copyWith(
+                              color: Theme.of(context).primaryColor,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 22,
+                            ),
+                    subtitle: const Text("Membership Level"),
+                    trailing: IconButton(
+                      onPressed: () {},
+                      icon: const Icon(Icons.edit),
                     ),
                   ),
-                ),
-                const SizedBox(height: 15),
-                SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton.icon(
-                    onPressed: () {
-                      context.pushNamed(FavoritePropertiesPage.routeName);
-                    },
-                    label: const Text("Shortlisted"),
-                    icon: const Icon(Icons.bookmark_add),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Theme.of(context).primaryColor,
-                      foregroundColor: Colors.white,
+                  ListTile(
+                    title: const Text("Phone No"),
+                    subtitle: Text("91 - ${state.profileEntity.phone}"),
+                    subtitleTextStyle:
+                        Theme.of(context).textTheme.titleMedium!.copyWith(
+                              color: Theme.of(context).primaryColor,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 22,
+                            ),
+                    trailing: IconButton(
+                      onPressed: () {},
+                      icon: const Icon(Icons.edit),
                     ),
                   ),
-                ),
-                const SizedBox(height: 15),
-                SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton.icon(
-                    onPressed: () {
-                      context.pushNamed(EditProfilePage.routeName);
-                    },
-                    label: const Text("Edit Profile"),
-                    icon: const Icon(Icons.edit),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Theme.of(context).primaryColor,
-                      foregroundColor: Colors.white,
-                    ),
+                  ListTile(
+                    title: const Text("Email"),
+                    subtitle: Text(state.profileEntity.email),
+                    subtitleTextStyle:
+                        Theme.of(context).textTheme.titleMedium!.copyWith(
+                              color: Theme.of(context).primaryColor,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 22,
+                            ),
                   ),
-                ),
-                // const SizedBox(height: 15),
-                // SizedBox(
-                //   width: double.infinity,
-                //   child: ElevatedButton.icon(
-                //     onPressed: () {},
-                //     label: const Text("Change Password"),
-                //     icon: const Icon(Icons.password),
-                //     style: ElevatedButton.styleFrom(
-                //       backgroundColor: Theme.of(context).primaryColor,
-                //       foregroundColor: Colors.white,
-                //     ),
-                //   ),
-                // ),
-                const SizedBox(height: 15),
-                SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton.icon(
-                    onPressed: () {
-                      context.read<SignInCubit>().logOut();
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => const AuthWrapperPage(),
+                  const SizedBox(height: 40),
+                  Text(
+                    "Get Update On WhatsApp",
+                    style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                          color: Colors.grey,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18,
                         ),
-                      );
-                    },
-                    label: const Text("Sign Out"),
-                    icon: const Icon(Icons.logout_outlined),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.red,
-                      foregroundColor: Colors.white,
-                    ),
                   ),
-                ),
-              ],
+                  CupertinoSwitch(
+                    value: true,
+                    onChanged: (value) {},
+                  ),
+                  // Text(
+                  //   state.profileEntity.name,
+                  //   style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                  //         color: Theme.of(context).primaryColor,
+                  //         fontWeight: FontWeight.bold,
+                  //         fontSize: 40,
+                  //       ),
+                  // ),
+                  // const SizedBox(height: 15),
+                  // SizedBox(
+                  //   width: double.infinity,
+                  //   child: ElevatedButton.icon(
+                  //     onPressed: () {
+                  //       context.pushNamed(ConnectionsPropertiesPage.routeName);
+                  //     },
+                  //     label: const Text("My Connections"),
+                  //     icon: const Icon(Icons.handshake),
+                  //     style: ElevatedButton.styleFrom(
+                  //       backgroundColor: Theme.of(context).primaryColor,
+                  //       foregroundColor: Colors.white,
+                  //     ),
+                  //   ),
+                  // ),
+                  // const SizedBox(height: 15),
+                  // SizedBox(
+                  //   width: double.infinity,
+                  //   child: ElevatedButton.icon(
+                  //     onPressed: () {
+                  //       context.pushNamed(PurchaseConnectionPage.routeName);
+                  //     },
+                  //     label: const Text("Purchase Plans"),
+                  //     icon: const Icon(Icons.monetization_on_rounded),
+                  //     style: ElevatedButton.styleFrom(
+                  //       backgroundColor: Theme.of(context).primaryColor,
+                  //       foregroundColor: Colors.white,
+                  //     ),
+                  //   ),
+                  // ),
+                  // const SizedBox(height: 15),
+                  // SizedBox(
+                  //   width: double.infinity,
+                  //   child: ElevatedButton.icon(
+                  //     onPressed: () {
+                  //       context.pushNamed(FavoritePropertiesPage.routeName);
+                  //     },
+                  //     label: const Text("Shortlisted"),
+                  //     icon: const Icon(Icons.bookmark_add),
+                  //     style: ElevatedButton.styleFrom(
+                  //       backgroundColor: Theme.of(context).primaryColor,
+                  //       foregroundColor: Colors.white,
+                  //     ),
+                  //   ),
+                  // ),
+                  // const SizedBox(height: 15),
+                  // SizedBox(
+                  //   width: double.infinity,
+                  //   child: ElevatedButton.icon(
+                  //     onPressed: () {
+                  //       context.pushNamed(EditProfilePage.routeName);
+                  //     },
+                  //     label: const Text("Edit Profile"),
+                  //     icon: const Icon(Icons.edit),
+                  //     style: ElevatedButton.styleFrom(
+                  //       backgroundColor: Theme.of(context).primaryColor,
+                  //       foregroundColor: Colors.white,
+                  //     ),
+                  //   ),
+                  // ),
+                  // // const SizedBox(height: 15),
+                  // // SizedBox(
+                  // //   width: double.infinity,
+                  // //   child: ElevatedButton.icon(
+                  // //     onPressed: () {},
+                  // //     label: const Text("Change Password"),
+                  // //     icon: const Icon(Icons.password),
+                  // //     style: ElevatedButton.styleFrom(
+                  // //       backgroundColor: Theme.of(context).primaryColor,
+                  // //       foregroundColor: Colors.white,
+                  // //     ),
+                  // //   ),
+                  // // ),
+                  // const SizedBox(height: 15),
+                  // SizedBox(
+                  //   width: double.infinity,
+                  //   child: ElevatedButton.icon(
+                  //     onPressed: () {
+                  //       context.read<SignInCubit>().logOut();
+                  //       Navigator.of(context).push(
+                  //         MaterialPageRoute(
+                  //           builder: (context) => const AuthWrapperPage(),
+                  //         ),
+                  //       );
+                  //     },
+                  //     label: const Text("Sign Out"),
+                  //     icon: const Icon(Icons.logout_outlined),
+                  //     style: ElevatedButton.styleFrom(
+                  //       backgroundColor: Colors.red,
+                  //       foregroundColor: Colors.white,
+                  //     ),
+                  //   ),
+                  // ),
+                ],
+              ),
             );
           }
           if (state is FetchProfileFailed) {

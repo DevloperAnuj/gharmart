@@ -20,10 +20,12 @@ class ConnectionsPropertiesPage extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider.value(
-          value: serviceConfig.get<FetchConnectionsCubit>(),
+          value: serviceConfig.get<FetchConnectionsCubit>()
+            ..fetchConnectionsProperties(),
         ),
         BlocProvider.value(
-          value: serviceConfig.get<FavoritePropertyCubit>(),
+          value: serviceConfig.get<FavoritePropertyCubit>()
+            ..fetchFavoriteProperties(),
         ),
       ],
       child: const MyBuilder(
@@ -40,23 +42,35 @@ class ConnectionPropertiesPageMobile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-        children: [
-          AppBar(
-            leading: const SizedBox.shrink(),
-            title: FittedBox(
-              child: Text(
-                "Your Connected Properties",
-                style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                    ),
+    return Container(
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          image: const AssetImage('assets/images/lbg.png'),
+          repeat: ImageRepeat.repeatY,
+          colorFilter: ColorFilter.mode(
+            Colors.white.withOpacity(0.5),
+            BlendMode.dstATop,
+          ),
+        ),
+      ),
+      child: Scaffold(
+        body: Column(
+          children: [
+            AppBar(
+              leading: const SizedBox.shrink(),
+              title: FittedBox(
+                child: Text(
+                  "Your Connected Properties",
+                  style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                      ),
+                ),
               ),
             ),
-          ),
-          const ConnectionPropertiesListWidgetMobile(),
-        ],
+            const ConnectionPropertiesListWidgetMobile(),
+          ],
+        ),
       ),
     );
   }
@@ -67,23 +81,35 @@ class ConnectionPropertiesPageTablet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-        children: [
-          AppBar(
-            leading: const SizedBox.shrink(),
-            title: FittedBox(
-              child: Text(
-                "Your Connected Properties",
-                style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                    ),
+    return Container(
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          image: const AssetImage('assets/images/lbg.png'),
+          repeat: ImageRepeat.repeatY,
+          colorFilter: ColorFilter.mode(
+            Colors.white.withOpacity(0.5),
+            BlendMode.dstATop,
+          ),
+        ),
+      ),
+      child: Scaffold(
+        body: Column(
+          children: [
+            AppBar(
+              leading: const SizedBox.shrink(),
+              title: FittedBox(
+                child: Text(
+                  "Your Connected Properties",
+                  style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                      ),
+                ),
               ),
             ),
-          ),
-          const ConnectionPropertiesListWidgetTablet(),
-        ],
+            const ConnectionPropertiesListWidgetTablet(),
+          ],
+        ),
       ),
     );
   }
@@ -94,30 +120,42 @@ class ConnectionPropertiesPageDesktop extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-        children: [
-          AppBar(
-            leading: const SizedBox.shrink(),
-            title: Text(
-              "Your Connected Properties",
-              style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
+    return Container(
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          image: const AssetImage('assets/images/lbg.png'),
+          repeat: ImageRepeat.repeatY,
+          colorFilter: ColorFilter.mode(
+            Colors.white.withOpacity(0.5),
+            BlendMode.dstATop,
+          ),
+        ),
+      ),
+      child: Scaffold(
+        body: Column(
+          children: [
+            AppBar(
+              leading: const SizedBox.shrink(),
+              title: Text(
+                "Your Connected Properties",
+                style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                    ),
+              ),
+            ),
+            const Expanded(
+              child: Row(
+                children: [
+                  Expanded(
+                    child: SizedBox(),
                   ),
+                  ConnectionPropertiesListWidgetDesktop(),
+                ],
+              ),
             ),
-          ),
-          const Expanded(
-            child: Row(
-              children: [
-                Expanded(
-                  child: SizedBox(),
-                ),
-                ConnectionPropertiesListWidgetDesktop(),
-              ],
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gharmart/features/auth/presentation/manager/auth_toggle_cubit/auth_toggle_cubit.dart';
 import 'package:gharmart/features/auth/presentation/manager/sign_in_cubit/sign_in_cubit.dart';
 import 'package:gharmart/features/auth/presentation/manager/sign_up_cubit/sign_up_cubit.dart';
+import 'package:gharmart/features/panel/presentation/sreens/profile_screen.dart';
 import 'package:gharmart/features/profile/presentation/manager/fetch_profile/fetch_profile_cubit.dart';
 import 'package:gharmart/utils/config_file.dart';
 import 'package:gharmart/utils/my_layout_builder.dart';
@@ -28,6 +29,9 @@ class AuthPage extends StatelessWidget {
         BlocProvider.value(
           value: serviceConfig.get<SignInCubit>(),
         ),
+        BlocProvider.value(
+          value: serviceConfig.get<FetchProfileCubit>(),
+        ),
       ],
       child: const MyBuilder(
         mobileView: AuthPageMobile(),
@@ -43,15 +47,17 @@ class AuthPageMobile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(20.0),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 100),
+      child: Material(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(30),
         child: Container(
-          padding: const EdgeInsets.all(20),
-          decoration: BoxDecoration(
-            border: Border.all(color: Colors.black),
-            borderRadius: BorderRadius.circular(20),
-          ),
+          margin: const EdgeInsets.all(20),
+          // decoration: BoxDecoration(
+          //   border: Border.all(color: Colors.black),
+          //   borderRadius: BorderRadius.circular(20),
+          // ),
           child: SingleChildScrollView(
             child: BlocBuilder<AuthToggleCubit, bool>(
               builder: (context, state) {
@@ -70,29 +76,33 @@ class AuthPageMobile extends StatelessWidget {
 }
 
 class AuthPageTablet extends StatelessWidget {
-
   const AuthPageTablet({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Container(
-          padding: const EdgeInsets.all(20),
-          decoration: BoxDecoration(
-            border: Border.all(color: Colors.black),
-            borderRadius: BorderRadius.circular(20),
-          ),
-          child: SingleChildScrollView(
-            child: BlocBuilder<AuthToggleCubit, bool>(
-              builder: (context, state) {
-                if (state) {
-                  return const SignUpFormWidget();
-                } else {
-                  return const LoginFormWidget();
-                }
-              },
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 100),
+      child: Material(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(30),
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Container(
+            padding: const EdgeInsets.all(20),
+            // decoration: BoxDecoration(
+            //   border: Border.all(color: Colors.black),
+            //   borderRadius: BorderRadius.circular(20),
+            // ),
+            child: SingleChildScrollView(
+              child: BlocBuilder<AuthToggleCubit, bool>(
+                builder: (context, state) {
+                  if (state) {
+                    return const SignUpFormWidget();
+                  } else {
+                    return const LoginFormWidget();
+                  }
+                },
+              ),
             ),
           ),
         ),
@@ -106,38 +116,43 @@ class AuthPageDesktop extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Row(
-        children: [
-          Expanded(
-            flex: 3,
-            child: Container(),
-          ),
-          Expanded(
-            flex: 2,
-            child: Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Container(
-                padding: const EdgeInsets.all(20),
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.black),
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: SingleChildScrollView(
-                  child: BlocBuilder<AuthToggleCubit, bool>(
-                    builder: (context, state) {
-                      if (state) {
-                        return const SignUpFormWidget();
-                      } else {
-                        return const LoginFormWidget();
-                      }
-                    },
+    return Padding(
+      padding: const EdgeInsets.all(40.0),
+      child: Material(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(30),
+        child: Row(
+          children: [
+            Expanded(
+              flex: 3,
+              child: Container(),
+            ),
+            Expanded(
+              flex: 2,
+              child: Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Container(
+                  padding: const EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.black),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: SingleChildScrollView(
+                    child: BlocBuilder<AuthToggleCubit, bool>(
+                      builder: (context, state) {
+                        if (state) {
+                          return const SignUpFormWidget();
+                        } else {
+                          return const LoginFormWidget();
+                        }
+                      },
+                    ),
                   ),
                 ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

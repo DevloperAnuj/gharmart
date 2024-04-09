@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_social_button/flutter_social_button.dart';
+import 'package:gharmart/features/auth/presentation/pages/auth_page.dart';
 import 'package:gharmart/features/auth/presentation/pages/auth_wrapper_page.dart';
 import 'package:gharmart/features/profile/presentation/manager/fetch_connections/fetch_connections_cubit.dart';
 import 'package:go_router/go_router.dart';
@@ -138,10 +139,12 @@ void showOwnerTile(BuildContext context, PropertyEntity property) {
 bool toAuthWrap(BuildContext context) {
   final supabase = serviceConfig.get<SupabaseClient>();
   if (supabase.auth.currentUser == null) {
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (context) => const AuthWrapperPage(),
-      ),
+    showDialog<void>(
+      context: context,
+      // false = user must tap button, true = tap outside dialog
+      builder: (BuildContext dialogContext) {
+        return const AuthPage();
+      },
     );
     return false;
   } else {

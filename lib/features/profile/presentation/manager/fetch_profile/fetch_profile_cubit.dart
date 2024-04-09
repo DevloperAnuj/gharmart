@@ -19,6 +19,7 @@ class FetchProfileCubit extends Cubit<FetchProfileState> {
 
   void fetchProfile() async {
     if (client.auth.currentUser == null) {
+      emit(FetchProfileInitial());
       return;
     }
     try {

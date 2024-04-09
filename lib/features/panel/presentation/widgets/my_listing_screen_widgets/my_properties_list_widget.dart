@@ -73,24 +73,22 @@ class MyPropertiesListWidgetTablet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      flex: 3,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-        child: BlocBuilder<GetUserPropertiesCubit, GetUserPropertiesState>(
-          builder: (context, state) {
-            return SizedBox(
-              child: ListView.builder(
-                itemCount: state.properties.length,
-                itemBuilder: (c, i) {
-                  return MyPropertyCardWidgetTablet(
-                    property: state.properties[i],
-                  );
-                },
-              ),
-            );
-          },
-        ),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+      child: BlocBuilder<GetUserPropertiesCubit, GetUserPropertiesState>(
+        builder: (context, state) {
+          return SizedBox(
+            child: ListView.builder(
+              shrinkWrap: true,
+              itemCount: state.properties.length,
+              itemBuilder: (c, i) {
+                return MyPropertyCardWidgetTablet(
+                  property: state.properties[i],
+                );
+              },
+            ),
+          );
+        },
       ),
     );
   }

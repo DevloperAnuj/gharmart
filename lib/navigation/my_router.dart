@@ -3,6 +3,8 @@ import 'package:gharmart/features/auth/presentation/pages/auth_wrapper_page.dart
 import 'package:gharmart/features/home_listings/domain/entities/property_entity.dart';
 import 'package:gharmart/features/home_listings/presentation/pages/favorite_properties_page.dart';
 import 'package:gharmart/features/landing_page/presentation/pages/landing_page.dart';
+import 'package:gharmart/features/panel/presentation/sreens/listings_screen.dart';
+import 'package:gharmart/features/panel/presentation/sreens/profile_screen.dart';
 import 'package:gharmart/features/profile/presentation/pages/connections_property_page.dart';
 import 'package:gharmart/features/profile/presentation/pages/purchase_connections_page.dart';
 import 'package:gharmart/features/properties/presentation/pages/add_property_page.dart';
@@ -34,6 +36,16 @@ class MyRouter {
         path: PanelPage.routeName,
         name: PanelPage.routeName,
         builder: (context, state) => const PanelPage(),
+      ),
+      GoRoute(
+        path: ProfilePage.routeName,
+        name: ProfilePage.routeName,
+        builder: (context, state) => const ProfilePage(),
+      ),
+      GoRoute(
+        path: MyPropertiesListingPage.routeName,
+        name: MyPropertiesListingPage.routeName,
+        builder: (context, state) => const MyPropertiesListingPage(),
       ),
       GoRoute(
         path: PropertyDetailsPage.routeName,

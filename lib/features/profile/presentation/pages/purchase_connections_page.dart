@@ -19,17 +19,29 @@ class PurchaseConnectionPage extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider.value(
-          value: serviceConfig.get<FetchProfileCubit>(),
+          value: serviceConfig.get<FetchProfileCubit>()..fetchProfile(),
         ),
         BlocProvider(
           create: (context) => serviceConfig.get<ConnectionManagementCubit>(),
         ),
       ],
-      child: const Scaffold(
-        body: MyBuilder(
-          mobileView: PurchaseConnectionPageMobile(),
-          tabletView: PurchaseConnectionPageTablet(),
-          deskView: PurchaseConnectionPageDesktop(),
+      child: Container(
+        decoration:  BoxDecoration(
+          image: DecorationImage(
+            image: const AssetImage('assets/images/lbg.png'),
+            repeat: ImageRepeat.repeatY,
+            colorFilter: ColorFilter.mode(
+              Colors.white.withOpacity(0.5),
+              BlendMode.dstATop,
+            ),
+          ),
+        ),
+        child: const Scaffold(
+          body: MyBuilder(
+            mobileView: PurchaseConnectionPageMobile(),
+            tabletView: PurchaseConnectionPageTablet(),
+            deskView: PurchaseConnectionPageDesktop(),
+          ),
         ),
       ),
     );

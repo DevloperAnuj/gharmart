@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gharmart/features/profile/presentation/manager/fetch_profile/fetch_profile_cubit.dart';
 import 'package:gharmart/utils/constants.dart';
 
 import '../manager/auth_toggle_cubit/auth_toggle_cubit.dart';
@@ -22,6 +23,7 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
   @override
   Widget build(BuildContext context) {
     return Column(
+      mainAxisSize: MainAxisSize.min,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         FittedBox(
@@ -62,6 +64,10 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
                       message: state.err,
                       color: Colors.red,
                     );
+                  }
+                  if (state is SignInSuccess) {
+                    context.read<FetchProfileCubit>().fetchProfile();
+                    Navigator.pop(context);
                   }
                 },
                 builder: (context, state) {
