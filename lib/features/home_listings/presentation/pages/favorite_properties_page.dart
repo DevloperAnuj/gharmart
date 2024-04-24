@@ -53,7 +53,6 @@ class FavoritePropertiesPageMobile extends StatelessWidget {
         body: Column(
           children: [
             AppBar(
-              leading: const SizedBox.shrink(),
               title: FittedBox(
                 child: Text(
                   "Your Favorite Properties",
@@ -92,7 +91,6 @@ class FavoritePropertiesPageTablet extends StatelessWidget {
         body: Column(
           children: [
             AppBar(
-              leading: const SizedBox.shrink(),
               title: FittedBox(
                 child: Text(
                   "Your Favorite Properties",
@@ -131,7 +129,6 @@ class FavoritePropertiesPageDesktop extends StatelessWidget {
         body: Column(
           children: [
             AppBar(
-              leading: const SizedBox.shrink(),
               title: Text(
                 "Your Favorite Properties",
                 style: Theme.of(context).textTheme.titleMedium!.copyWith(

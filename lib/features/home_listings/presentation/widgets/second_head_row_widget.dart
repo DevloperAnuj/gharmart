@@ -4,17 +4,13 @@ import 'package:gharmart/features/panel/presentation/widgets/home_screen_widgets
 import 'package:intl/intl.dart';
 
 class SecondHeadRowWidget extends StatelessWidget {
-
   final PropertyEntity property;
 
-  const SecondHeadRowWidget({
-    super.key,
-    required this.property
-  });
+  const SecondHeadRowWidget({super.key, required this.property});
 
   @override
   Widget build(BuildContext context) {
-    return  Padding(
+    return Padding(
       padding: const EdgeInsets.symmetric(
         horizontal: 20,
         vertical: 10,
@@ -24,26 +20,50 @@ class SecondHeadRowWidget extends StatelessWidget {
         children: [
           const VerticalDivider(),
           InfoTile(
-            leading: const Icon(Icons.balcony),
-            title: Text("${property.balkNo}"),
+            leading: Icon(
+              Icons.balcony,
+              color: Theme.of(context).primaryColor,
+            ),
+            title: Text(
+              "${property.balkNo}",
+              style: TextStyle(color: Theme.of(context).primaryColor),
+            ),
             subtitle: const Text("Balcony's"),
           ),
           const VerticalDivider(),
           InfoTile(
-            leading: const Icon(Icons.handyman),
-            title: Text("${property.ment} /M"),
+            leading: Icon(
+              Icons.handyman,
+              color: Theme.of(context).primaryColor,
+            ),
+            title: Text(
+              "${property.ment} /M",
+              style: TextStyle(color: Theme.of(context).primaryColor),
+            ),
             subtitle: const Text("Maintenance"),
           ),
           const VerticalDivider(),
           InfoTile(
-            leading: const Icon(Icons.cake),
-            title: Text("${property.age}+ Years"),
+            leading: Icon(
+              Icons.cake,
+              color: Theme.of(context).primaryColor,
+            ),
+            title: Text(
+              "${property.age}+ Years",
+              style: TextStyle(color: Theme.of(context).primaryColor),
+            ),
             subtitle: const Text("Age"),
           ),
           const VerticalDivider(),
           InfoTile(
-            leading: const Icon(Icons.calendar_month_rounded),
-            title: Text(DateFormat.yMMMd().format(property.createdAt)),
+            leading: Icon(
+              Icons.calendar_month_rounded,
+              color: Theme.of(context).primaryColor,
+            ),
+            title: Text(
+              DateFormat.yMMMd().format(property.createdAt),
+              style: TextStyle(color: Theme.of(context).primaryColor),
+            ),
             subtitle: const Text("Posted On"),
           ),
           const VerticalDivider(),

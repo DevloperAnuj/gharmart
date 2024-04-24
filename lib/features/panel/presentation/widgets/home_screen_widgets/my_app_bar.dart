@@ -24,8 +24,12 @@ class MyAppBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return AppBar(
       scrolledUnderElevation: 0,
-      leading: const Icon(Icons.home),
       title: const Text("GharMarket"),
+      titleTextStyle: TextStyle(
+        color: Theme.of(context).primaryColor,
+        fontSize: 25,
+        fontWeight: FontWeight.bold,
+      ),
       actions: [
         BlocBuilder<FavoritePropertyCubit, FavoritePropertyState>(
           builder: (context, state) {

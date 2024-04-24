@@ -21,6 +21,7 @@ class MyRouter {
       GoRoute(
         path: "/",
         builder: (context, state) => const LandingPage(),
+        // builder: (context, state) => const AddPropertyPage(),
       ),
       GoRoute(
         path: AuthWrapperPage.routeName,

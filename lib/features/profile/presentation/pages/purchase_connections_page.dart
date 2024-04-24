@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gharmart/features/panel/presentation/widgets/home_screen_widgets/my_app_bar.dart';
 import 'package:gharmart/features/subscription/presentation/manager/connections_management/connection_management_cubit.dart';
 import 'package:gharmart/utils/my_layout_builder.dart';
 
@@ -26,7 +27,7 @@ class PurchaseConnectionPage extends StatelessWidget {
         ),
       ],
       child: Container(
-        decoration:  BoxDecoration(
+        decoration: BoxDecoration(
           image: DecorationImage(
             image: const AssetImage('assets/images/lbg.png'),
             repeat: ImageRepeat.repeatY,
@@ -36,8 +37,9 @@ class PurchaseConnectionPage extends StatelessWidget {
             ),
           ),
         ),
-        child: const Scaffold(
-          body: MyBuilder(
+        child: Scaffold(
+          appBar: AppBar(),
+          body: const MyBuilder(
             mobileView: PurchaseConnectionPageMobile(),
             tabletView: PurchaseConnectionPageTablet(),
             deskView: PurchaseConnectionPageDesktop(),

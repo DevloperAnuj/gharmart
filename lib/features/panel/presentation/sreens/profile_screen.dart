@@ -30,7 +30,6 @@ class ProfilePage extends StatelessWidget {
         ),
         child: Scaffold(
           appBar: AppBar(
-            leading: const SizedBox.shrink(),
             elevation: 2,
             title: const Text("Gharmarket"),
             titleTextStyle: Theme.of(context).textTheme.titleMedium!.copyWith(
@@ -51,6 +50,7 @@ class ProfilePage extends StatelessWidget {
 }
 
 class ProfileScreenMobile extends StatelessWidget {
+
   const ProfileScreenMobile({super.key});
 
   @override

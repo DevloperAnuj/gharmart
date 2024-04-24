@@ -21,72 +21,114 @@ class PropertyHighlightsWidget extends StatelessWidget {
           Row(
             children: [
               InfoTile(
-                title: Text("${property.furnishing} Furnished"),
+                title: Text(
+                  "${property.furnishing} Furnished",
+                  style: TextStyle(color: Theme.of(context).primaryColor),
+                ),
                 subtitle: const Text("Furnishing"),
-                leading: const Icon(Icons.chair),
+                leading: Icon(
+                  Icons.chair,
+                  color: Theme.of(context).primaryColor,
+                ),
               ),
               const VerticalDivider(width: 10, thickness: 1),
               InfoTile(
-                title: Text(property.bhkType),
+                title: Text(property.bhkType,
+                  style: TextStyle(color: Theme.of(context).primaryColor),),
                 subtitle: const Text("Apartment Type"),
-                leading: const Icon(Icons.apartment),
+                leading: Icon(
+                  Icons.apartment,
+                  color: Theme.of(context).primaryColor,
+                ),
               ),
             ],
           ),
           Row(
             children: [
               InfoTile(
-                title: Text(property.prefTene),
+                title: Text(property.prefTene,
+                  style: TextStyle(color: Theme.of(context).primaryColor),),
                 subtitle: const Text("Preferred Tenants"),
-                leading: const Icon(Icons.person),
+                leading: Icon(
+                  Icons.person,
+                  color: Theme.of(context).primaryColor,
+                ),
               ),
               InfoTile(
-                title: Text(property.parking),
+                title: Text(property.parking,
+                  style: TextStyle(color: Theme.of(context).primaryColor),),
                 subtitle: const Text("Parking"),
-                leading: const Icon(Icons.local_parking),
+                leading: Icon(
+                  Icons.local_parking,
+                  color: Theme.of(context).primaryColor,
+                ),
               ),
             ],
           ),
           Row(
             children: [
               InfoTile(
-                title: Text("${property.bathNo}"),
+                title: Text("${property.bathNo}",
+                  style: TextStyle(color: Theme.of(context).primaryColor),),
                 subtitle: const Text("No of Bathrooms"),
-                leading: const Icon(Icons.bathtub),
+                leading: Icon(
+                  Icons.bathtub,
+                  color: Theme.of(context).primaryColor,
+                ),
               ),
               InfoTile(
-                title: Text("Floor No ${property.floorNo}"),
+                title: Text("Floor No ${property.floorNo}",
+                  style: TextStyle(color: Theme.of(context).primaryColor),),
                 subtitle: const Text("Floor"),
-                leading: const Icon(Icons.corporate_fare),
+                leading: Icon(
+                  Icons.corporate_fare,
+                  color: Theme.of(context).primaryColor,
+                ),
               ),
             ],
           ),
           Row(
             children: [
               InfoTile(
-                title: Text(property.water),
+                title: Text(property.water,
+                  style: TextStyle(color: Theme.of(context).primaryColor),),
                 subtitle: const Text("Water Supply"),
-                leading: const Icon(Icons.water_drop),
+                leading: Icon(
+                  Icons.water_drop,
+                  color: Theme.of(context).primaryColor,
+                ),
               ),
               const VerticalDivider(width: 10, thickness: 1),
               InfoTile(
-                title: Text(property.gatedSecu ? "Yes" : "No"),
+                title: Text(property.gatedSecu ? "Yes" : "No",
+                  style: TextStyle(color: Theme.of(context).primaryColor),),
                 subtitle: const Text("Gated Security"),
-                leading: const Icon(Icons.badge),
+                leading: Icon(
+                  Icons.badge,
+                  color: Theme.of(context).primaryColor,
+                ),
               ),
             ],
           ),
           Row(
             children: [
               InfoTile(
-                title: Text(property.facing),
+                title: Text(property.facing,
+                  style: TextStyle(color: Theme.of(context).primaryColor),),
                 subtitle: const Text("Facing"),
-                leading: const Icon(Icons.explore),
+                leading: Icon(
+                  Icons.explore,
+                  color: Theme.of(context).primaryColor,
+                ),
               ),
               InfoTile(
-                title: Text(property.nonveg ? "Yes" : "No"),
+                title: Text(property.nonveg ? "Yes" : "No",
+                  style: TextStyle(color: Theme.of(context).primaryColor),),
                 subtitle: const Text("Non-Veg Allowed"),
-                leading: const Icon(Icons.dinner_dining),
+                leading: Icon(
+                  Icons.dinner_dining,
+                  color: Theme.of(context).primaryColor,
+                ),
               ),
             ],
           ),

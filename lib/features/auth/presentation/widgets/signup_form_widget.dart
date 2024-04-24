@@ -86,6 +86,11 @@ class _SignUpFormWidgetState extends State<SignUpFormWidget> {
                   if (state is SignUpSuccess) {
                     context.read<FetchProfileCubit>().fetchProfile();
                     Navigator.of(context).pop();
+                    MyConstants.mySnackBar(
+                      context,
+                      message: "User Register Successfully !!",
+                      color: Colors.green,
+                    );
                   }
                 },
                 builder: (context, state) {

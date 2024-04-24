@@ -41,69 +41,71 @@ class AddPropertyPageMobile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          AppBar(
-            leading: const SizedBox.shrink(),
-            title: Text(
-              "Add Property",
-              style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                    color: Colors.black,
-                    fontSize: 25,
-                    fontWeight: FontWeight.bold,
-                  ),
-            ),
-            actions: [
-              Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: BlocConsumer<UploadPropertyDatabaseCubit,
-                    UploadPropertyDatabaseState>(
-                  listener: (context, state) {
-                    if (state is UploadPropertyDatabaseFailed) {
-                      MyConstants.mySnackBar(
-                        context,
-                        message: state.err,
-                        color: Colors.red,
-                      );
-                    }
-                    if (state is UploadPropertyDatabaseSuccess) {
-                      context.read<AddPropertyTempCubit>().setToInit();
-                      MyConstants.mySnackBar(
-                        context,
-                        message: "Property Submitted For Review",
-                        color: Colors.green,
-                      );
-                      Future.delayed(const Duration(seconds: 2), () {
-                        context.pop();
-                      });
-                    }
-                  },
-                  builder: (context, state) {
-                    if (state is UploadPropertyDatabaseLoading) {
-                      return const CircularProgressIndicator();
-                    }
-                    return ElevatedButton.icon(
-                      onPressed: () {
-                        context
-                            .read<UploadPropertyDatabaseCubit>()
-                            .uploadPropertyToDatabase(context);
-                      },
-                      icon: const Icon(Icons.airplane_ticket),
-                      label: const Text("Add"),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Theme.of(context).primaryColor,
-                        foregroundColor: Colors.white,
-                      ),
-                    );
-                  },
-                ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            AppBar(
+              leading: const SizedBox.shrink(),
+              title: Text(
+                "Add Property",
+                style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                      color: Colors.black,
+                      fontSize: 25,
+                      fontWeight: FontWeight.bold,
+                    ),
               ),
-            ],
-          ),
-          const SizedBox(height: 10),
-          const ChooseImageAlbumMobile(),
-          const AddPropertyForm(),
-        ],
+              actions: [
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: BlocConsumer<UploadPropertyDatabaseCubit,
+                      UploadPropertyDatabaseState>(
+                    listener: (context, state) {
+                      if (state is UploadPropertyDatabaseFailed) {
+                        MyConstants.mySnackBar(
+                          context,
+                          message: state.err,
+                          color: Colors.red,
+                        );
+                      }
+                      if (state is UploadPropertyDatabaseSuccess) {
+                        context.read<AddPropertyTempCubit>().setToInit();
+                        MyConstants.mySnackBar(
+                          context,
+                          message: "Property Submitted For Review",
+                          color: Colors.green,
+                        );
+                        Future.delayed(const Duration(seconds: 2), () {
+                          context.pop();
+                        });
+                      }
+                    },
+                    builder: (context, state) {
+                      if (state is UploadPropertyDatabaseLoading) {
+                        return const CircularProgressIndicator();
+                      }
+                      return ElevatedButton.icon(
+                        onPressed: () {
+                          context
+                              .read<UploadPropertyDatabaseCubit>()
+                              .uploadPropertyToDatabase(context);
+                        },
+                        icon: const Icon(Icons.airplane_ticket),
+                        label: const Text("Add"),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Theme.of(context).primaryColor,
+                          foregroundColor: Colors.white,
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 10),
+            const ChooseImageAlbumMobile(),
+            const AddPropertyFormMobile(),
+          ],
+        ),
       ),
     );
   }
@@ -115,69 +117,71 @@ class AddPropertyPageTablet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          AppBar(
-            leading: const SizedBox.shrink(),
-            title: Text(
-              "Add Property",
-              style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                color: Colors.black,
-                fontSize: 25,
-                fontWeight: FontWeight.bold,
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            AppBar(
+              leading: const SizedBox.shrink(),
+              title: Text(
+                "Add Property",
+                style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                      color: Colors.black,
+                      fontSize: 25,
+                      fontWeight: FontWeight.bold,
+                    ),
               ),
-            ),
-            actions: [
-              Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: BlocConsumer<UploadPropertyDatabaseCubit,
-                    UploadPropertyDatabaseState>(
-                  listener: (context, state) {
-                    if (state is UploadPropertyDatabaseFailed) {
-                      MyConstants.mySnackBar(
-                        context,
-                        message: state.err,
-                        color: Colors.red,
+              actions: [
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: BlocConsumer<UploadPropertyDatabaseCubit,
+                      UploadPropertyDatabaseState>(
+                    listener: (context, state) {
+                      if (state is UploadPropertyDatabaseFailed) {
+                        MyConstants.mySnackBar(
+                          context,
+                          message: state.err,
+                          color: Colors.red,
+                        );
+                      }
+                      if (state is UploadPropertyDatabaseSuccess) {
+                        context.read<AddPropertyTempCubit>().setToInit();
+                        MyConstants.mySnackBar(
+                          context,
+                          message: "Property Submitted For Review",
+                          color: Colors.green,
+                        );
+                        Future.delayed(const Duration(seconds: 2), () {
+                          context.pop();
+                        });
+                      }
+                    },
+                    builder: (context, state) {
+                      if (state is UploadPropertyDatabaseLoading) {
+                        return const CircularProgressIndicator();
+                      }
+                      return ElevatedButton.icon(
+                        onPressed: () {
+                          context
+                              .read<UploadPropertyDatabaseCubit>()
+                              .uploadPropertyToDatabase(context);
+                        },
+                        icon: const Icon(Icons.airplane_ticket),
+                        label: const Text("Add"),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Theme.of(context).primaryColor,
+                          foregroundColor: Colors.white,
+                        ),
                       );
-                    }
-                    if (state is UploadPropertyDatabaseSuccess) {
-                      context.read<AddPropertyTempCubit>().setToInit();
-                      MyConstants.mySnackBar(
-                        context,
-                        message: "Property Submitted For Review",
-                        color: Colors.green,
-                      );
-                      Future.delayed(const Duration(seconds: 2), () {
-                        context.pop();
-                      });
-                    }
-                  },
-                  builder: (context, state) {
-                    if (state is UploadPropertyDatabaseLoading) {
-                      return const CircularProgressIndicator();
-                    }
-                    return ElevatedButton.icon(
-                      onPressed: () {
-                        context
-                            .read<UploadPropertyDatabaseCubit>()
-                            .uploadPropertyToDatabase(context);
-                      },
-                      icon: const Icon(Icons.airplane_ticket),
-                      label: const Text("Add"),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Theme.of(context).primaryColor,
-                        foregroundColor: Colors.white,
-                      ),
-                    );
-                  },
+                    },
+                  ),
                 ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 10),
-          const ChooseImageAlbumMobile(),
-          const AddPropertyForm(),
-        ],
+              ],
+            ),
+            const SizedBox(height: 10),
+            const ChooseImageAlbumMobile(),
+            const AddPropertyFormMobile(),
+          ],
+        ),
       ),
     );
   }

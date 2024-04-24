@@ -76,6 +76,7 @@ class AuthPageMobile extends StatelessWidget {
 }
 
 class AuthPageTablet extends StatelessWidget {
+
   const AuthPageTablet({super.key});
 
   @override
@@ -121,37 +122,26 @@ class AuthPageDesktop extends StatelessWidget {
       child: Material(
         color: Colors.white,
         borderRadius: BorderRadius.circular(30),
-        child: Row(
-          children: [
-            Expanded(
-              flex: 3,
-              child: Container(),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 20.0,horizontal: 20),
+          child: Container(
+            padding: const EdgeInsets.all(20),
+            decoration: BoxDecoration(
+              border: Border.all(color: Colors.black),
+              borderRadius: BorderRadius.circular(20),
             ),
-            Expanded(
-              flex: 2,
-              child: Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: Container(
-                  padding: const EdgeInsets.all(20),
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.black),
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: SingleChildScrollView(
-                    child: BlocBuilder<AuthToggleCubit, bool>(
-                      builder: (context, state) {
-                        if (state) {
-                          return const SignUpFormWidget();
-                        } else {
-                          return const LoginFormWidget();
-                        }
-                      },
-                    ),
-                  ),
-                ),
+            child: SingleChildScrollView(
+              child: BlocBuilder<AuthToggleCubit, bool>(
+                builder: (context, state) {
+                  if (state) {
+                    return const SignUpFormWidget();
+                  } else {
+                    return const LoginFormWidget();
+                  }
+                },
               ),
             ),
-          ],
+          ),
         ),
       ),
     );

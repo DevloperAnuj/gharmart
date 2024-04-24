@@ -14,27 +14,29 @@ class PropertyDetailHeaderMobile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: const IconButton(
-        onPressed: null,
-        icon: Icon(Icons.home),
+      leading: IconButton(
+        onPressed: () {
+          Navigator.of(context).pop();
+        },
+        icon: const Icon(Icons.arrow_back_outlined),
       ),
       title: Text(
         property.title,
         maxLines: 2,
         style: Theme.of(context).textTheme.titleMedium!.copyWith(
-          color: Colors.black,
-          fontWeight: FontWeight.bold,
-          fontSize: 16,
-        ),
+              color: Colors.black,
+              fontWeight: FontWeight.bold,
+              fontSize: 16,
+            ),
       ),
       subtitle: Text(
         property.address,
         maxLines: 1,
         style: Theme.of(context).textTheme.titleMedium!.copyWith(
-          color: Colors.black,
-          fontWeight: FontWeight.normal,
-          fontSize: 15,
-        ),
+              color: Colors.black,
+              fontWeight: FontWeight.normal,
+              fontSize: 15,
+            ),
       ),
       trailing: AddToFavoriteButton(property: property),
     );
@@ -53,26 +55,28 @@ class PropertyDetailHeaderTablet extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       leading: IconButton(
-        onPressed: null,
-        icon: const Icon(Icons.home),
+        onPressed: () {
+          Navigator.of(context).pop();
+        },
+        icon: const Icon(Icons.arrow_back_outlined),
       ),
       title: Text(
         property.title,
         maxLines: 2,
         style: Theme.of(context).textTheme.titleMedium!.copyWith(
-          color: Colors.black,
-          fontWeight: FontWeight.bold,
-          fontSize: 16,
-        ),
+              color: Colors.black,
+              fontWeight: FontWeight.bold,
+              fontSize: 16,
+            ),
       ),
       subtitle: Text(
         property.address,
         maxLines: 1,
         style: Theme.of(context).textTheme.titleMedium!.copyWith(
-          color: Colors.black,
-          fontWeight: FontWeight.normal,
-          fontSize: 15,
-        ),
+              color: Colors.black,
+              fontWeight: FontWeight.normal,
+              fontSize: 15,
+            ),
       ),
       trailing: AddToFavoriteButton(property: property),
     );
@@ -93,30 +97,28 @@ class DetailsHeaderWidgetDesktop extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           const VerticalDivider(),
-          const IconButton(
-            icon: Icon(
-              Icons.home_filled,
-              size: 50,
-            ),
-            onPressed: null,
+          IconButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            icon: const Icon(Icons.arrow_back_outlined),
           ),
           const VerticalDivider(),
           Expanded(
             flex: 3,
             child: ListTile(
-              titleTextStyle:
-                  Theme.of(context).textTheme.titleMedium!.copyWith(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
-                      ),
+              titleTextStyle: Theme.of(context).textTheme.titleMedium!.copyWith(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                  ),
               title: Text(property.title),
               subtitle: Text(property.address),
             ),
           ),
           const VerticalDivider(),
           HeaderInfoTile(
-            leading: const Icon(Icons.square_foot),
+            leading: const Icon(Icons.square_foot, color: Colors.white),
             title: Text(property.propertyType == "Rent"
                 ? "${property.rentPrice}"
                 : "${property.sellPrice}"),
@@ -128,13 +130,19 @@ class DetailsHeaderWidgetDesktop extends StatelessWidget {
           ),
           const VerticalDivider(),
           HeaderInfoTile(
-            leading: const Icon(Icons.square_foot),
+            leading: const Icon(
+              Icons.square_foot,
+              color: Colors.white,
+            ),
             title: Text("${property.area} sqft"),
             subtitle: const Text("BuildUp"),
           ),
           const VerticalDivider(),
           HeaderInfoTile(
-            leading: const Icon(Icons.currency_rupee_outlined),
+            leading: const Icon(
+              Icons.currency_rupee_outlined,
+              color: Colors.white,
+            ),
             title: Text("${property.deposit}"),
             subtitle: const Text(
               "Deposit",
@@ -162,12 +170,19 @@ class HeaderInfoTile extends StatelessWidget {
     return Expanded(
       flex: 1,
       child: ListTile(
+        tileColor: Theme.of(context).primaryColor,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
         leading: leading,
         titleTextStyle: Theme.of(context).textTheme.titleMedium!.copyWith(
               fontSize: 16,
               fontWeight: FontWeight.bold,
-              color: Colors.black,
+              color: Colors.white,
             ),
+        subtitleTextStyle: Theme.of(context).textTheme.titleMedium!.copyWith(
+          fontSize: 13,
+          fontWeight: FontWeight.normal,
+          color: Colors.white,
+        ),
         title: title,
         subtitle: subtitle,
       ),

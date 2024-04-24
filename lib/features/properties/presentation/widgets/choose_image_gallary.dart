@@ -38,8 +38,8 @@ class ChooseImageAlbumMobile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      flex: 2,
+    return SizedBox(
+      height: 300,
       child: Column(
         children: [
           ElevatedButton.icon(

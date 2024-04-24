@@ -5,6 +5,7 @@ import 'package:gharmart/features/home_listings/presentation/manager/filter/list
 import 'package:gharmart/features/panel/presentation/pages/panel_page.dart';
 import 'package:gharmart/features/panel/presentation/widgets/home_screen_widgets/my_app_bar.dart';
 import 'package:gharmart/features/profile/presentation/manager/fetch_profile/fetch_profile_cubit.dart';
+import 'package:gharmart/features/properties/presentation/pages/add_property_page.dart';
 import 'package:gharmart/utils/config_file.dart';
 import 'package:gharmart/utils/constants.dart';
 import 'package:gharmart/utils/my_layout_builder.dart';
@@ -50,7 +51,7 @@ class LandingPageMobile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration:  BoxDecoration(
+      decoration: BoxDecoration(
         image: DecorationImage(
           image: const AssetImage('assets/images/lbg.png'),
           repeat: ImageRepeat.repeatY,
@@ -102,71 +103,37 @@ class LandingPageMobile extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  // CustomChoiceChip(
-                  //   label: "Rent",
-                  //   selected: context
-                  //           .watch<ListingFilterCubit>()
-                  //           .state
-                  //           .propertyType ==
-                  //       "Rent",
-                  //   onSelected: (val) {
-                  //     context
-                  //         .read<ListingFilterCubit>()
-                  //         .applyPropertyType("Rent");
-                  //   },
-                  // ),
-                  InkWell(
-                    onTap: () {
+                  CustomChoiceChip(
+                    label: "Rent",
+                    selected: context
+                            .watch<ListingFilterCubit>()
+                            .state
+                            .propertyType ==
+                        "Rent",
+                    onSelected: (val) {
                       context
                           .read<ListingFilterCubit>()
                           .applyPropertyType("Rent");
                     },
-                    child: Chip(
-                      label: const Text("Rent"),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      labelStyle:
-                          const TextStyle(fontSize: 16, color: Colors.white),
-                      color: MaterialStatePropertyAll(
-                          Theme.of(context).primaryColor),
-                      elevation: 2,
-                    ),
                   ),
+
                   const SizedBox(
                     width: 20,
                   ),
-                  InkWell(
-                    onTap: () {
+
+                  CustomChoiceChip(
+                    label: "Sell",
+                    selected: context
+                            .watch<ListingFilterCubit>()
+                            .state
+                            .propertyType ==
+                        "Sell",
+                    onSelected: (val) async {
                       context
                           .read<ListingFilterCubit>()
                           .applyPropertyType("Sell");
                     },
-                    child: Chip(
-                      label: const Text("Sell"),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      labelStyle:
-                          const TextStyle(fontSize: 16, color: Colors.white),
-                      color: MaterialStatePropertyAll(
-                          Theme.of(context).primaryColor),
-                      elevation: 2,
-                    ),
                   ),
-                  // CustomChoiceChip(
-                  //   label: "Sell",
-                  //   selected: context
-                  //           .watch<ListingFilterCubit>()
-                  //           .state
-                  //           .propertyType ==
-                  //       "Sell",
-                  //   onSelected: (val) async {
-                  //     context
-                  //         .read<ListingFilterCubit>()
-                  //         .applyPropertyType("Sell");
-                  //   },
-                  // ),
                 ],
               ),
               const SizedBox(height: 20),
@@ -283,7 +250,7 @@ class LandingPageMobile extends StatelessWidget {
                     ),
                     Padding(
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 20.0, vertical: 10),
+                          horizontal: 15.0, vertical: 10),
                       child: Theme(
                         data: ThemeData(),
                         child: DropdownButtonFormField<String>(
@@ -572,6 +539,10 @@ class LandingPageMobile extends StatelessWidget {
                   ),
                 ),
               ),
+              const Padding(
+                padding: EdgeInsets.all(10.0),
+                child: AddPropertyMenuButton(),
+              ),
             ],
           ),
         ),
@@ -656,28 +627,34 @@ class LandingPageDesktop extends StatelessWidget {
       ),
       child: Scaffold(
         appBar: AppBar(
+          scrolledUnderElevation: 0,
           leading: const SizedBox.shrink(),
           elevation: 2,
           title: const Text("Gharmarket"),
-          centerTitle: true,
+          centerTitle: false,
           titleTextStyle: Theme.of(context).textTheme.titleMedium!.copyWith(
                 color: Theme.of(context).primaryColor,
                 fontWeight: FontWeight.bold,
                 fontSize: 25,
               ),
-          actions: const [MyPopUpMenuButton()],
+          actions: const [
+            AddPropertyMenuButton(),
+            SizedBox(width: 20),
+            MyPopUpMenuButton(),
+            SizedBox(width: 50),
+          ],
         ),
         body: SingleChildScrollView(
           child: Column(
             children: [
               Padding(
-                padding: const EdgeInsets.all(15.0),
+                padding: const EdgeInsets.all(20.0),
                 child: Text(
-                  "Why Should U Pay Money for the Broker if You Want to Just Connect with Owner ?",
+                  "Why Should U Pay Money for the Broker if You Want to \nJust Connect with Owner...?",
                   textAlign: TextAlign.center,
                   style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                        color: Colors.black87,
-                        fontSize: 16,
+                        color: Colors.blueGrey,
+                        fontSize: 20,
                         fontWeight: FontWeight.bold,
                       ),
                 ),
@@ -685,7 +662,7 @@ class LandingPageDesktop extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(30.0),
                 child: Text(
-                  "No Broker, \nJust Owner",
+                  "No Broker,Just Owner",
                   textAlign: TextAlign.center,
                   style: Theme.of(context).textTheme.titleLarge!.copyWith(
                         color: Theme.of(context).primaryColor,
@@ -727,403 +704,420 @@ class LandingPageDesktop extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 20),
-              Row(
-                children: [
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 5.0, vertical: 10),
-                      child: Theme(
-                        data: ThemeData(),
-                        child: DropdownButtonFormField<String>(
-                          decoration: InputDecoration(
-                            prefixIcon: Icon(
-                              Icons.location_on_rounded,
-                              color: Theme.of(context).primaryColor,
-                            ),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(40),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(40),
-                              borderSide: BorderSide(
-                                  color: Theme.of(context).primaryColor,
-                                  width: 2),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(40),
-                              borderSide: BorderSide(
-                                  color: Theme.of(context).primaryColor,
-                                  width: 3),
-                            ),
-                          ),
-                          hint: const Text('Select City'),
-                          value: context.watch<ListingFilterCubit>().state.city,
-                          onChanged: (String? newValue) {
-                            context
-                                .read<ListingFilterCubit>()
-                                .applyCity(newValue!);
-                          },
-                          items: <String>[
-                            'Pune',
-                            'Mumbai',
-                            'Nashik',
-                            'Nagpur',
-                            'Satara',
-                            'Kolhapur'
-                          ].map<DropdownMenuItem<String>>((String value) {
-                            return DropdownMenuItem<String>(
-                              value: value,
-                              child: Text(value),
-                            );
-                          }).toList(),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 5.0, vertical: 10),
-                      child: Theme(
-                        data: ThemeData(),
-                        child: DropdownButtonFormField<String>(
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(40),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(40),
-                              borderSide: BorderSide(
-                                  color: Theme.of(context).primaryColor,
-                                  width: 2),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(40),
-                              borderSide: BorderSide(
-                                  color: Theme.of(context).primaryColor,
-                                  width: 3),
-                            ),
-                          ),
-                          hint: const Text('Select BHK Type'),
-                          value:
-                              context.watch<ListingFilterCubit>().state.bhkType,
-                          onChanged: (String? newValue) {
-                            context
-                                .read<ListingFilterCubit>()
-                                .applyBhkType(newValue!);
-                          },
-                          items: <String>[
-                            '1 RK',
-                            '1 BHK',
-                            '2 BHK',
-                            '3 BHK',
-                            '4 BHK',
-                            '4+ BHK'
-                          ].map<DropdownMenuItem<String>>((String value) {
-                            return DropdownMenuItem<String>(
-                              value: value,
-                              child: Text(value),
-                            );
-                          }).toList(),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 5.0, vertical: 10),
-                      child: Theme(
-                        data: ThemeData(),
-                        child: DropdownButtonFormField<String>(
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(40),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(40),
-                              borderSide: BorderSide(
-                                  color: Theme.of(context).primaryColor,
-                                  width: 2),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(40),
-                              borderSide: BorderSide(
-                                  color: Theme.of(context).primaryColor,
-                                  width: 3),
-                            ),
-                          ),
-                          hint: const Text('Property Category'),
-                          value: context
-                              .watch<ListingFilterCubit>()
-                              .state
-                              .propertyCat,
-                          onChanged: (String? newValue) {
-                            context
-                                .read<ListingFilterCubit>()
-                                .applyPropertyCat(newValue!);
-                          },
-                          items: <String>[
-                            'Room',
-                            'Flat',
-                            'Bungalow',
-                            'Row House',
-                            'Mansion',
-                            'PG'
-                          ].map<DropdownMenuItem<String>>((String value) {
-                            return DropdownMenuItem<String>(
-                              value: value,
-                              child: Text(value),
-                            );
-                          }).toList(),
-                        ),
-                      ),
-                    ),
-                  ),
-                  if (context.watch<ListingFilterCubit>().state.propertyType ==
-                      "Rent")
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 5.0, vertical: 10),
-                        child: Theme(
-                          data: ThemeData(),
-                          child: DropdownButtonFormField<String>(
-                            decoration: InputDecoration(
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(40),
-                              ),
-                              enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(40),
-                                borderSide: BorderSide(
-                                    color: Theme.of(context).primaryColor,
-                                    width: 2),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(40),
-                                borderSide: BorderSide(
-                                    color: Theme.of(context).primaryColor,
-                                    width: 3),
-                              ),
-                            ),
-                            hint: const Text('Select Rent Range'),
-                            value: 'from 0 to 5K',
-                            onChanged: (String? newValue) {
-                              if (newValue != null) {
-                                applyRentRange(context, newValue);
-                              }
-                            },
-                            items: <String>[
-                              'from 0 to 5K',
-                              'from 5K to 10K',
-                              'from 10K to 25K',
-                              'from 25K to 50K',
-                              'from 50K to 75K',
-                              'from 75K to 1 Lac',
-                            ].map<DropdownMenuItem<String>>((String value) {
-                              return DropdownMenuItem<String>(
-                                value: value,
-                                child: Text(value),
-                              );
-                            }).toList(),
-                          ),
-                        ),
-                      ),
-                    ),
-                  if (context.watch<ListingFilterCubit>().state.propertyType ==
-                      "Sell")
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 5.0, vertical: 10),
-                        child: Theme(
-                          data: ThemeData(),
-                          child: DropdownButtonFormField<String>(
-                            decoration: InputDecoration(
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(40),
-                              ),
-                              enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(40),
-                                borderSide: BorderSide(
-                                    color: Theme.of(context).primaryColor,
-                                    width: 2),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(40),
-                                borderSide: BorderSide(
-                                    color: Theme.of(context).primaryColor,
-                                    width: 3),
-                              ),
-                            ),
-                            hint: const Text('Select Price Range'),
-                            value: 'from 0 to 5 Lac',
-                            onChanged: (String? newValue) {
-                              if (newValue != null) {
-                                applySellPriceRange(context, newValue);
-                              }
-                            },
-                            items: <String>[
-                              'from 0 to 5 Lac',
-                              'from 5 Lac to 25 Lac',
-                              'from 25 Lac to 50 Lac',
-                              'from 50 lac to 75 Lac',
-                              'from 75 Lac to 1 Cr',
-                              'from 1 Cr to 5 Cr',
-                            ].map<DropdownMenuItem<String>>((String value) {
-                              return DropdownMenuItem<String>(
-                                value: value,
-                                child: Text(value),
-                              );
-                            }).toList(),
-                          ),
-                        ),
-                      ),
-                    ),
-                ],
-              ),
               Padding(
-                padding: const EdgeInsets.all(30.0),
-                child: ElevatedButton(
-                  onPressed: () {
-                    context
-                        .read<DisplayPropertiesCubit>()
-                        .displayFilteredProperties();
-                    context.pushNamed(PanelPage.routeName);
-                  },
-                  style: ElevatedButton.styleFrom(
-                    foregroundColor: Colors.white,
-                    backgroundColor: Theme.of(context).primaryColor,
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(25),
+                    color: Theme.of(context).primaryColor,
                   ),
-                  child: const Text("Find Property"),
+                  child: IntrinsicHeight(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      child: Row(
+                        children: [
+                          const Icon(
+                            Icons.location_on_rounded,
+                            color: Colors.white,
+                          ),
+                          Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 5.0, vertical: 2),
+                              child: Theme(
+                                data: ThemeData(),
+                                child: DropdownButtonFormField<String>(
+                                  dropdownColor: Theme.of(context).primaryColor,
+                                  icon: const Icon(null),
+                                  decoration: InputDecoration(
+                                    prefixIcon: Icon(
+                                      Icons.location_on_rounded,
+                                      color: Theme.of(context).primaryColor,
+                                    ),
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(40),
+                                    ),
+                                    enabledBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(40),
+                                      borderSide: BorderSide(
+                                          color: Theme.of(context).primaryColor,
+                                          width: 2),
+                                    ),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(40),
+                                      borderSide: BorderSide(
+                                          color: Theme.of(context).primaryColor,
+                                          width: 3),
+                                    ),
+                                  ),
+                                  hint: const Text('Select City'),
+                                  style: const TextStyle(color: Colors.white70),
+                                  value: context
+                                      .watch<ListingFilterCubit>()
+                                      .state
+                                      .city,
+                                  onChanged: (String? newValue) {
+                                    context
+                                        .read<ListingFilterCubit>()
+                                        .applyCity(newValue!);
+                                  },
+                                  items: <String>[
+                                    'Pune',
+                                    'Mumbai',
+                                    'Nashik',
+                                    'Nagpur',
+                                    'Satara',
+                                    'Kolhapur'
+                                  ].map<DropdownMenuItem<String>>(
+                                      (String value) {
+                                    return DropdownMenuItem<String>(
+                                      value: value,
+                                      child: Text(value),
+                                    );
+                                  }).toList(),
+                                ),
+                              ),
+                            ),
+                          ),
+                          const VerticalDivider(color: Colors.white),
+                          Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 5.0, vertical: 2),
+                              child: Theme(
+                                data: ThemeData(),
+                                child: DropdownButtonFormField<String>(
+                                  dropdownColor: Theme.of(context).primaryColor,
+                                  icon: const Icon(null),
+                                  decoration: InputDecoration(
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(40),
+                                    ),
+                                    enabledBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(40),
+                                      borderSide: BorderSide(
+                                          color: Theme.of(context).primaryColor,
+                                          width: 2),
+                                    ),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(40),
+                                      borderSide: BorderSide(
+                                          color: Theme.of(context).primaryColor,
+                                          width: 3),
+                                    ),
+                                  ),
+                                  hint: const Text('Select BHK Type'),
+                                  style: const TextStyle(color: Colors.white70),
+                                  value: context
+                                      .watch<ListingFilterCubit>()
+                                      .state
+                                      .bhkType,
+                                  onChanged: (String? newValue) {
+                                    context
+                                        .read<ListingFilterCubit>()
+                                        .applyBhkType(newValue!);
+                                  },
+                                  items: <String>[
+                                    '1 RK',
+                                    '1 BHK',
+                                    '2 BHK',
+                                    '3 BHK',
+                                    '4 BHK',
+                                    '4+ BHK'
+                                  ].map<DropdownMenuItem<String>>(
+                                      (String value) {
+                                    return DropdownMenuItem<String>(
+                                      value: value,
+                                      child: Text(value),
+                                    );
+                                  }).toList(),
+                                ),
+                              ),
+                            ),
+                          ),
+                          const VerticalDivider(color: Colors.white),
+                          Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 5.0, vertical: 2),
+                              child: Theme(
+                                data: ThemeData(),
+                                child: DropdownButtonFormField<String>(
+                                  dropdownColor: Theme.of(context).primaryColor,
+                                  icon: const Icon(null),
+                                  decoration: InputDecoration(
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(40),
+                                    ),
+                                    enabledBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(40),
+                                      borderSide: BorderSide(
+                                          color: Theme.of(context).primaryColor,
+                                          width: 2),
+                                    ),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(40),
+                                      borderSide: BorderSide(
+                                          color: Theme.of(context).primaryColor,
+                                          width: 3),
+                                    ),
+                                  ),
+                                  hint: const Text('Property Category'),
+                                  style: const TextStyle(color: Colors.white70),
+                                  value: context
+                                      .watch<ListingFilterCubit>()
+                                      .state
+                                      .propertyCat,
+                                  onChanged: (String? newValue) {
+                                    context
+                                        .read<ListingFilterCubit>()
+                                        .applyPropertyCat(newValue!);
+                                  },
+                                  items: <String>[
+                                    'Room',
+                                    'Flat',
+                                    'Bungalow',
+                                    'Row House',
+                                    'Mansion',
+                                    'PG'
+                                  ].map<DropdownMenuItem<String>>(
+                                      (String value) {
+                                    return DropdownMenuItem<String>(
+                                      value: value,
+                                      child: Text(value),
+                                    );
+                                  }).toList(),
+                                ),
+                              ),
+                            ),
+                          ),
+                          const VerticalDivider(color: Colors.white),
+                          if (context
+                                  .watch<ListingFilterCubit>()
+                                  .state
+                                  .propertyType ==
+                              "Rent")
+                            Expanded(
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 5.0, vertical: 2),
+                                child: Theme(
+                                  data: ThemeData(),
+                                  child: DropdownButtonFormField<String>(
+                                    icon: const Icon(null),
+                                    dropdownColor:
+                                        Theme.of(context).primaryColor,
+                                    decoration: InputDecoration(
+                                      border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(40),
+                                      ),
+                                      enabledBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(40),
+                                        borderSide: BorderSide(
+                                            color:
+                                                Theme.of(context).primaryColor,
+                                            width: 2),
+                                      ),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(40),
+                                        borderSide: BorderSide(
+                                            color:
+                                                Theme.of(context).primaryColor,
+                                            width: 3),
+                                      ),
+                                    ),
+                                    hint: const Text('Select Rent Range'),
+                                    style:
+                                        const TextStyle(color: Colors.white70),
+                                    value: 'from 0 to 5K',
+                                    onChanged: (String? newValue) {
+                                      if (newValue != null) {
+                                        applyRentRange(context, newValue);
+                                      }
+                                    },
+                                    items: <String>[
+                                      'from 0 to 5K',
+                                      'from 5K to 10K',
+                                      'from 10K to 25K',
+                                      'from 25K to 50K',
+                                      'from 50K to 75K',
+                                      'from 75K to 1 Lac',
+                                    ].map<DropdownMenuItem<String>>(
+                                        (String value) {
+                                      return DropdownMenuItem<String>(
+                                        value: value,
+                                        child: Text(value),
+                                      );
+                                    }).toList(),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          if (context
+                                  .watch<ListingFilterCubit>()
+                                  .state
+                                  .propertyType ==
+                              "Sell")
+                            Expanded(
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 5.0, vertical: 2),
+                                child: Theme(
+                                  data: ThemeData(),
+                                  child: DropdownButtonFormField<String>(
+                                    icon: const Icon(null),
+                                    decoration: InputDecoration(
+                                      border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(40),
+                                      ),
+                                      enabledBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(40),
+                                        borderSide: BorderSide(
+                                            color:
+                                                Theme.of(context).primaryColor,
+                                            width: 2),
+                                      ),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(40),
+                                        borderSide: BorderSide(
+                                            color:
+                                                Theme.of(context).primaryColor,
+                                            width: 3),
+                                      ),
+                                    ),
+                                    hint: const Text('Select Price Range'),
+                                    style:
+                                        const TextStyle(color: Colors.white70),
+                                    value: 'from 0 to 5 Lac',
+                                    onChanged: (String? newValue) {
+                                      if (newValue != null) {
+                                        applySellPriceRange(context, newValue);
+                                      }
+                                    },
+                                    items: <String>[
+                                      'from 0 to 5 Lac',
+                                      'from 5 Lac to 25 Lac',
+                                      'from 25 Lac to 50 Lac',
+                                      'from 50 lac to 75 Lac',
+                                      'from 75 Lac to 1 Cr',
+                                      'from 1 Cr to 5 Cr',
+                                    ].map<DropdownMenuItem<String>>(
+                                        (String value) {
+                                      return DropdownMenuItem<String>(
+                                        value: value,
+                                        child: Text(value),
+                                      );
+                                    }).toList(),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ElevatedButton(
+                            onPressed: () {
+                              context
+                                  .read<DisplayPropertiesCubit>()
+                                  .displayFilteredProperties();
+                              context.pushNamed(PanelPage.routeName);
+                            },
+                            style: ElevatedButton.styleFrom(
+                              foregroundColor: Colors.white,
+                              backgroundColor: Theme.of(context).primaryColor,
+                            ),
+                            child: const Text("Find Property"),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
                 ),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Flexible(
-                    child: Padding(
-                      padding: const EdgeInsets.all(15.0),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Colors.grey.shade300,
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        padding: const EdgeInsets.all(10),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Icon(
-                              Icons.done_outline,
-                              size: 80,
-                              color: Theme.of(context).primaryColor,
-                            ),
-                            Text(
-                              "100% Genuine \nOwner",
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .titleLarge!
-                                  .copyWith(color: Colors.black),
-                            ),
-                          ],
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+                child: IntrinsicHeight(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "100% Genuine Owners",
+                        style: TextStyle(
+                          color: Theme.of(context).primaryColor,
+                          fontSize: 20,
                         ),
                       ),
-                    ),
-                  ),
-                  Flexible(
-                    child: Padding(
-                      padding: const EdgeInsets.all(15.0),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Colors.grey.shade300,
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        padding: const EdgeInsets.all(10),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Text(
-                              "Zero Brokers \nNo Middleman",
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .titleLarge!
-                                  .copyWith(color: Colors.black),
-                            ),
-                            Icon(
-                              Icons.person_off_sharp,
-                              size: 80,
-                              color: Theme.of(context).primaryColor,
-                            ),
-                          ],
+                      VerticalDivider(
+                        color: Theme.of(context).primaryColor,
+                        width: 20,
+                      ),
+                      Text(
+                        "Zero Brokers",
+                        style: TextStyle(
+                          color: Theme.of(context).primaryColor,
+                          fontSize: 20,
                         ),
                       ),
-                    ),
+                      VerticalDivider(
+                        color: Theme.of(context).primaryColor,
+                        width: 20,
+                      ),
+                      Text(
+                        "Save Brokerage",
+                        style: TextStyle(
+                          color: Theme.of(context).primaryColor,
+                          fontSize: 20,
+                        ),
+                      ),
+                      VerticalDivider(
+                        color: Theme.of(context).primaryColor,
+                        width: 20,
+                      ),
+                      Text(
+                        "Cost Effective",
+                        style: TextStyle(
+                          color: Theme.of(context).primaryColor,
+                          fontSize: 20,
+                        ),
+                      ),
+                    ],
                   ),
-                ],
+                ),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Flexible(
-                    child: Padding(
-                      padding: const EdgeInsets.all(15.0),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Colors.grey.shade300,
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        padding: const EdgeInsets.all(10),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Icon(
-                              Icons.handshake_outlined,
-                              size: 80,
-                              color: Theme.of(context).primaryColor,
-                            ),
-                            Text(
-                              "Save on \nBrokerage",
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .titleLarge!
-                                  .copyWith(color: Colors.black),
-                            ),
-                          ],
-                        ),
-                      ),
+              const Divider(endIndent: 20, indent: 20),
+              const Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Text(
+                  "Are You Property Owner Want to Sale or Rent",
+                  style: TextStyle(
+                    color: Colors.blueGrey,
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    backgroundColor: Colors.white,
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 10),
+                child: TextButton(
+                  onPressed: () {
+                    if (toAuthWrap(context)) {
+                      context.pushNamed(AddPropertyPage.routeName);
+                    }
+                  },
+                  child: Text(
+                    "Post Your Property For Free",
+                    style: TextStyle(
+                      color: Theme.of(context).primaryColor,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
-                  Flexible(
-                    child: Padding(
-                      padding: const EdgeInsets.all(15.0),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Colors.grey.shade300,
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        padding: const EdgeInsets.all(10),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Text(
-                              "Cost Effective",
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .titleLarge!
-                                  .copyWith(color: Colors.black),
-                            ),
-                            Icon(
-                              Icons.currency_rupee,
-                              size: 80,
-                              color: Theme.of(context).primaryColor,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
+                ),
+              ),
+              Container(
+                width: 200,
+                height: 5,
+                color: Theme.of(context).primaryColor,
               ),
             ],
           ),
@@ -1172,5 +1166,27 @@ class LandingPageDesktop extends StatelessWidget {
     if (newValue == 'from 1 Cr to 5 Cr') {
       context.read<ListingFilterCubit>().applyPrice(10000000, 50000000);
     }
+  }
+}
+
+class AddPropertyMenuButton extends StatelessWidget {
+  const AddPropertyMenuButton({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton(
+      onPressed: () {
+        if (toAuthWrap(context)) {
+          context.pushNamed(AddPropertyPage.routeName);
+        }
+      },
+      style: ElevatedButton.styleFrom(
+        foregroundColor: Colors.white,
+        backgroundColor: Theme.of(context).primaryColor,
+      ),
+      child: const Text("List Property for Free"),
+    );
   }
 }

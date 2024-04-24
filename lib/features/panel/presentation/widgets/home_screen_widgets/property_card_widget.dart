@@ -20,7 +20,10 @@ class PropertyCardWidgetMobile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
-      decoration: BoxDecoration(border: Border.all(color: Colors.grey)),
+      decoration: BoxDecoration(
+        border: Border.all(color: Colors.grey),
+        color: Colors.white,
+      ),
       padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
       child: Column(
         children: [
@@ -87,6 +90,7 @@ class PropertyCardWidgetMobile extends StatelessWidget {
           ),
           const Divider(),
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               HighLightRow(
                 title: property.propertyType == "Rent"
@@ -127,26 +131,25 @@ class HighLightRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Flexible(
-      child: ListTile(
-        dense: true,
-        title: Text(
+    return Column(
+      children: [
+        Text(
           title,
           style: Theme.of(context).textTheme.titleMedium!.copyWith(
                 color: Colors.black,
                 fontWeight: FontWeight.bold,
-                fontSize: 9,
+                fontSize: 11,
               ),
         ),
-        subtitle: Text(
+        Text(
           subTitle,
           style: Theme.of(context).textTheme.titleMedium!.copyWith(
                 color: Colors.black,
                 fontWeight: FontWeight.normal,
-                fontSize: 8,
+                fontSize: 9,
               ),
         ),
-      ),
+      ],
     );
   }
 }
@@ -160,7 +163,10 @@ class PropertyCardWidgetTablet extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
-      decoration: BoxDecoration(border: Border.all(color: Colors.grey)),
+      decoration: BoxDecoration(
+        border: Border.all(color: Colors.grey),
+        color: Colors.white,
+      ),
       padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
       child: Column(
         children: [
@@ -267,7 +273,10 @@ class PropertyCardWidgetDesktop extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-      decoration: BoxDecoration(border: Border.all(color: Colors.grey)),
+      decoration: BoxDecoration(
+        border: Border.all(color: Colors.grey),
+        color: Colors.white,
+      ),
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
       child: Column(
         children: [
@@ -281,9 +290,17 @@ class PropertyCardWidgetDesktop extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                   color: Colors.black,
                 ),
-            title: Text(property.title),
+            title: Text(
+              property.title,
+              style: TextStyle(
+                color: Theme.of(context).primaryColor,
+              ),
+            ),
             subtitle: Text(property.address),
-            trailing: const Icon(Icons.open_in_new),
+            trailing: Icon(
+              Icons.open_in_new,
+              color: Theme.of(context).primaryColor,
+            ),
           ),
           const Divider(height: 10, thickness: 1),
           IntrinsicHeight(
@@ -307,15 +324,31 @@ class PropertyCardWidgetDesktop extends StatelessWidget {
                         child: Row(
                           children: [
                             InfoTile(
-                              title: Text("${property.furnishing} Furnished"),
+                              title: Text(
+                                "${property.furnishing} Furnished",
+                                style: TextStyle(
+                                  color: Theme.of(context).primaryColor,
+                                ),
+                              ),
                               subtitle: const Text("Furnishing"),
-                              leading: const Icon(Icons.chair),
+                              leading: Icon(
+                                Icons.chair,
+                                color: Theme.of(context).primaryColor,
+                              ),
                             ),
                             const VerticalDivider(width: 10, thickness: 1),
                             InfoTile(
-                              title: Text(property.bhkType),
+                              title: Text(
+                                property.bhkType,
+                                style: TextStyle(
+                                  color: Theme.of(context).primaryColor,
+                                ),
+                              ),
                               subtitle: const Text("Apartment Type"),
-                              leading: const Icon(Icons.apartment),
+                              leading: Icon(
+                                Icons.apartment,
+                                color: Theme.of(context).primaryColor,
+                              ),
                             ),
                             const VerticalDivider(width: 10, thickness: 1),
                           ],
@@ -326,15 +359,31 @@ class PropertyCardWidgetDesktop extends StatelessWidget {
                         child: Row(
                           children: [
                             InfoTile(
-                              title: Text(property.prefTene),
+                              title: Text(
+                                property.prefTene,
+                                style: TextStyle(
+                                  color: Theme.of(context).primaryColor,
+                                ),
+                              ),
                               subtitle: const Text("Preferred Tenants"),
-                              leading: const Icon(Icons.person),
+                              leading: Icon(
+                                Icons.person,
+                                color: Theme.of(context).primaryColor,
+                              ),
                             ),
                             const VerticalDivider(width: 10, thickness: 1),
                             InfoTile(
-                              title: Text(property.parking),
+                              title: Text(
+                                property.parking,
+                                style: TextStyle(
+                                  color: Theme.of(context).primaryColor,
+                                ),
+                              ),
                               subtitle: const Text("Parking"),
-                              leading: const Icon(Icons.local_parking),
+                              leading: Icon(
+                                Icons.local_parking,
+                                color: Theme.of(context).primaryColor,
+                              ),
                             ),
                             const VerticalDivider(width: 10, thickness: 1),
                           ],
@@ -418,10 +467,18 @@ class PropertyCardWidgetDesktop extends StatelessWidget {
               children: [
                 const VerticalDivider(width: 10, thickness: 1),
                 InfoTile(
-                  leading: const Icon(Icons.currency_rupee),
-                  title: Text(property.propertyType == "Rent"
-                      ? "${property.rentPrice}"
-                      : "${property.sellPrice}"),
+                  leading: Icon(
+                    Icons.currency_rupee,
+                    color: Theme.of(context).primaryColor,
+                  ),
+                  title: Text(
+                    property.propertyType == "Rent"
+                        ? "${property.rentPrice}"
+                        : "${property.sellPrice}",
+                    style: TextStyle(
+                      color: Theme.of(context).primaryColor,
+                    ),
+                  ),
                   subtitle: property.propertyType == "Rent"
                       ? Text("${property.propertyType}"
                           "${property.rentNego ? "(Negotiable)" : ""}")
@@ -430,14 +487,30 @@ class PropertyCardWidgetDesktop extends StatelessWidget {
                 ),
                 const VerticalDivider(width: 10, thickness: 1),
                 InfoTile(
-                  leading: const Icon(Icons.currency_rupee_outlined),
-                  title: Text("${property.deposit}"),
+                  leading: Icon(
+                    Icons.currency_rupee_outlined,
+                    color: Theme.of(context).primaryColor,
+                  ),
+                  title: Text(
+                    "${property.deposit}",
+                    style: TextStyle(
+                      color: Theme.of(context).primaryColor,
+                    ),
+                  ),
                   subtitle: const Text("Deposit"),
                 ),
                 const VerticalDivider(width: 10, thickness: 1),
                 InfoTile(
-                  leading: const Icon(Icons.square_foot),
-                  title: Text("${property.area}" " sqft"),
+                  leading: Icon(
+                    Icons.square_foot,
+                    color: Theme.of(context).primaryColor,
+                  ),
+                  title: Text(
+                    "${property.area}" " sqft",
+                    style: TextStyle(
+                      color: Theme.of(context).primaryColor,
+                    ),
+                  ),
                   subtitle: const Text("BuiltUp"),
                 ),
                 const VerticalDivider(width: 10, thickness: 1),
@@ -476,8 +549,8 @@ class AddToFavoriteButton extends StatelessWidget {
           icon: Icon(
             state.favoritePropertyList
                     .any((element) => element.id == property.id)
-                ? Icons.bookmark
-                : Icons.bookmark_add_outlined,
+                ? Icons.favorite
+                : Icons.favorite_border,
             color: state.favoritePropertyList
                     .any((element) => element.id == property.id)
                 ? Colors.red
