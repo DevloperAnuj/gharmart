@@ -15,7 +15,7 @@ class MyPropertyCardWidgetDesktop extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: (){
+      onTap: () {
         context.pushNamed(PropertyDetailsPage.routeName, extra: property);
       },
       child: Card(
@@ -37,17 +37,15 @@ class MyPropertyCardWidgetDesktop extends StatelessWidget {
               Expanded(
                 flex: 4,
                 child: Padding(
-                  padding: const EdgeInsets.only(left: 20, right: 10, bottom: 10),
+                  padding:
+                      const EdgeInsets.only(left: 20, right: 10, bottom: 10),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Text(
-                        property.status == 3
-                            ? " Property Rented Out ."
-                            : " Property is Currently Active .",
+                        getTileStatusText(property.status),
                         style: TextStyle(
-                          backgroundColor:
-                          property.status == 3 ? Colors.red : Colors.green,
+                          backgroundColor: getTileStatusBGColour(property.status),
                           fontSize: 10,
                           color: Colors.white,
                         ),
@@ -59,11 +57,11 @@ class MyPropertyCardWidgetDesktop extends StatelessWidget {
                           property.title,
                           maxLines: 1,
                           style:
-                          Theme.of(context).textTheme.titleMedium!.copyWith(
-                            color: Theme.of(context).primaryColor,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16,
-                          ),
+                              Theme.of(context).textTheme.titleMedium!.copyWith(
+                                    color: Theme.of(context).primaryColor,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 16,
+                                  ),
                         ),
                       ),
                       Align(
@@ -72,11 +70,11 @@ class MyPropertyCardWidgetDesktop extends StatelessWidget {
                           property.title,
                           maxLines: 1,
                           style:
-                          Theme.of(context).textTheme.titleMedium!.copyWith(
-                            color: Colors.grey,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 14,
-                          ),
+                              Theme.of(context).textTheme.titleMedium!.copyWith(
+                                    color: Colors.grey,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 14,
+                                  ),
                         ),
                       ),
                       const Divider(),
@@ -168,6 +166,38 @@ Color getTileStatusColour(int status) {
   return Colors.white;
 }
 
+Color getTileStatusBGColour(int status) {
+  if (status == 0) {
+    return Colors.green;
+  }
+  if (status == 1) {
+    return Colors.amber;
+  }
+  if (status == 2) {
+    return Colors.orange;
+  }
+  if (status == 3) {
+    return Colors.red;
+  }
+  return Colors.white;
+}
+
+String getTileStatusText(int status) {
+  if (status == 0) {
+    return "Property is Active .";
+  }
+  if (status == 1) {
+    return "Property is Pending .";
+  }
+  if (status == 2) {
+    return "Property is Withheld .";
+  }
+  if (status == 3) {
+    return "Property is Delisted .";
+  }
+  return "";
+}
+
 class MyPropertyCardWidgetMobile extends StatelessWidget {
   final PropertyEntity property;
 
@@ -176,7 +206,7 @@ class MyPropertyCardWidgetMobile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: (){
+      onTap: () {
         context.pushNamed(PropertyDetailsPage.routeName, extra: property);
       },
       child: Card(
@@ -198,17 +228,16 @@ class MyPropertyCardWidgetMobile extends StatelessWidget {
               Expanded(
                 flex: 4,
                 child: Padding(
-                  padding: const EdgeInsets.only(left: 20, right: 10, bottom: 10),
+                  padding:
+                      const EdgeInsets.only(left: 20, right: 10, bottom: 10),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Text(
-                        property.status == 3
-                            ? " Property Rented Out ."
-                            : " Property is Currently Active .",
+                        getTileStatusText(property.status),
                         style: TextStyle(
                           backgroundColor:
-                              property.status == 3 ? Colors.red : Colors.green,
+                              getTileStatusBGColour(property.status),
                           fontSize: 10,
                           color: Colors.white,
                         ),
@@ -279,7 +308,7 @@ class MyPropertyCardWidgetTablet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: (){
+      onTap: () {
         context.pushNamed(PropertyDetailsPage.routeName, extra: property);
       },
       child: Card(
@@ -301,17 +330,16 @@ class MyPropertyCardWidgetTablet extends StatelessWidget {
               Expanded(
                 flex: 4,
                 child: Padding(
-                  padding: const EdgeInsets.only(left: 20, right: 10, bottom: 10),
+                  padding:
+                      const EdgeInsets.only(left: 20, right: 10, bottom: 10),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Text(
-                        property.status == 3
-                            ? " Property Rented Out ."
-                            : " Property is Currently Active .",
+                        getTileStatusText(property.status),
                         style: TextStyle(
                           backgroundColor:
-                          property.status == 3 ? Colors.red : Colors.green,
+                              getTileStatusBGColour(property.status),
                           fontSize: 10,
                           color: Colors.white,
                         ),
@@ -323,11 +351,11 @@ class MyPropertyCardWidgetTablet extends StatelessWidget {
                           property.title,
                           maxLines: 1,
                           style:
-                          Theme.of(context).textTheme.titleMedium!.copyWith(
-                            color: Theme.of(context).primaryColor,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16,
-                          ),
+                              Theme.of(context).textTheme.titleMedium!.copyWith(
+                                    color: Theme.of(context).primaryColor,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 16,
+                                  ),
                         ),
                       ),
                       Align(
@@ -336,11 +364,11 @@ class MyPropertyCardWidgetTablet extends StatelessWidget {
                           property.title,
                           maxLines: 1,
                           style:
-                          Theme.of(context).textTheme.titleMedium!.copyWith(
-                            color: Colors.grey,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 14,
-                          ),
+                              Theme.of(context).textTheme.titleMedium!.copyWith(
+                                    color: Colors.grey,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 14,
+                                  ),
                         ),
                       ),
                       const Divider(),
