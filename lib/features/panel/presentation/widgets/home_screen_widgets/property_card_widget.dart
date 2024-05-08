@@ -23,6 +23,7 @@ class PropertyCardWidgetMobile extends StatelessWidget {
       decoration: BoxDecoration(
         border: Border.all(color: Colors.grey),
         color: Colors.white,
+        borderRadius: BorderRadius.circular(20),
       ),
       padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
       child: Column(
@@ -166,6 +167,7 @@ class PropertyCardWidgetTablet extends StatelessWidget {
       decoration: BoxDecoration(
         border: Border.all(color: Colors.grey),
         color: Colors.white,
+        borderRadius: BorderRadius.circular(20),
       ),
       padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
       child: Column(
@@ -276,6 +278,7 @@ class PropertyCardWidgetDesktop extends StatelessWidget {
       decoration: BoxDecoration(
         border: Border.all(color: Colors.grey),
         color: Colors.white,
+        borderRadius: BorderRadius.circular(20),
       ),
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
       child: Column(

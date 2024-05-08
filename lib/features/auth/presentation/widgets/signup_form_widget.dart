@@ -66,13 +66,7 @@ class _SignUpFormWidgetState extends State<SignUpFormWidget> {
             width: double.infinity,
             child: ElevatedButton.icon(
               onPressed: () {
-                context.read<SignUpCubit>().signUpWithEmailPass(
-                      name: nameController.text,
-                      email: emailController.text,
-                      phone: phoneController.text,
-                      cityName: cityController.text,
-                      pass: passController.text,
-                    );
+                validateFieldsAndRegister();
               },
               icon: BlocConsumer<SignUpCubit, SignUpState>(
                 listener: (context, state) {
@@ -122,5 +116,42 @@ class _SignUpFormWidgetState extends State<SignUpFormWidget> {
         ),
       ],
     );
+  }
+
+  validateFieldsAndRegister() {
+    if (nameController.text.isEmpty) {
+      MyConstants.mySnackBar(context,
+          message: "Name Can't Be Empty", color: Colors.amber);
+      return;
+    }
+    if (emailController.text.isEmpty) {
+      MyConstants.mySnackBar(context,
+          message: "Email Can't Be Empty", color: Colors.amber);
+      return;
+    }
+    if (phoneController.text.isEmpty || phoneController.text.length != 10) {
+      MyConstants.mySnackBar(context,
+          message: "Phone Can't Validate it Should be 10 Characters long",
+          color: Colors.amber);
+      return;
+    }
+    if (cityController.text.isEmpty) {
+      MyConstants.mySnackBar(context,
+          message: "City Can't Be Empty", color: Colors.amber);
+      return;
+    }
+    if (passController.text.isEmpty || passController.text.length < 6) {
+      MyConstants.mySnackBar(context,
+          message: "Password Should be at least 6 Characters long",
+          color: Colors.amber);
+      return;
+    }
+    context.read<SignUpCubit>().signUpWithEmailPass(
+          name: nameController.text,
+          email: emailController.text,
+          phone: phoneController.text,
+          cityName: cityController.text,
+          pass: passController.text,
+        );
   }
 }

@@ -1021,8 +1021,8 @@ class LandingPageDesktop extends StatelessWidget {
                               context.pushNamed(PanelPage.routeName);
                             },
                             style: ElevatedButton.styleFrom(
-                              foregroundColor: Colors.white,
-                              backgroundColor: Theme.of(context).primaryColor,
+                              backgroundColor: Colors.white,
+                              foregroundColor: Theme.of(context).primaryColor,
                             ),
                             child: const Text("Find Property"),
                           ),

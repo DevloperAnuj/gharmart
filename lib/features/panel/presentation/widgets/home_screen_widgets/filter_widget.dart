@@ -29,29 +29,32 @@ class FilterWidgetDesktop extends StatelessWidget {
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  CSCPicker(
-                    flagState: CountryFlag.DISABLE,
-                    defaultCountry: CscCountry.India,
-                    disabledDropdownDecoration:
-                        const BoxDecoration(color: Colors.white),
-                    currentCity: "Pune",
-                    currentState: "Maharashtra",
-                    currentCountry: "India",
-                    onCountryChanged: (country) {
-                      context.read<ListingFilterCubit>().applyCountry(country);
-                    },
-                    onStateChanged: (state) {
-                      String selectedState = state ?? "Maharashtra";
-                      context
-                          .read<ListingFilterCubit>()
-                          .applyState(selectedState);
-                    },
-                    onCityChanged: (city) {
-                      String? selectedCity = city == "City" ? "Pune" : city;
-                      context
-                          .read<ListingFilterCubit>()
-                          .applyCity(selectedCity!);
-                    },
+                  Theme(
+                    data: ThemeData(),
+                    child: CSCPicker(
+                      flagState: CountryFlag.DISABLE,
+                      defaultCountry: CscCountry.India,
+                      disabledDropdownDecoration:
+                          const BoxDecoration(color: Colors.white),
+                      currentCity: "Pune",
+                      currentState: "Maharashtra",
+                      currentCountry: "India",
+                      onCountryChanged: (country) {
+                        context.read<ListingFilterCubit>().applyCountry(country);
+                      },
+                      onStateChanged: (state) {
+                        String selectedState = state ?? "Maharashtra";
+                        context
+                            .read<ListingFilterCubit>()
+                            .applyState(selectedState);
+                      },
+                      onCityChanged: (city) {
+                        String? selectedCity = city == "City" ? "Pune" : city;
+                        context
+                            .read<ListingFilterCubit>()
+                            .applyCity(selectedCity!);
+                      },
+                    ),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),

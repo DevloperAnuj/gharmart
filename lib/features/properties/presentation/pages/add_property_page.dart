@@ -45,7 +45,7 @@ class AddPropertyPageMobile extends StatelessWidget {
         child: Column(
           children: [
             AppBar(
-              leading: const SizedBox.shrink(),
+              // leading: const SizedBox.shrink(),
               title: Text(
                 "Add Property",
                 style: Theme.of(context).textTheme.titleMedium!.copyWith(
@@ -121,7 +121,7 @@ class AddPropertyPageTablet extends StatelessWidget {
         child: Column(
           children: [
             AppBar(
-              leading: const SizedBox.shrink(),
+              // leading: const SizedBox.shrink(),
               title: Text(
                 "Add Property",
                 style: Theme.of(context).textTheme.titleMedium!.copyWith(
@@ -201,7 +201,7 @@ class AddPropertyPageDesktop extends StatelessWidget {
           return Column(
             children: [
               AppBar(
-                leading: const SizedBox.shrink(),
+                // leading: const SizedBox.shrink(),
                 title: Text(
                   "Add Property",
                   style: Theme.of(context).textTheme.titleMedium!.copyWith(

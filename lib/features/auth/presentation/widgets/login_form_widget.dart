@@ -51,10 +51,7 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
             width: double.infinity,
             child: ElevatedButton.icon(
               onPressed: () {
-                context.read<SignInCubit>().loginWithEmailAndPass(
-                      email: emailController.text,
-                      pass: passController.text,
-                    );
+                validateFieldsAndLogin();
               },
               icon: BlocConsumer<SignInCubit, SignInState>(
                 listener: (context, state) {
@@ -99,5 +96,23 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
         ),
       ],
     );
+  }
+
+  validateFieldsAndLogin() {
+    if (emailController.text.isEmpty) {
+      MyConstants.mySnackBar(context,
+          message: "Email Can't Be Empty", color: Colors.amber);
+      return;
+    }
+    if (passController.text.isEmpty || passController.text.length < 6) {
+      MyConstants.mySnackBar(context,
+          message: "Password Should be at least 6 Characters long",
+          color: Colors.amber);
+      return;
+    }
+    context.read<SignInCubit>().loginWithEmailAndPass(
+          email: emailController.text,
+          pass: passController.text,
+        );
   }
 }

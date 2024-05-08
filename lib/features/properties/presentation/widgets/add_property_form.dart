@@ -21,33 +21,36 @@ class AddPropertyForm extends StatelessWidget {
                 children: [
                   Padding(
                     padding: const EdgeInsets.all(2.0),
-                    child: CSCPicker(
-                      dropdownDecoration: BoxDecoration(
-                          color: Colors.grey.shade400,
-                          borderRadius: BorderRadius.circular(15)),
-                      flagState: CountryFlag.DISABLE,
-                      defaultCountry: CscCountry.India,
-                      disabledDropdownDecoration:
-                          const BoxDecoration(color: Colors.white),
-                      currentCity: "Pune",
-                      currentState: "Maharashtra",
-                      onCountryChanged: (country) {
-                        context
-                            .read<AddPropertyTempCubit>()
-                            .selectCountry(country);
-                      },
-                      onStateChanged: (state) {
-                        String selectedState = state ?? "Maharashtra";
-                        context
-                            .read<AddPropertyTempCubit>()
-                            .selectState(selectedState);
-                      },
-                      onCityChanged: (city) {
-                        String selectedCity = city ?? "Pune";
-                        context
-                            .read<AddPropertyTempCubit>()
-                            .selectCity(selectedCity);
-                      },
+                    child: Theme(
+                      data: ThemeData(),
+                      child: CSCPicker(
+                        dropdownDecoration: BoxDecoration(
+                            color: Colors.grey.shade400,
+                            borderRadius: BorderRadius.circular(15)),
+                        flagState: CountryFlag.DISABLE,
+                        defaultCountry: CscCountry.India,
+                        disabledDropdownDecoration:
+                            const BoxDecoration(color: Colors.white),
+                        currentCity: "Pune",
+                        currentState: "Maharashtra",
+                        onCountryChanged: (country) {
+                          context
+                              .read<AddPropertyTempCubit>()
+                              .selectCountry(country);
+                        },
+                        onStateChanged: (state) {
+                          String selectedState = state ?? "Maharashtra";
+                          context
+                              .read<AddPropertyTempCubit>()
+                              .selectState(selectedState);
+                        },
+                        onCityChanged: (city) {
+                          String selectedCity = city ?? "Pune";
+                          context
+                              .read<AddPropertyTempCubit>()
+                              .selectCity(selectedCity);
+                        },
+                      ),
                     ),
                   ),
                   AddPropertyTextFormField(
@@ -418,33 +421,36 @@ class AddPropertyFormMobile extends StatelessWidget {
             children: [
               Padding(
                 padding: const EdgeInsets.all(2.0),
-                child: CSCPicker(
-                  dropdownDecoration: BoxDecoration(
-                      color: Colors.grey.shade400,
-                      borderRadius: BorderRadius.circular(15)),
-                  flagState: CountryFlag.DISABLE,
-                  defaultCountry: CscCountry.India,
-                  disabledDropdownDecoration:
-                  const BoxDecoration(color: Colors.white),
-                  currentCity: "Pune",
-                  currentState: "Maharashtra",
-                  onCountryChanged: (country) {
-                    context
-                        .read<AddPropertyTempCubit>()
-                        .selectCountry(country);
-                  },
-                  onStateChanged: (state) {
-                    String selectedState = state ?? "Maharashtra";
-                    context
-                        .read<AddPropertyTempCubit>()
-                        .selectState(selectedState);
-                  },
-                  onCityChanged: (city) {
-                    String selectedCity = city ?? "Pune";
-                    context
-                        .read<AddPropertyTempCubit>()
-                        .selectCity(selectedCity);
-                  },
+                child: Theme(
+                  data: ThemeData(),
+                  child: CSCPicker(
+                    dropdownDecoration: BoxDecoration(
+                        color: Colors.grey.shade400,
+                        borderRadius: BorderRadius.circular(15)),
+                    flagState: CountryFlag.DISABLE,
+                    defaultCountry: CscCountry.India,
+                    disabledDropdownDecoration:
+                    const BoxDecoration(color: Colors.white),
+                    currentCity: "Pune",
+                    currentState: "Maharashtra",
+                    onCountryChanged: (country) {
+                      context
+                          .read<AddPropertyTempCubit>()
+                          .selectCountry(country);
+                    },
+                    onStateChanged: (state) {
+                      String selectedState = state ?? "Maharashtra";
+                      context
+                          .read<AddPropertyTempCubit>()
+                          .selectState(selectedState);
+                    },
+                    onCityChanged: (city) {
+                      String selectedCity = city ?? "Pune";
+                      context
+                          .read<AddPropertyTempCubit>()
+                          .selectCity(selectedCity);
+                    },
+                  ),
                 ),
               ),
               AddPropertyTextFormField(
