@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gharmart/features/properties/presentation/manager/add_property_temp_cubit/add_property_cubit.dart';
 
+import '../pages/add_property_page.dart';
+
 class AddPropertyForm extends StatelessWidget {
   const AddPropertyForm({
     super.key,
@@ -25,7 +27,7 @@ class AddPropertyForm extends StatelessWidget {
                       data: ThemeData(),
                       child: CSCPicker(
                         dropdownDecoration: BoxDecoration(
-                            color: Colors.grey.shade400,
+                            color: Colors.grey.shade100,
                             borderRadius: BorderRadius.circular(15)),
                         flagState: CountryFlag.DISABLE,
                         defaultCountry: CscCountry.India,
@@ -425,7 +427,7 @@ class AddPropertyFormMobile extends StatelessWidget {
                   data: ThemeData(),
                   child: CSCPicker(
                     dropdownDecoration: BoxDecoration(
-                        color: Colors.grey.shade400,
+                        color: Colors.grey.shade100,
                         borderRadius: BorderRadius.circular(15)),
                     flagState: CountryFlag.DISABLE,
                     defaultCountry: CscCountry.India,
@@ -796,6 +798,7 @@ class AddPropertyFormMobile extends StatelessWidget {
                   context.read<AddPropertyTempCubit>().setNonVeg();
                 },
               ),
+              const AddPropertyToReviewButton(),
             ],
           );
         },
@@ -818,7 +821,7 @@ class MyDropDown extends StatelessWidget {
         decoration: BoxDecoration(
           border: Border.all(width: 0, color: Colors.transparent),
           borderRadius: BorderRadius.circular(10),
-          color: Colors.grey.shade400,
+          color: Colors.grey.shade50,
         ),
         child: Theme(
           data: ThemeData(),
@@ -879,15 +882,15 @@ class AddPropertyTextFormField extends StatelessWidget {
           border: InputBorder.none,
           hintText: hint,
           filled: true,
-          fillColor: Colors.grey.shade400,
+          fillColor: Colors.white,
           contentPadding:
               const EdgeInsets.only(left: 14.0, bottom: 6.0, top: 8.0),
           focusedBorder: OutlineInputBorder(
-            borderSide: const BorderSide(color: Colors.red),
+            borderSide: const BorderSide(color: Colors.blueGrey),
             borderRadius: BorderRadius.circular(10.0),
           ),
           enabledBorder: UnderlineInputBorder(
-            borderSide: const BorderSide(color: Colors.grey),
+            borderSide: const BorderSide(color: Colors.grey,width: 3),
             borderRadius: BorderRadius.circular(10.0),
           ),
         ),

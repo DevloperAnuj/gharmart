@@ -40,10 +40,9 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
           controller: emailController,
           hintText: "Email",
         ),
-        MyAuthTextField(
+        MyAuthPassField(
           controller: passController,
           hintText: "Password",
-          secured: true,
         ),
         Padding(
           padding: const EdgeInsets.all(20),

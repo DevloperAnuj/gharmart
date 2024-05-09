@@ -54,57 +54,68 @@ class AddPropertyPageMobile extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                     ),
               ),
-              actions: [
-                Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: BlocConsumer<UploadPropertyDatabaseCubit,
-                      UploadPropertyDatabaseState>(
-                    listener: (context, state) {
-                      if (state is UploadPropertyDatabaseFailed) {
-                        MyConstants.mySnackBar(
-                          context,
-                          message: state.err,
-                          color: Colors.red,
-                        );
-                      }
-                      if (state is UploadPropertyDatabaseSuccess) {
-                        context.read<AddPropertyTempCubit>().setToInit();
-                        MyConstants.mySnackBar(
-                          context,
-                          message: "Property Submitted For Review",
-                          color: Colors.green,
-                        );
-                        Future.delayed(const Duration(seconds: 2), () {
-                          context.pop();
-                        });
-                      }
-                    },
-                    builder: (context, state) {
-                      if (state is UploadPropertyDatabaseLoading) {
-                        return const CircularProgressIndicator();
-                      }
-                      return ElevatedButton.icon(
-                        onPressed: () {
-                          context
-                              .read<UploadPropertyDatabaseCubit>()
-                              .uploadPropertyToDatabase(context);
-                        },
-                        icon: const Icon(Icons.airplane_ticket),
-                        label: const Text("Add"),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Theme.of(context).primaryColor,
-                          foregroundColor: Colors.white,
-                        ),
-                      );
-                    },
-                  ),
-                ),
-              ],
             ),
             const SizedBox(height: 10),
             const ChooseImageAlbumMobile(),
             const AddPropertyFormMobile(),
           ],
+        ),
+      ),
+    );
+  }
+}
+
+class AddPropertyToReviewButton extends StatelessWidget {
+  const AddPropertyToReviewButton({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: double.infinity,
+      child: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: BlocConsumer<UploadPropertyDatabaseCubit,
+            UploadPropertyDatabaseState>(
+          listener: (context, state) {
+            if (state is UploadPropertyDatabaseFailed) {
+              MyConstants.mySnackBar(
+                context,
+                message: state.err,
+                color: Colors.red,
+              );
+            }
+            if (state is UploadPropertyDatabaseSuccess) {
+              context.read<AddPropertyTempCubit>().setToInit();
+              MyConstants.mySnackBar(
+                context,
+                message: "Property Submitted For Review",
+                color: Colors.green,
+              );
+              Future.delayed(const Duration(seconds: 2), () {
+                context.pop();
+              });
+            }
+          },
+          builder: (context, state) {
+            if (state is UploadPropertyDatabaseLoading) {
+              return const CircularProgressIndicator();
+            }
+            return ElevatedButton.icon(
+              onPressed: () {
+                context
+                    .read<UploadPropertyDatabaseCubit>()
+                    .uploadPropertyToDatabase(context);
+              },
+              icon: const Icon(Icons.airplane_ticket),
+              label: const Text("Send For Review"),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Theme.of(context).primaryColor,
+                foregroundColor: Colors.white,
+              ),
+            );
+          },
         ),
       ),
     );
@@ -130,52 +141,6 @@ class AddPropertyPageTablet extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                     ),
               ),
-              actions: [
-                Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: BlocConsumer<UploadPropertyDatabaseCubit,
-                      UploadPropertyDatabaseState>(
-                    listener: (context, state) {
-                      if (state is UploadPropertyDatabaseFailed) {
-                        MyConstants.mySnackBar(
-                          context,
-                          message: state.err,
-                          color: Colors.red,
-                        );
-                      }
-                      if (state is UploadPropertyDatabaseSuccess) {
-                        context.read<AddPropertyTempCubit>().setToInit();
-                        MyConstants.mySnackBar(
-                          context,
-                          message: "Property Submitted For Review",
-                          color: Colors.green,
-                        );
-                        Future.delayed(const Duration(seconds: 2), () {
-                          context.pop();
-                        });
-                      }
-                    },
-                    builder: (context, state) {
-                      if (state is UploadPropertyDatabaseLoading) {
-                        return const CircularProgressIndicator();
-                      }
-                      return ElevatedButton.icon(
-                        onPressed: () {
-                          context
-                              .read<UploadPropertyDatabaseCubit>()
-                              .uploadPropertyToDatabase(context);
-                        },
-                        icon: const Icon(Icons.airplane_ticket),
-                        label: const Text("Add"),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Theme.of(context).primaryColor,
-                          foregroundColor: Colors.white,
-                        ),
-                      );
-                    },
-                  ),
-                ),
-              ],
             ),
             const SizedBox(height: 10),
             const ChooseImageAlbumMobile(),

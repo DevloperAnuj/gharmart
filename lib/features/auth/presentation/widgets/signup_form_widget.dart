@@ -55,10 +55,9 @@ class _SignUpFormWidgetState extends State<SignUpFormWidget> {
           controller: cityController,
           hintText: "City Name",
         ),
-        MyAuthTextField(
+        MyAuthPassField(
           controller: passController,
           hintText: "Password",
-          secured: true,
         ),
         Padding(
           padding: const EdgeInsets.all(20),

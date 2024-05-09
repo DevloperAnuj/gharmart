@@ -63,7 +63,6 @@ class LandingPageMobile extends StatelessWidget {
       ),
       child: Scaffold(
         appBar: AppBar(
-          leading: const SizedBox.shrink(),
           elevation: 2,
           title: const Text("Gharmarket"),
           titleTextStyle: Theme.of(context).textTheme.titleMedium!.copyWith(
@@ -71,7 +70,10 @@ class LandingPageMobile extends StatelessWidget {
                 fontWeight: FontWeight.bold,
                 fontSize: 25,
               ),
-          actions: const [MyPopUpMenuButton()],
+          actions: const [
+            AddPropertyMenuButtonMobile(),
+            MyPopUpMenuButton(),
+          ],
         ),
         body: SingleChildScrollView(
           child: Column(
@@ -116,11 +118,9 @@ class LandingPageMobile extends StatelessWidget {
                           .applyPropertyType("Rent");
                     },
                   ),
-
                   const SizedBox(
                     width: 20,
                   ),
-
                   CustomChoiceChip(
                     label: "Sell",
                     selected: context
@@ -1097,7 +1097,8 @@ class LandingPageDesktop extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 10),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                 child: TextButton(
                   onPressed: () {
                     if (toAuthWrap(context)) {
@@ -1187,6 +1188,28 @@ class AddPropertyMenuButton extends StatelessWidget {
         backgroundColor: Theme.of(context).primaryColor,
       ),
       child: const Text("List Property for Free"),
+    );
+  }
+}
+
+class AddPropertyMenuButtonMobile extends StatelessWidget {
+  const AddPropertyMenuButtonMobile({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton(
+      onPressed: () {
+        if (toAuthWrap(context)) {
+          context.pushNamed(AddPropertyPage.routeName);
+        }
+      },
+      style: ElevatedButton.styleFrom(
+        foregroundColor: Colors.white,
+        backgroundColor: Theme.of(context).primaryColor,
+      ),
+      child: const Text("List Property"),
     );
   }
 }

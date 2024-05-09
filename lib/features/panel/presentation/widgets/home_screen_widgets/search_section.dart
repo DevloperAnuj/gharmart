@@ -133,7 +133,7 @@ class SearchbarSectionDesktop extends StatelessWidget {
       children: [
         Flexible(
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
+            padding: const EdgeInsets.symmetric(horizontal: 35),
             child: TextField(
               style: const TextStyle(
                 color: Colors.black,
