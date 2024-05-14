@@ -7,6 +7,8 @@ import 'package:gharmart/utils/constants.dart';
 import 'package:intl/intl.dart';
 
 import '../../../panel/presentation/widgets/home_screen_widgets/property_card_widget.dart';
+import '../../../profile/presentation/manager/fetch_connections/fetch_connections_cubit.dart';
+import '../../../profile/presentation/pages/connections_property_page.dart';
 
 class PropertyHighlightsWidget extends StatelessWidget {
   final PropertyEntity property;
@@ -33,8 +35,10 @@ class PropertyHighlightsWidget extends StatelessWidget {
               ),
               const VerticalDivider(width: 10, thickness: 1),
               InfoTile(
-                title: Text(property.bhkType,
-                  style: TextStyle(color: Theme.of(context).primaryColor),),
+                title: Text(
+                  property.bhkType,
+                  style: TextStyle(color: Theme.of(context).primaryColor),
+                ),
                 subtitle: const Text("Apartment Type"),
                 leading: Icon(
                   Icons.apartment,
@@ -46,8 +50,10 @@ class PropertyHighlightsWidget extends StatelessWidget {
           Row(
             children: [
               InfoTile(
-                title: Text(property.prefTene,
-                  style: TextStyle(color: Theme.of(context).primaryColor),),
+                title: Text(
+                  property.prefTene,
+                  style: TextStyle(color: Theme.of(context).primaryColor),
+                ),
                 subtitle: const Text("Preferred Tenants"),
                 leading: Icon(
                   Icons.person,
@@ -55,8 +61,10 @@ class PropertyHighlightsWidget extends StatelessWidget {
                 ),
               ),
               InfoTile(
-                title: Text(property.parking,
-                  style: TextStyle(color: Theme.of(context).primaryColor),),
+                title: Text(
+                  property.parking,
+                  style: TextStyle(color: Theme.of(context).primaryColor),
+                ),
                 subtitle: const Text("Parking"),
                 leading: Icon(
                   Icons.local_parking,
@@ -68,8 +76,10 @@ class PropertyHighlightsWidget extends StatelessWidget {
           Row(
             children: [
               InfoTile(
-                title: Text("${property.bathNo}",
-                  style: TextStyle(color: Theme.of(context).primaryColor),),
+                title: Text(
+                  "${property.bathNo}",
+                  style: TextStyle(color: Theme.of(context).primaryColor),
+                ),
                 subtitle: const Text("No of Bathrooms"),
                 leading: Icon(
                   Icons.bathtub,
@@ -77,8 +87,10 @@ class PropertyHighlightsWidget extends StatelessWidget {
                 ),
               ),
               InfoTile(
-                title: Text("Floor No ${property.floorNo}",
-                  style: TextStyle(color: Theme.of(context).primaryColor),),
+                title: Text(
+                  "Floor No ${property.floorNo}",
+                  style: TextStyle(color: Theme.of(context).primaryColor),
+                ),
                 subtitle: const Text("Floor"),
                 leading: Icon(
                   Icons.corporate_fare,
@@ -90,8 +102,10 @@ class PropertyHighlightsWidget extends StatelessWidget {
           Row(
             children: [
               InfoTile(
-                title: Text(property.water,
-                  style: TextStyle(color: Theme.of(context).primaryColor),),
+                title: Text(
+                  property.water,
+                  style: TextStyle(color: Theme.of(context).primaryColor),
+                ),
                 subtitle: const Text("Water Supply"),
                 leading: Icon(
                   Icons.water_drop,
@@ -100,8 +114,10 @@ class PropertyHighlightsWidget extends StatelessWidget {
               ),
               const VerticalDivider(width: 10, thickness: 1),
               InfoTile(
-                title: Text(property.gatedSecu ? "Yes" : "No",
-                  style: TextStyle(color: Theme.of(context).primaryColor),),
+                title: Text(
+                  property.gatedSecu ? "Yes" : "No",
+                  style: TextStyle(color: Theme.of(context).primaryColor),
+                ),
                 subtitle: const Text("Gated Security"),
                 leading: Icon(
                   Icons.badge,
@@ -113,8 +129,10 @@ class PropertyHighlightsWidget extends StatelessWidget {
           Row(
             children: [
               InfoTile(
-                title: Text(property.facing,
-                  style: TextStyle(color: Theme.of(context).primaryColor),),
+                title: Text(
+                  property.facing,
+                  style: TextStyle(color: Theme.of(context).primaryColor),
+                ),
                 subtitle: const Text("Facing"),
                 leading: Icon(
                   Icons.explore,
@@ -122,8 +140,10 @@ class PropertyHighlightsWidget extends StatelessWidget {
                 ),
               ),
               InfoTile(
-                title: Text(property.nonveg ? "Yes" : "No",
-                  style: TextStyle(color: Theme.of(context).primaryColor),),
+                title: Text(
+                  property.nonveg ? "Yes" : "No",
+                  style: TextStyle(color: Theme.of(context).primaryColor),
+                ),
                 subtitle: const Text("Non-Veg Allowed"),
                 leading: Icon(
                   Icons.dinner_dining,
@@ -136,21 +156,40 @@ class PropertyHighlightsWidget extends StatelessWidget {
             children: [
               Expanded(
                 flex: 4,
-                child: ElevatedButton.icon(
-                  onPressed: () {
-                    if (toAuthWrap(context)) {
-                      showOwnerTile(context, property);
-                    }
-                  },
-                  icon: const Icon(Icons.info),
-                  label: const Text(
-                    "Get Owner Details",
-                  ),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color.fromRGBO(18, 132, 142, 1),
-                    foregroundColor: Colors.white,
-                  ),
-                ),
+                child: context
+                        .watch<FetchConnectionsCubit>()
+                        .state
+                        .connectionList
+                        .any((myProperty) => myProperty.id == property.id)
+                    ? ElevatedButton.icon(
+                        onPressed: () {
+                          showConnectedOwnerTile(context, property);
+                        },
+                        icon: const Icon(Icons.info),
+                        label: const Text(
+                          "Contacted",
+                        ),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.green,
+                          foregroundColor: Colors.white,
+                        ),
+                      )
+                    : ElevatedButton.icon(
+                        onPressed: () {
+                          if (toAuthWrap(context)) {
+                            showOwnerTile(context, property);
+                          }
+                        },
+                        icon: const Icon(Icons.info),
+                        label: const Text(
+                          "Owner Details",
+                        ),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor:
+                              const Color.fromRGBO(18, 132, 142, 1),
+                          foregroundColor: Colors.white,
+                        ),
+                      ),
               ),
               Expanded(
                 flex: 1,

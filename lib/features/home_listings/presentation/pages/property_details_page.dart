@@ -7,6 +7,8 @@ import 'package:gharmart/utils/my_layout_builder.dart';
 import '../../../../utils/config_file.dart';
 import '../../../../utils/constants.dart';
 import '../../../panel/presentation/widgets/home_screen_widgets/property_card_widget.dart';
+import '../../../profile/presentation/manager/fetch_connections/fetch_connections_cubit.dart';
+import '../../../profile/presentation/pages/connections_property_page.dart';
 import '../manager/favorite_property/favorite_property_cubit.dart';
 import '../manager/report_property/report_property_cubit.dart';
 import '../widgets/description_widget.dart';
@@ -28,6 +30,9 @@ class PropertyDetailsPage extends StatelessWidget {
         ),
         BlocProvider.value(
           value: serviceConfig.get<FavoritePropertyCubit>(),
+        ),
+        BlocProvider.value(
+          value: serviceConfig.get<FetchConnectionsCubit>(),
         ),
       ],
       child: MyBuilder(
@@ -70,21 +75,39 @@ class PropertyDetailsPageMobile extends StatelessWidget {
           children: [
             Expanded(
               flex: 4,
-              child: ElevatedButton.icon(
-                onPressed: () {
-                  if (toAuthWrap(context)) {
-                    showOwnerTile(context, property);
-                  }
-                },
-                icon: const Icon(Icons.info),
-                label: const Text(
-                  "Get Owner Details",
-                ),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color.fromRGBO(18, 132, 142, 1),
-                  foregroundColor: Colors.white,
-                ),
-              ),
+              child: context
+                      .watch<FetchConnectionsCubit>()
+                      .state
+                      .connectionList
+                      .any((myProperty) => myProperty.id == property.id)
+                  ? ElevatedButton.icon(
+                      onPressed: () {
+                        showConnectedOwnerTile(context, property);
+                      },
+                      icon: const Icon(Icons.info),
+                      label: const Text(
+                        "Contacted",
+                      ),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.green,
+                        foregroundColor: Colors.white,
+                      ),
+                    )
+                  : ElevatedButton.icon(
+                      onPressed: () {
+                        if (toAuthWrap(context)) {
+                          showOwnerTile(context, property);
+                        }
+                      },
+                      icon: const Icon(Icons.info),
+                      label: const Text(
+                        "Owner Details",
+                      ),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color.fromRGBO(18, 132, 142, 1),
+                        foregroundColor: Colors.white,
+                      ),
+                    ),
             ),
             Expanded(
               flex: 1,
@@ -126,21 +149,39 @@ class PropertyDetailsPageTablet extends StatelessWidget {
           children: [
             Expanded(
               flex: 4,
-              child: ElevatedButton.icon(
-                onPressed: () {
-                  if (toAuthWrap(context)) {
-                    showOwnerTile(context, property);
-                  }
-                },
-                icon: const Icon(Icons.info),
-                label: const Text(
-                  "Get Owner Details",
-                ),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color.fromRGBO(18, 132, 142, 1),
-                  foregroundColor: Colors.white,
-                ),
-              ),
+              child: context
+                      .watch<FetchConnectionsCubit>()
+                      .state
+                      .connectionList
+                      .any((myProperty) => myProperty.id == property.id)
+                  ? ElevatedButton.icon(
+                      onPressed: () {
+                        showConnectedOwnerTile(context, property);
+                      },
+                      icon: const Icon(Icons.info),
+                      label: const Text(
+                        "Contacted",
+                      ),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.green,
+                        foregroundColor: Colors.white,
+                      ),
+                    )
+                  : ElevatedButton.icon(
+                      onPressed: () {
+                        if (toAuthWrap(context)) {
+                          showOwnerTile(context, property);
+                        }
+                      },
+                      icon: const Icon(Icons.info),
+                      label: const Text(
+                        "Owner Details",
+                      ),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color.fromRGBO(18, 132, 142, 1),
+                        foregroundColor: Colors.white,
+                      ),
+                    ),
             ),
             Expanded(
               flex: 1,
