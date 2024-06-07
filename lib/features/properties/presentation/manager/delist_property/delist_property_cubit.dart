@@ -24,4 +24,14 @@ class DelistPropertyCubit extends Cubit<DelistPropertyState> {
       emit(DelistPropertyFailed(err: e.message));
     }
   }
+
+  void relistCurrentProperty(String id) async {
+    try {
+      emit(DelistPropertyInitial());
+      await client.from("property").update({'status': 0}).eq('id', id);
+      emit(DelistPropertySuccess());
+    } on StorageException catch (e) {
+      emit(DelistPropertyFailed(err: e.message));
+    }
+  }
 }

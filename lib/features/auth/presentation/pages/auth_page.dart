@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gharmart/features/auth/presentation/manager/auth_toggle_cubit/auth_toggle_cubit.dart';
+import 'package:gharmart/features/auth/presentation/manager/reset_password/reset_password_cubit.dart';
 import 'package:gharmart/features/auth/presentation/manager/sign_in_cubit/sign_in_cubit.dart';
 import 'package:gharmart/features/auth/presentation/manager/sign_up_cubit/sign_up_cubit.dart';
 import 'package:gharmart/features/panel/presentation/sreens/profile_screen.dart';
@@ -76,7 +77,6 @@ class AuthPageMobile extends StatelessWidget {
 }
 
 class AuthPageTablet extends StatelessWidget {
-
   const AuthPageTablet({super.key});
 
   @override
@@ -123,7 +123,7 @@ class AuthPageDesktop extends StatelessWidget {
         color: Colors.white,
         borderRadius: BorderRadius.circular(30),
         child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 20.0,horizontal: 20),
+          padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 20),
           child: Container(
             padding: const EdgeInsets.all(20),
             decoration: BoxDecoration(

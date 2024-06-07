@@ -1,4 +1,6 @@
 import 'package:get_it/get_it.dart';
+import 'package:gharmart/features/auth/presentation/manager/otp_sign_in/otp_sign_in_cubit.dart';
+import 'package:gharmart/features/auth/presentation/manager/reset_password/reset_password_cubit.dart';
 import 'package:gharmart/features/auth/presentation/manager/sign_in_cubit/sign_in_cubit.dart';
 import 'package:gharmart/features/auth/presentation/manager/sign_up_cubit/sign_up_cubit.dart';
 import 'package:gharmart/features/home_listings/presentation/manager/display_properties/display_properties_cubit.dart';
@@ -30,6 +32,14 @@ void configSetup() {
 
   serviceConfig.registerLazySingleton<SignUpCubit>(
     () => SignUpCubit(),
+  );
+
+  serviceConfig.registerLazySingleton<OtpSignInCubit>(
+        () => OtpSignInCubit(),
+  );
+
+  serviceConfig.registerLazySingleton<ResetPasswordCubit>(
+        () => ResetPasswordCubit(),
   );
 
   serviceConfig.registerLazySingleton<FetchProfileCubit>(

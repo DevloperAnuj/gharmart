@@ -32,6 +32,9 @@ class DisplayPropertiesCubit extends Cubit<DisplayPropertiesState> {
               property.parking == filter.state.parking &&
               property.prefTene == filter.state.prefTen &&
               property.furnishing == filter.state.furnishing &&
+              property.procat == filter.state.propertyCat &&
+              property.landmark == filter.state.landmark &&
+              property.status == 0 &&
               (property.propertyType == "Rent"
                   ? property.rentPrice >= filter.state.rentMin
                   : property.sellPrice >= filter.state.priceMin) &&
@@ -62,6 +65,9 @@ class DisplayPropertiesCubit extends Cubit<DisplayPropertiesState> {
             property.city == filter.state.city &&
             property.state == filter.state.state &&
             property.bhkType == filter.state.bhkType &&
+            property.procat == filter.state.propertyCat &&
+            property.landmark == filter.state.landmark &&
+            property.status == 0 &&
             (property.propertyType == "Rent"
                 ? property.rentPrice >= filter.state.rentMin
                 : property.sellPrice >= filter.state.priceMin) &&

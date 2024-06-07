@@ -3,15 +3,16 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gharmart/features/home_listings/presentation/manager/favorite_property/favorite_property_cubit.dart';
 import 'package:gharmart/features/home_listings/presentation/manager/get_user_properties/get_user_properties_cubit.dart';
 import 'package:gharmart/features/panel/presentation/widgets/my_listing_screen_widgets/my_properties_list_widget.dart';
+import 'package:gharmart/features/properties/presentation/manager/delist_property/delist_property_cubit.dart';
 import 'package:gharmart/utils/config_file.dart';
 import 'package:gharmart/utils/my_layout_builder.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../utils/constants.dart';
 import '../../../properties/presentation/pages/add_property_page.dart';
 import '../widgets/my_listing_screen_widgets/dash_info_widget.dart';
 
 class MyPropertiesListingPage extends StatelessWidget {
-
   const MyPropertiesListingPage({super.key});
 
   static const String routeName = "/mylisting";
@@ -27,33 +28,53 @@ class MyPropertiesListingPage extends StatelessWidget {
         BlocProvider.value(
           value: serviceConfig.get<FavoritePropertyCubit>(),
         ),
+        BlocProvider.value(
+          value: DelistPropertyCubit(),
+        ),
       ],
-      child: Container(
-        decoration:  BoxDecoration(
-          image: DecorationImage(
-            image: const AssetImage('assets/images/lbg.png'),
-            repeat: ImageRepeat.repeatY,
-            colorFilter: ColorFilter.mode(
-              Colors.white.withOpacity(0.5),
-              BlendMode.dstATop,
+      child: BlocListener<DelistPropertyCubit, DelistPropertyState>(
+        listener: (context, state) {
+          if (state is DelistPropertySuccess) {
+            MyConstants.mySnackBar(
+              context,
+              message: "Your Request is Submitted Successfully",
+              color: Colors.green,
+            );
+          }
+          if (state is DelistPropertyFailed) {
+            MyConstants.mySnackBar(
+              context,
+              message: state.err,
+              color: Colors.red,
+            );
+          }
+        },
+        child: Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: const AssetImage('assets/images/lbg.png'),
+              repeat: ImageRepeat.repeatY,
+              colorFilter: ColorFilter.mode(
+                Colors.white.withOpacity(0.5),
+                BlendMode.dstATop,
+              ),
             ),
           ),
-        ),
-        child: Scaffold(
-          appBar: AppBar(
-
-            elevation: 2,
-            title: const Text("Gharmarket"),
-            titleTextStyle: Theme.of(context).textTheme.titleMedium!.copyWith(
-                  color: Theme.of(context).primaryColor,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 25,
-                ),
-          ),
-          body: const MyBuilder(
-            mobileView: ListingScreenMobile(),
-            tabletView: ListingScreenTablet(),
-            deskView: ListingScreenDesktop(),
+          child: Scaffold(
+            appBar: AppBar(
+              elevation: 2,
+              title: const Text("Gharmarket"),
+              titleTextStyle: Theme.of(context).textTheme.titleMedium!.copyWith(
+                    color: Theme.of(context).primaryColor,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 25,
+                  ),
+            ),
+            body: const MyBuilder(
+              mobileView: ListingScreenMobile(),
+              tabletView: ListingScreenTablet(),
+              deskView: ListingScreenDesktop(),
+            ),
           ),
         ),
       ),
@@ -96,7 +117,7 @@ class ListingScreenTablet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  SingleChildScrollView(
+    return SingleChildScrollView(
       child: Column(
         children: [
           const SizedBox(height: 20),

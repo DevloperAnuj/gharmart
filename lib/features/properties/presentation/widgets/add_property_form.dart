@@ -69,13 +69,38 @@ class AddPropertyForm extends StatelessWidget {
                       context.read<AddPropertyTempCubit>().getAddress(text);
                     },
                   ),
-                  AddPropertyTextFormField(
-                    initialValue: tempState.desc,
-                    hint: "Description",
-                    max: 4,
-                    onChanged: (text) {
-                      context.read<AddPropertyTempCubit>().getDescription(text);
+                  // AddPropertyTextFormField(
+                  //   initialValue: tempState.desc,
+                  //   hint: "Description",
+                  //   max: 4,
+                  //   onChanged: (text) {
+                  //     context.read<AddPropertyTempCubit>().getDescription(text);
+                  //   },
+                  // ),
+                  //Description Replaced with Landmark
+                  MyDropDown(
+                    value: tempState.landmark,
+                    onChanged: (val) {
+                      context.read<AddPropertyTempCubit>().getLandmark(val);
                     },
+                    options: landmarksPune,
+                    iconData: Icons.location_on,
+                  ),
+                  MyDropDown(
+                    value: tempState.procat,
+                    onChanged: (val) {
+                      context.read<AddPropertyTempCubit>().getProcat(val);
+                    },
+                    options: const [
+                      "Select Property Type",
+                      'Room',
+                      'Flat',
+                      'Bungalow',
+                      'Row House',
+                      'Mansion',
+                      'PG',
+                    ],
+                    iconData: Icons.category,
                   ),
                   MyDropDown(
                     value: tempState.propertyType,
@@ -432,7 +457,7 @@ class AddPropertyFormMobile extends StatelessWidget {
                     flagState: CountryFlag.DISABLE,
                     defaultCountry: CscCountry.India,
                     disabledDropdownDecoration:
-                    const BoxDecoration(color: Colors.white),
+                        const BoxDecoration(color: Colors.white),
                     currentCity: "Pune",
                     currentState: "Maharashtra",
                     onCountryChanged: (country) {
@@ -469,20 +494,42 @@ class AddPropertyFormMobile extends StatelessWidget {
                   context.read<AddPropertyTempCubit>().getAddress(text);
                 },
               ),
-              AddPropertyTextFormField(
-                initialValue: tempState.desc,
-                hint: "Description",
-                max: 4,
-                onChanged: (text) {
-                  context.read<AddPropertyTempCubit>().getDescription(text);
+              // AddPropertyTextFormField(
+              //   initialValue: tempState.desc,
+              //   hint: "Description",
+              //   max: 4,
+              //   onChanged: (text) {
+              //     context.read<AddPropertyTempCubit>().getDescription(text);
+              //   },
+              // ),
+              MyDropDown(
+                value: tempState.landmark,
+                onChanged: (val) {
+                  context.read<AddPropertyTempCubit>().getLandmark(val);
                 },
+                options: landmarksPune,
+                iconData: Icons.location_on,
+              ),
+              MyDropDown(
+                value: tempState.procat,
+                onChanged: (val) {
+                  context.read<AddPropertyTempCubit>().getProcat(val);
+                },
+                options: const [
+                  "Select Property Type",
+                  'Room',
+                  'Flat',
+                  'Bungalow',
+                  'Row House',
+                  'Mansion',
+                  'PG',
+                ],
+                iconData: Icons.category,
               ),
               MyDropDown(
                 value: tempState.propertyType,
                 onChanged: (val) {
-                  context
-                      .read<AddPropertyTempCubit>()
-                      .togglePropertyType(val);
+                  context.read<AddPropertyTempCubit>().togglePropertyType(val);
                 },
                 options: const ["Property for", "Rent", "Sell"],
                 iconData: Icons.key,
@@ -494,7 +541,7 @@ class AddPropertyFormMobile extends StatelessWidget {
                   hint: "Rent in ₹",
                   onChanged: (rent) {
                     int price =
-                    int.tryParse(rent) == null ? 0 : int.parse(rent);
+                        int.tryParse(rent) == null ? 0 : int.parse(rent);
                     context.read<AddPropertyTempCubit>().getRent(price);
                   },
                 ),
@@ -515,7 +562,7 @@ class AddPropertyFormMobile extends StatelessWidget {
                   hint: "Deposit in ₹",
                   onChanged: (depo) {
                     int price =
-                    int.tryParse(depo) == null ? 0 : int.parse(depo);
+                        int.tryParse(depo) == null ? 0 : int.parse(depo);
                     context.read<AddPropertyTempCubit>().getDeposit(price);
                   },
                 ),
@@ -526,10 +573,8 @@ class AddPropertyFormMobile extends StatelessWidget {
                   hint: "Sell Price in ₹",
                   onChanged: (sell) {
                     int price =
-                    int.tryParse(sell) == null ? 0 : int.parse(sell);
-                    context
-                        .read<AddPropertyTempCubit>()
-                        .getSellPrice(price);
+                        int.tryParse(sell) == null ? 0 : int.parse(sell);
+                    context.read<AddPropertyTempCubit>().getSellPrice(price);
                   },
                 ),
               if (tempState.propertyType == "Sell")
@@ -547,11 +592,8 @@ class AddPropertyFormMobile extends StatelessWidget {
                 inputType: TextInputType.number,
                 hint: "Maintenance in ₹",
                 onChanged: (ment) {
-                  int price =
-                  int.tryParse(ment) == null ? 0 : int.parse(ment);
-                  context
-                      .read<AddPropertyTempCubit>()
-                      .getMaintenance(price);
+                  int price = int.tryParse(ment) == null ? 0 : int.parse(ment);
+                  context.read<AddPropertyTempCubit>().getMaintenance(price);
                 },
               ),
               MyDropDown(
@@ -593,8 +635,7 @@ class AddPropertyFormMobile extends StatelessWidget {
                 inputType: TextInputType.number,
                 hint: "BuiltUp Area in sqft",
                 onChanged: (area) {
-                  int price =
-                  int.tryParse(area) == null ? 0 : int.parse(area);
+                  int price = int.tryParse(area) == null ? 0 : int.parse(area);
                   context.read<AddPropertyTempCubit>().getArea(price);
                 },
               ),
@@ -603,12 +644,7 @@ class AddPropertyFormMobile extends StatelessWidget {
                 onChanged: (val) {
                   context.read<AddPropertyTempCubit>().getFurnish(val);
                 },
-                options: const [
-                  "Select Furnishing",
-                  "Semi",
-                  "Full",
-                  "None"
-                ],
+                options: const ["Select Furnishing", "Semi", "Full", "None"],
                 iconData: Icons.chair,
               ),
               AddPropertyTextFormField(
@@ -617,7 +653,7 @@ class AddPropertyFormMobile extends StatelessWidget {
                 hint: "Floor No",
                 onChanged: (floor) {
                   int price =
-                  int.tryParse(floor) == null ? 0 : int.parse(floor);
+                      int.tryParse(floor) == null ? 0 : int.parse(floor);
                   context.read<AddPropertyTempCubit>().getFloor(price);
                 },
               ),
@@ -652,8 +688,7 @@ class AddPropertyFormMobile extends StatelessWidget {
                     ChoiceChip(
                       label: const Text("Power Backup"),
                       backgroundColor: Colors.grey.shade200,
-                      selected:
-                      tempState.amenities.contains("Power Backup"),
+                      selected: tempState.amenities.contains("Power Backup"),
                       onSelected: (_) {
                         context
                             .read<AddPropertyTempCubit>()
@@ -703,8 +738,7 @@ class AddPropertyFormMobile extends StatelessWidget {
                     ChoiceChip(
                       label: const Text("House Keeper"),
                       backgroundColor: Colors.grey.shade200,
-                      selected:
-                      tempState.amenities.contains("House Keeper"),
+                      selected: tempState.amenities.contains("House Keeper"),
                       onSelected: (_) {
                         context
                             .read<AddPropertyTempCubit>()
@@ -775,8 +809,7 @@ class AddPropertyFormMobile extends StatelessWidget {
                 inputType: TextInputType.number,
                 hint: "Property Age in Years",
                 onChanged: (age) {
-                  int price =
-                  int.tryParse(age) == null ? 0 : int.parse(age);
+                  int price = int.tryParse(age) == null ? 0 : int.parse(age);
                   context.read<AddPropertyTempCubit>().getAge(price);
                 },
               ),
@@ -890,12 +923,12 @@ class AddPropertyTextFormField extends StatelessWidget {
             borderRadius: BorderRadius.circular(10.0),
           ),
           enabledBorder: UnderlineInputBorder(
-            borderSide: const BorderSide(color: Colors.grey,width: 3),
+            borderSide: const BorderSide(color: Colors.grey, width: 3),
             borderRadius: BorderRadius.circular(10.0),
           ),
         ),
         keyboardType: max > 1 ? TextInputType.multiline : inputType,
-        maxLines: max+1,
+        maxLines: max + 1,
         minLines: max,
       ),
     );
@@ -910,3 +943,55 @@ class AddPropertyTextFormField extends StatelessWidget {
     this.max = 1,
   });
 }
+
+final List<String> landmarksPune = [
+  "Select Landmark",
+  "Ambegaon Budruk",
+  "Aundh",
+  "Baner",
+  "Bavdhan Khurd",
+  "Bavdhan Budruk",
+  "Balewadi",
+  "Shivajinagar",
+  "Bibvewadi",
+  "Bhugaon",
+  "Bhukum",
+  "Dhankawadi",
+  "Dhanori",
+  "Dhayari",
+  "Erandwane",
+  "Fursungi",
+  "Ghorpadi",
+  "Hadapsar",
+  "Hingne Khurd",
+  "Karve Nagar",
+  "Kalas",
+  "Katraj",
+  "Khadki",
+  "Kharadi",
+  "Kondhwa",
+  "Koregaon Park",
+  "Kothrud",
+  "Lohagaon",
+  "Manjri",
+  "Markal",
+  "Mohammed Wadi",
+  "Mundhwa",
+  "Nanded",
+  "Parvati (Parvati Hill)",
+  "Panmala",
+  "Pashan",
+  "Pirangut",
+  "Shivane",
+  "Sus",
+  "Undri",
+  "Vishrantwadi",
+  "Vitthalwadi",
+  "Vadgaon Khurd",
+  "Vadgaon Budruk",
+  "Vadgaon Sheri",
+  "Wagholi",
+  "Wanwadi",
+  "Warje",
+  "Yerwada",
+];

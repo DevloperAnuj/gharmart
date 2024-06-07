@@ -6,6 +6,7 @@ import 'package:gharmart/features/panel/presentation/pages/panel_page.dart';
 import 'package:gharmart/features/panel/presentation/widgets/home_screen_widgets/my_app_bar.dart';
 import 'package:gharmart/features/profile/presentation/manager/fetch_profile/fetch_profile_cubit.dart';
 import 'package:gharmart/features/properties/presentation/pages/add_property_page.dart';
+import 'package:gharmart/features/properties/presentation/widgets/add_property_form.dart';
 import 'package:gharmart/utils/config_file.dart';
 import 'package:gharmart/utils/constants.dart';
 import 'package:gharmart/utils/my_layout_builder.dart';
@@ -183,12 +184,59 @@ class LandingPageMobile extends StatelessWidget {
                           },
                           items: <String>[
                             'Pune',
-                            'Mumbai',
-                            'Nashik',
-                            'Nagpur',
-                            'Satara',
-                            'Kolhapur'
+                            // 'Mumbai',
+                            // 'Nashik',
+                            // 'Nagpur',
+                            // 'Satara',
+                            // 'Kolhapur'
                           ].map<DropdownMenuItem<String>>((String value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(value),
+                            );
+                          }).toList(),
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 20.0, vertical: 10),
+                      child: Theme(
+                        data: ThemeData(),
+                        child: DropdownButtonFormField<String>(
+                          decoration: InputDecoration(
+                            prefixIcon: Icon(
+                              Icons.window_outlined,
+                              color: Theme.of(context).primaryColor,
+                            ),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(40),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(40),
+                              borderSide: BorderSide(
+                                  color: Theme.of(context).primaryColor,
+                                  width: 2),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(40),
+                              borderSide: BorderSide(
+                                  color: Theme.of(context).primaryColor,
+                                  width: 3),
+                            ),
+                          ),
+                          hint: const Text('Select Landmark'),
+                          value: context
+                              .watch<ListingFilterCubit>()
+                              .state
+                              .landmark,
+                          onChanged: (String? newValue) {
+                            context
+                                .read<ListingFilterCubit>()
+                                .applyLandmark(newValue!);
+                          },
+                          items: landmarksPune
+                              .map<DropdownMenuItem<String>>((String value) {
                             return DropdownMenuItem<String>(
                               value: value,
                               child: Text(value),
@@ -764,13 +812,63 @@ class LandingPageDesktop extends StatelessWidget {
                                   },
                                   items: <String>[
                                     'Pune',
-                                    'Mumbai',
-                                    'Nashik',
-                                    'Nagpur',
-                                    'Satara',
-                                    'Kolhapur'
+                                    // 'Mumbai',
+                                    // 'Nashik',
+                                    // 'Nagpur',
+                                    // 'Satara',
+                                    // 'Kolhapur'
                                   ].map<DropdownMenuItem<String>>(
                                       (String value) {
+                                    return DropdownMenuItem<String>(
+                                      value: value,
+                                      child: Text(value),
+                                    );
+                                  }).toList(),
+                                ),
+                              ),
+                            ),
+                          ),
+                          const VerticalDivider(color: Colors.white),
+                          Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 5.0, vertical: 2),
+                              child: Theme(
+                                data: ThemeData(),
+                                child: DropdownButtonFormField<String>(
+                                  dropdownColor: Theme.of(context).primaryColor,
+                                  icon: const Icon(null),
+                                  decoration: InputDecoration(
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(40),
+                                    ),
+                                    enabledBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(40),
+                                      borderSide: BorderSide(
+                                          color: Theme.of(context).primaryColor,
+                                          width: 2),
+                                    ),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(40),
+                                      borderSide: BorderSide(
+                                          color: Theme.of(context).primaryColor,
+                                          width: 3),
+                                    ),
+                                  ),
+                                  hint: const Text('Select Landmark'),
+                                  style: const TextStyle(color: Colors.white70),
+                                  value: context
+                                      .watch<ListingFilterCubit>()
+                                      .state
+                                      .landmark,
+                                  onChanged: (String? newValue) {
+                                    context
+                                        .read<ListingFilterCubit>()
+                                        .applyLandmark(newValue!);
+                                  },
+                                  items: landmarksPune
+                                      .map<DropdownMenuItem<String>>(
+                                          (String value) {
                                     return DropdownMenuItem<String>(
                                       value: value,
                                       child: Text(value),

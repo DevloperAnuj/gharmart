@@ -5,6 +5,8 @@ class AddPropertyTempState {
   final String country;
   final String state;
   final String city;
+  final String landmark;
+  final String procat;
   final String title;
   final String desc;
   final String address;
@@ -63,6 +65,8 @@ class AddPropertyTempState {
       amenities: [],
       pics: [],
       picsUrl: [],
+      landmark: "Select Landmark",
+      procat: "Select Property Type",
     );
   }
 
@@ -96,6 +100,8 @@ class AddPropertyTempState {
     required this.amenities,
     required this.pics,
     required this.picsUrl,
+    required this.landmark,
+    required this.procat,
   });
 
   AddPropertyTempState copyWith({
@@ -128,8 +134,12 @@ class AddPropertyTempState {
     List<String>? amenities,
     List<Uint8List>? pics,
     List<String>? picsUrl,
+    String? landmark,
+    String? procat
   }) {
     return AddPropertyTempState(
+      landmark: landmark ?? this.landmark,
+        procat: procat ?? this.procat,
         country: country ?? this.country,
         state: state ?? this.state,
         city: city ?? this.city,
@@ -192,7 +202,9 @@ class AddPropertyTempState {
       'amenities': amenities,
       'pics': pics,
       'picsUrl': picsUrl,
-      'owner': serviceConfig.get<SupabaseClient>().auth.currentUser!.id
+      'owner': serviceConfig.get<SupabaseClient>().auth.currentUser!.id,
+      'landmark':landmark,
+      'procat':procat,
     };
   }
 
@@ -227,6 +239,8 @@ class AddPropertyTempState {
       amenities: map['amenities'] as List<String>,
       pics: map['pics'] as List<Uint8List>,
       picsUrl: map['picsUrl'] as List<String>,
+        landmark: map['landmark'] as String,
+        procat: map['procat'] as String,
     );
   }
 }

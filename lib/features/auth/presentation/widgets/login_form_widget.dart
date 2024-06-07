@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gharmart/features/auth/presentation/widgets/reset_password_form.dart';
 import 'package:gharmart/features/profile/presentation/manager/fetch_profile/fetch_profile_cubit.dart';
 import 'package:gharmart/utils/constants.dart';
 
@@ -81,7 +82,7 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
             ),
           ),
         ),
-        TextButton(
+        OutlinedButton(
           onPressed: () {
             context.read<AuthToggleCubit>().toggleForm();
           },
@@ -91,6 +92,25 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
           child: const Text(
             "Don't Have an Account? Click Here Register",
             textAlign: TextAlign.center,
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: OutlinedButton(
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => const ResetPasswordFormPage(),
+                ),
+              );
+            },
+            style: TextButton.styleFrom(
+              foregroundColor: Colors.black,
+            ),
+            child: const Text(
+              "Reset Password",
+              textAlign: TextAlign.center,
+            ),
           ),
         ),
       ],

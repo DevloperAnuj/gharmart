@@ -39,6 +39,14 @@ class AddPropertyTempCubit extends Cubit<AddPropertyTempState> {
     emit(state.copyWith(desc: val));
   }
 
+  void getLandmark(String val) {
+    emit(state.copyWith(landmark: val));
+  }
+
+  void getProcat(String val) {
+    emit(state.copyWith(procat: val));
+  }
+
   //
   void togglePropertyType(String type) {
     emit(state.copyWith(propertyType: type));

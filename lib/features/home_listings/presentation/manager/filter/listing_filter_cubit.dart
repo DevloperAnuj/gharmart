@@ -25,6 +25,10 @@ class ListingFilterCubit extends Cubit<ListingFilterState> {
     emit(state.copyWith(bhkType: bhk));
   }
 
+  applyLandmark(String mark) {
+    emit(state.copyWith(landmark: mark));
+  }
+
   applyPropertyCat(String cat) {
     emit(state.copyWith(propertyCat: cat));
   }

@@ -14,6 +14,8 @@ class ListingFilterState {
   final String prefTen;
   final String furnishing;
   final String parking;
+  final String landmark;
+  final String procat;
 
   factory ListingFilterState.initial() {
     return const ListingFilterState(
@@ -30,6 +32,8 @@ class ListingFilterState {
       parking: "Bike and Car",
       rentMin: 0,
       rentMax: 5000,
+      landmark: "Ambegaon Budruk",
+      procat: "Flat"
     );
   }
 
@@ -47,6 +51,8 @@ class ListingFilterState {
     required this.prefTen,
     required this.furnishing,
     required this.parking,
+    required this.landmark,
+    required this.procat,
   });
 
   ListingFilterState copyWith({
@@ -63,6 +69,8 @@ class ListingFilterState {
     String? prefTen,
     String? furnishing,
     String? parking,
+    String? landmark,
+    String? procat,
   }) {
     return ListingFilterState(
       country: country ?? this.country,
@@ -78,6 +86,8 @@ class ListingFilterState {
       parking: parking ?? this.parking,
       rentMin: rentMin ?? this.rentMin,
       rentMax: rentMax ?? this.rentMax,
+      landmark: landmark ?? this.landmark,
+      procat: procat ?? this.procat,
     );
   }
 }

@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
-      title: 'GHAR MART',
+      title: 'GHAR MARKET',
       theme: myTheme,
       routerConfig: MyRouter.router,
     );

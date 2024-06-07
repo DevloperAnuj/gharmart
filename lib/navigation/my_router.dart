@@ -1,5 +1,6 @@
 import 'package:gharmart/features/auth/presentation/pages/auth_page.dart';
 import 'package:gharmart/features/auth/presentation/pages/auth_wrapper_page.dart';
+import 'package:gharmart/features/auth/presentation/pages/reset_password_page.dart';
 import 'package:gharmart/features/home_listings/domain/entities/property_entity.dart';
 import 'package:gharmart/features/home_listings/presentation/pages/favorite_properties_page.dart';
 import 'package:gharmart/features/landing_page/presentation/pages/landing_page.dart';
@@ -22,6 +23,11 @@ class MyRouter {
         path: "/",
         builder: (context, state) => const LandingPage(),
         // builder: (context, state) => const AddPropertyPage(),
+      ),
+      GoRoute(
+        path: ResetPasswordPage.routeName,
+        name: ResetPasswordPage.routeName,
+        builder: (context, state) => const ResetPasswordPage(),
       ),
       GoRoute(
         path: AuthWrapperPage.routeName,
