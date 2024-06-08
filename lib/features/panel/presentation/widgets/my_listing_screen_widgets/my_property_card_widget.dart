@@ -281,7 +281,11 @@ class MyPropertyCardWidgetMobile extends StatelessWidget {
                       const Divider(),
                       if (property.status == 3)
                         ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            context
+                                .read<DelistPropertyCubit>()
+                                .relistCurrentProperty(property.id);
+                          },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Theme.of(context).primaryColor,
                             foregroundColor: Colors.white,
@@ -290,7 +294,11 @@ class MyPropertyCardWidgetMobile extends StatelessWidget {
                         ),
                       if (property.status == 0)
                         ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            context
+                                .read<DelistPropertyCubit>()
+                                .delistCurrentProperty(property.id);
+                          },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.red,
                             foregroundColor: Colors.white,

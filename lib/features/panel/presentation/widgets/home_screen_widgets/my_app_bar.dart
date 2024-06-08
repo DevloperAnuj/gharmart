@@ -63,7 +63,7 @@ class MyPopUpMenuButton extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider.value(
-          value: serviceConfig.get<FetchProfileCubit>()..fetchProfile(),
+          value: serviceConfig.get<FetchProfileCubit>(),
         ),
         BlocProvider(
           create: (context) => SignInCubit(),

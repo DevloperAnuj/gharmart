@@ -43,7 +43,7 @@ class PanelPage extends StatelessWidget {
           value: serviceConfig.get<SignInCubit>(),
         ),
         BlocProvider.value(
-          value: serviceConfig.get<FetchProfileCubit>()..fetchProfile(),
+          value: serviceConfig.get<FetchProfileCubit>(),
         ),
         BlocProvider.value(
           value: serviceConfig.get<ListingFilterCubit>(),

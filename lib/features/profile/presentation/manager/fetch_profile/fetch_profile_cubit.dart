@@ -10,7 +10,6 @@ import 'package:flutter/material.dart';
 part 'fetch_profile_state.dart';
 
 class FetchProfileCubit extends Cubit<FetchProfileState> {
-
   FetchProfileCubit() : super(FetchProfileInitial());
 
   final client = serviceConfig.get<SupabaseClient>();
@@ -19,25 +18,28 @@ class FetchProfileCubit extends Cubit<FetchProfileState> {
 
   void fetchProfile() async {
     if (client.auth.currentUser == null) {
+      print("**** Fetching Profile Null User ****");
       emit(FetchProfileInitial());
       return;
-    }
-    try {
-      emit(FetchProfileLoading());
-      final result = await client
-          .from("users")
-          .select()
-          .eq('id', client.auth.currentUser!.id)
-          .single();
-      final encodedBody = jsonEncode(result);
-      final decodedBody = jsonDecode(encodedBody);
-      emit(
-        FetchProfileSuccess(profileEntity: ProfileEntity.fromMap(decodedBody)),
-      );
-      connections.initConnections(decodedBody["tokens"]);
-    } on PostgrestException catch (e) {
-      emit(FetchProfileFailed(err: e.message));
+    } else {
+      print("**** Fetching Profile ****");
+      try {
+        emit(FetchProfileLoading());
+        final result = await client
+            .from("users")
+            .select()
+            .eq('id', client.auth.currentUser!.id)
+            .single();
+        final encodedBody = jsonEncode(result);
+        final decodedBody = jsonDecode(encodedBody);
+        emit(
+          FetchProfileSuccess(
+              profileEntity: ProfileEntity.fromMap(decodedBody)),
+        );
+        connections.initConnections(decodedBody["tokens"]);
+      } on PostgrestException catch (e) {
+        emit(FetchProfileFailed(err: e.message));
+      }
     }
   }
-
 }
