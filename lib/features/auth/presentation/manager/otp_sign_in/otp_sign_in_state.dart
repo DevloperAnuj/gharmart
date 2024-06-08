@@ -1,34 +1,22 @@
 part of 'otp_sign_in_cubit.dart';
 
 @immutable
-sealed class OtpSignInState {}
+sealed class OtpVerificationSignInState {}
 
-final class OtpSignInInitial extends OtpSignInState {}
-
-
-final class OtpSignInLoading extends OtpSignInState {}
+final class OtpVerificationSignInInitial extends OtpVerificationSignInState {}
 
 
-final class OtpSignInOtpSent extends OtpSignInState {}
+final class OtpVerificationSignInLoading extends OtpVerificationSignInState {}
 
 
-final class OtpSignInOtpFail extends OtpSignInState {
-  final String err;
-
-   OtpSignInOtpFail({
-    required this.err,
-  });
-}
+final class OtpVerificationSignInSuccess extends OtpVerificationSignInState {}
 
 
-final class OtpSignInSuccess extends OtpSignInState {}
-
-
-final class OtpSignInFailed extends OtpSignInState {
+final class OtpVerificationSignInFailed extends OtpVerificationSignInState {
 
   final String err;
 
-  OtpSignInFailed({
+  OtpVerificationSignInFailed({
     required this.err,
   });
 

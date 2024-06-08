@@ -5,29 +5,19 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 part 'otp_sign_in_state.dart';
 
-class OtpSignInCubit extends Cubit<OtpSignInState> {
+class OtpVerificationSignInCubit extends Cubit<OtpVerificationSignInState> {
 
-  OtpSignInCubit() : super(OtpSignInInitial());
+  OtpVerificationSignInCubit() : super(OtpVerificationSignInInitial());
 
   final client = serviceConfig.get<SupabaseClient>();
 
-  void sendOtp(String email) async {
-    try {
-      emit(OtpSignInLoading());
-      await client.auth.signInWithOtp(email: email);
-      emit(OtpSignInOtpSent());
-    } on AuthException catch (e) {
-      emit(OtpSignInOtpFail(err: e.message));
-    }
-  }
-
   void verifyOtp(String otp,String email) async {
     try {
-      emit(OtpSignInLoading());
+      emit(OtpVerificationSignInLoading());
       await client.auth.verifyOTP(token: otp, type: OtpType.email,email: email);
-      emit(OtpSignInSuccess());
+      emit(OtpVerificationSignInSuccess());
     } on AuthException catch (e) {
-      emit(OtpSignInFailed(err: e.message));
+      emit(OtpVerificationSignInFailed(err: e.message));
     }
   }
 }

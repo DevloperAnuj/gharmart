@@ -7,6 +7,7 @@ import 'package:gharmart/utils/constants.dart';
 
 import '../../../profile/presentation/manager/fetch_profile/fetch_profile_cubit.dart';
 import '../manager/auth_toggle_cubit/auth_toggle_cubit.dart';
+import '../manager/send_otp_cubit/send_otp_cubit.dart';
 import 'my_auth_text_field.dart';
 
 class SignUpFormWidget extends StatefulWidget {
@@ -21,7 +22,7 @@ class SignUpFormWidget extends StatefulWidget {
 class _SignUpFormWidgetState extends State<SignUpFormWidget> {
   final TextEditingController nameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
-  final TextEditingController passController = TextEditingController();
+  final TextEditingController otpController = TextEditingController();
   final TextEditingController phoneController = TextEditingController();
   final TextEditingController cityController = TextEditingController();
 
@@ -57,52 +58,103 @@ class _SignUpFormWidgetState extends State<SignUpFormWidget> {
           controller: cityController,
           hintText: "City Name",
         ),
-        MyAuthPassField(
-          controller: passController,
-          hintText: "Password",
-        ),
+        if (context.watch<SendOtpCubit>().state is SendOtpSuccess)
+          MyAuthPassField(
+            controller: otpController,
+            hintText: "OTP - 6 Digit",
+          ),
         Padding(
-          padding: const EdgeInsets.all(20),
-          child: SizedBox(
-            width: double.infinity,
-            child: ElevatedButton.icon(
-              onPressed: () {
-                validateFieldsAndRegister();
-              },
-              icon: BlocConsumer<SignUpCubit, SignUpState>(
-                listener: (context, state) {
-                  if (state is SignUpError) {
-                    MyConstants.mySnackBar(
-                      context,
-                      message: state.err,
-                      color: Colors.red,
-                    );
-                  }
-                  if (state is SignUpSuccess) {
-                    context.read<FetchProfileCubit>().fetchProfile();
-                    Navigator.of(context).pop();
-                    MyConstants.mySnackBar(
-                      context,
-                      message: "User Register Successfully !!",
-                      color: Colors.green,
-                    );
-                  }
+          padding: const EdgeInsets.all(20.0),
+          child: BlocConsumer<SendOtpCubit, SendOtpState>(
+            listener: (context, state) {
+              if (state is SendOtpFailed) {
+                MyConstants.mySnackBar(
+                  context,
+                  message: state.err,
+                  color: Colors.red,
+                );
+              }
+              if (state is SendOtpSuccess) {
+                MyConstants.mySnackBar(
+                  context,
+                  message: "Otp Sent Successfully to Your Email",
+                  color: Colors.green,
+                );
+              }
+            },
+            builder: (context, state) {
+              if (state is SendOtpLoading) {
+                return const CircularProgressIndicator();
+              }
+              if (state is SendOtpSuccess) {
+                return const SizedBox();
+              }
+              return SizedBox(
+                width: double.infinity,
+                child: ElevatedButton.icon(
+                  onPressed: () {
+                    validateFieldsAndSendOtp();
+                  },
+                  icon: const Icon(Icons.email),
+                  label: const Text("Send OTP"),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Theme.of(context).primaryColor,
+                    foregroundColor: Colors.white,
+                  ),
+                ),
+              );
+            },
+          ),
+        ),
+        if (context.watch<SendOtpCubit>().state is SendOtpSuccess)
+          Padding(
+            padding: const EdgeInsets.all(20),
+            child: SizedBox(
+              width: double.infinity,
+              child: ElevatedButton.icon(
+                onPressed: () {
+                  context.read<SignUpCubit>().signUpWithEmailOtp(
+                        name: nameController.text,
+                        email: emailController.text,
+                        phone: phoneController.text,
+                        cityName: cityController.text,
+                        pass: otpController.text,
+                      );
                 },
-                builder: (context, state) {
-                  if (state is SignUpLoading) {
-                    return const Icon(Icons.pending);
-                  }
-                  return const Icon(Icons.app_registration);
-                },
-              ),
-              label: const Text("Register"),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Theme.of(context).primaryColor,
-                foregroundColor: Colors.white,
+                icon: BlocConsumer<SignUpCubit, SignUpState>(
+                  listener: (context, state) {
+                    if (state is SignUpError) {
+                      MyConstants.mySnackBar(
+                        context,
+                        message: state.err,
+                        color: Colors.red,
+                      );
+                    }
+                    if (state is SignUpSuccess) {
+                      context.read<FetchProfileCubit>().fetchProfile();
+                      Navigator.of(context).pop();
+                      MyConstants.mySnackBar(
+                        context,
+                        message: "User Register Successfully !!",
+                        color: Colors.green,
+                      );
+                    }
+                  },
+                  builder: (context, state) {
+                    if (state is SignUpLoading) {
+                      return const Icon(Icons.pending);
+                    }
+                    return const Icon(Icons.app_registration);
+                  },
+                ),
+                label: const Text("Register"),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Theme.of(context).primaryColor,
+                  foregroundColor: Colors.white,
+                ),
               ),
             ),
           ),
-        ),
         OutlinedButton(
           onPressed: () {
             context.read<AuthToggleCubit>().toggleForm();
@@ -119,7 +171,7 @@ class _SignUpFormWidgetState extends State<SignUpFormWidget> {
     );
   }
 
-  validateFieldsAndRegister() {
+  validateFieldsAndSendOtp() {
     if (nameController.text.isEmpty) {
       MyConstants.mySnackBar(context,
           message: "Name Can't Be Empty", color: Colors.amber);
@@ -141,18 +193,15 @@ class _SignUpFormWidgetState extends State<SignUpFormWidget> {
           message: "City Can't Be Empty", color: Colors.amber);
       return;
     }
-    if (passController.text.isEmpty || passController.text.length < 6) {
-      MyConstants.mySnackBar(context,
-          message: "Password Should be at least 6 Characters long",
-          color: Colors.amber);
-      return;
-    }
-    context.read<SignUpCubit>().signUpWithEmailPass(
-          name: nameController.text,
-          email: emailController.text,
-          phone: phoneController.text,
-          cityName: cityController.text,
-          pass: passController.text,
+    // if (otpController.text.isEmpty || otpController.text.length < 6) {
+    //   MyConstants.mySnackBar(context,
+    //       message: "Password Should be at least 6 Characters long",
+    //       color: Colors.amber);
+    //   return;
+    // }
+    context.read<SendOtpCubit>().sendOtp(
+          emailController.text,
+          true,
         );
   }
 }

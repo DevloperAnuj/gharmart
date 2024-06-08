@@ -12,7 +12,7 @@ class SignUpCubit extends Cubit<SignUpState> {
 
   final SupabaseClient client = serviceConfig.get<SupabaseClient>();
 
-  void signUpWithEmailPass({
+  void signUpWithEmailOtp({
     required String name,
     required String email,
     required String phone,
@@ -21,21 +21,19 @@ class SignUpCubit extends Cubit<SignUpState> {
   }) async {
     try {
       emit(SignUpLoading());
-      await client.auth.signUp(
-        password: pass,
-        email: email,
-      );
-      emit(SignUpSuccess());
-      await client.from("users").insert({
-        "name": name,
-        "phone": phone,
-        "city": cityName,
-        "email": email,
-      });
+      final AuthResponse result = await client.auth
+          .verifyOTP(token: pass, type: OtpType.email, email: email);
+      if (result.user != null) {
+        await client.from("users").insert({
+          "name": name,
+          "phone": phone,
+          "city": cityName,
+          "email": email,
+        });
+        emit(SignUpSuccess());
+      }
     } on AuthException catch (e) {
       emit(SignUpError(err: e.message));
     }
   }
-
-
 }

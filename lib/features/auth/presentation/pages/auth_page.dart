@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gharmart/features/auth/presentation/manager/auth_toggle_cubit/auth_toggle_cubit.dart';
+import 'package:gharmart/features/auth/presentation/manager/otp_sign_in/otp_sign_in_cubit.dart';
 import 'package:gharmart/features/auth/presentation/manager/reset_password/reset_password_cubit.dart';
+import 'package:gharmart/features/auth/presentation/manager/send_otp_cubit/send_otp_cubit.dart';
 import 'package:gharmart/features/auth/presentation/manager/sign_in_cubit/sign_in_cubit.dart';
 import 'package:gharmart/features/auth/presentation/manager/sign_up_cubit/sign_up_cubit.dart';
 import 'package:gharmart/features/panel/presentation/sreens/profile_screen.dart';
@@ -32,6 +34,12 @@ class AuthPage extends StatelessWidget {
         ),
         BlocProvider.value(
           value: serviceConfig.get<FetchProfileCubit>(),
+        ),
+        BlocProvider.value(
+          value: serviceConfig.get<OtpVerificationSignInCubit>(),
+        ),
+        BlocProvider.value(
+          value: serviceConfig.get<SendOtpCubit>(),
         ),
       ],
       child: const MyBuilder(
