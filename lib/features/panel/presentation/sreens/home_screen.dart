@@ -12,7 +12,7 @@ class HomeScreenMobile extends StatelessWidget {
     return const Expanded(
       child: Column(
         children: [
-          SearchSectionMobile(),
+         // SearchSectionMobile(),
           PropertiesListWidgetMobile(),
         ],
       ),
@@ -28,7 +28,7 @@ class HomeScreenTablet extends StatelessWidget {
     return const Expanded(
       child: Column(
         children: [
-          SearchSectionTablet(),
+          //SearchSectionTablet(),
           PropertiesListWidgetTablet(),
         ],
       ),
@@ -43,8 +43,8 @@ class HomeScreenDesktop extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Column(
       children: [
-        SearchbarSectionDesktop(),
-        Divider(),
+        //SearchbarSectionDesktop(),
+        //Divider(),
         Expanded(
           child: Row(
             children: [

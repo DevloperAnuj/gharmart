@@ -1,8 +1,11 @@
+import 'package:gharmart/admin/features/admin_panel/pages/admin_panel_page.dart';
+import 'package:gharmart/admin/features/admin_panel/pages/admin_property_detail_page.dart';
 import 'package:gharmart/features/auth/presentation/pages/auth_page.dart';
 import 'package:gharmart/features/auth/presentation/pages/auth_wrapper_page.dart';
 import 'package:gharmart/features/auth/presentation/pages/reset_password_page.dart';
 import 'package:gharmart/features/home_listings/domain/entities/property_entity.dart';
 import 'package:gharmart/features/home_listings/presentation/pages/favorite_properties_page.dart';
+import 'package:gharmart/features/home_listings/presentation/pages/property_details_by_id_page.dart';
 import 'package:gharmart/features/landing_page/presentation/pages/landing_page.dart';
 import 'package:gharmart/features/panel/presentation/sreens/listings_screen.dart';
 import 'package:gharmart/features/panel/presentation/sreens/profile_screen.dart';
@@ -13,6 +16,7 @@ import 'package:gharmart/features/home_listings/presentation/pages/edit_property
 import 'package:gharmart/features/home_listings/presentation/pages/property_details_Page.dart';
 import 'package:gharmart/features/panel/presentation/pages/panel_page.dart';
 import 'package:gharmart/features/profile/presentation/pages/edit_profile_page.dart';
+import 'package:gharmart/main.dart';
 import 'package:gharmart/utils/error_page.dart';
 import 'package:go_router/go_router.dart';
 
@@ -21,8 +25,11 @@ class MyRouter {
     routes: [
       GoRoute(
         path: "/",
-        builder: (context, state) => const LandingPage(),
-        // builder: (context, state) => const AddPropertyPage(),
+        builder: (context, state) =>
+            adminMode ? const AdminPanelPage() : const LandingPage(),
+        // builder: (context, state) => const PropertyDetailsByIdPage(
+        //   propertyId: "3dca7dcf-8e0a-4b48-97b4-0cb71c8f4f04",
+        // ),
       ),
       GoRoute(
         path: ResetPasswordPage.routeName,
@@ -58,6 +65,20 @@ class MyRouter {
         path: PropertyDetailsPage.routeName,
         name: PropertyDetailsPage.routeName,
         builder: (context, state) => PropertyDetailsPage(
+          property: state.extra as PropertyEntity,
+        ),
+      ),
+      GoRoute(
+        path: "${PropertyDetailsByIdPage.routeName}/:propertyId",
+        name: PropertyDetailsByIdPage.routeName,
+        builder: (context, state) =>  PropertyDetailsByIdPage(
+          propertyId: state.pathParameters["propertyId"]!,
+        ),
+      ),
+      GoRoute(
+        path: AdminPropertyDetailsPage.routeName,
+        name: AdminPropertyDetailsPage.routeName,
+        builder: (context, state) => AdminPropertyDetailsPage(
           property: state.extra as PropertyEntity,
         ),
       ),

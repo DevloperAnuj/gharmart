@@ -73,18 +73,26 @@ class UploadPropertyDatabaseCubit extends Cubit<UploadPropertyDatabaseState> {
       );
       return false;
     }
-    if (propertyTempCubit.state.title.isEmpty) {
-      MyConstants.mySnackBar(
-        context,
-        message: "Please Write Title of Property",
-        color: Colors.orange,
-      );
-      return false;
-    }
+    // if (propertyTempCubit.state.title.isEmpty) {
+    //   MyConstants.mySnackBar(
+    //     context,
+    //     message: "Please Write Title of Property",
+    //     color: Colors.orange,
+    //   );
+    //   return false;
+    // }
     if (propertyTempCubit.state.address.isEmpty) {
       MyConstants.mySnackBar(
         context,
         message: "Please Write Address of Property",
+        color: Colors.orange,
+      );
+      return false;
+    }
+    if (propertyTempCubit.state.landmark == "Select Landmark") {
+      MyConstants.mySnackBar(
+        context,
+        message: "Please Select Property Type",
         color: Colors.orange,
       );
       return false;
@@ -210,6 +218,7 @@ class UploadPropertyDatabaseCubit extends Cubit<UploadPropertyDatabaseState> {
     try {
       await client.from("property").insert(
             propertyTempCubit.state.copyWith(
+              title: '${propertyTempCubit.state.bhkType} ${propertyTempCubit.state.procat} for ${propertyTempCubit.state.propertyType} in ${propertyTempCubit.state.landmark}',
               picsUrl: picsList,
               pics: [],
             ).toMap(),

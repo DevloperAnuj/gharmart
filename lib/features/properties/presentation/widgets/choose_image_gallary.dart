@@ -20,7 +20,7 @@ class ChooseImageAlbumDesktop extends StatelessWidget {
             onPressed: () {
               context.read<AddPropertyTempCubit>().selectingImages();
             },
-            icon: const Icon(Icons.camera_alt),
+            icon: const Icon(Icons.upload),
             label: const Text("Upload Images"),
           ),
           const ListviewForGalleryDesktop(),
@@ -46,7 +46,7 @@ class ChooseImageAlbumMobile extends StatelessWidget {
             onPressed: () {
               context.read<AddPropertyTempCubit>().selectingImages();
             },
-            icon: const Icon(Icons.camera_alt),
+            icon: const Icon(Icons.upload),
             label: const Text("Upload Images"),
           ),
           const ListviewForGalleryMobile(),
@@ -70,7 +70,7 @@ class ListviewForGalleryDesktop extends StatelessWidget {
           builder: (context, state) {
             if (state.pics.isEmpty) {
               return const Icon(
-                Icons.cloud_upload,
+                Icons.camera_alt,
                 size: 100,
               );
             }
@@ -114,7 +114,7 @@ class ListviewForGalleryMobile extends StatelessWidget {
           builder: (context, state) {
             if (state.pics.isEmpty) {
               return const Icon(
-                Icons.cloud_upload,
+                Icons.camera_alt,
                 size: 100,
               );
             }

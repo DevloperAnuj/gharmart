@@ -411,7 +411,7 @@ class PropertyCardWidgetDesktop extends StatelessWidget {
                                       },
                                       icon: const Icon(Icons.info),
                                       label: const Text(
-                                        "Owner Already Contacted",
+                                        "Already Contacted",
                                       ),
                                       style: ElevatedButton.styleFrom(
                                         backgroundColor: Colors.green,

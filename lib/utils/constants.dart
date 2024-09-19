@@ -4,6 +4,7 @@ import 'package:flutter_social_button/flutter_social_button.dart';
 import 'package:gharmart/features/auth/presentation/pages/auth_page.dart';
 import 'package:gharmart/features/auth/presentation/pages/auth_wrapper_page.dart';
 import 'package:gharmart/features/profile/presentation/manager/fetch_connections/fetch_connections_cubit.dart';
+import 'package:gharmart/features/profile/presentation/manager/fetch_profile/fetch_profile_cubit.dart';
 import 'package:go_router/go_router.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -43,91 +44,109 @@ void showOwnerTile(BuildContext context, PropertyEntity property) {
           BlocProvider.value(
             value: serviceConfig.get<FetchConnectionsCubit>(),
           ),
+          BlocProvider.value(
+            value: serviceConfig.get<FetchProfileCubit>(),
+          ),
         ],
         child: Builder(
           builder: (context) {
-            return PopScope(
-              onPopInvoked: (_) {
-                if (_) {
-                  context.read<ConnectionManagementCubit>().handleConnection();
-                }
-              },
-              child: AlertDialog(
-                title: const Text("Owner Details"),
-                icon: const Icon(Icons.person, size: 50),
-                content: context.watch<ConnectionManagementCubit>().state > 0
-                    ? ExpansionTile(
-                        onExpansionChanged: (_) {
-                          context
-                              .read<FetchConnectionsCubit>()
-                              .addToConnection(property);
-                        },
-                        maintainState: true,
-                        title: const Text("Details"),
-                        children: [
-                          ListTile(
-                            title: SelectableText(
-                              property.user.name,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .titleMedium!
-                                  .copyWith(color: Colors.black),
-                            ),
-                            subtitle: const Text("Name"),
-                          ),
-                          ListTile(
-                            title: SelectableText(
-                              property.user.phone,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .titleMedium!
-                                  .copyWith(color: Colors.black),
-                            ),
-                            subtitle: const Text("Phone"),
-                          ),
-                        ],
-                      )
-                    : Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text(
-                          "🤝🏻 User Connections Are Expired Please Purchase it to Continue",
-                          style:
-                              Theme.of(context).textTheme.titleMedium!.copyWith(
-                                    color: Colors.red,
+            return BlocBuilder<FetchProfileCubit, FetchProfileState>(
+              builder: (context, state) {
+                if (state is FetchProfileSuccess) {
+                  return PopScope(
+                    onPopInvoked: (_) {
+                      if (_) {
+                        context
+                            .read<ConnectionManagementCubit>()
+                            .handleConnection(state.profileEntity.id);
+                      }
+                    },
+                    child: AlertDialog(
+                      title: const Text("Owner Details"),
+                      icon: const Icon(Icons.person, size: 50),
+                      content:
+                          context.watch<ConnectionManagementCubit>().state > 0
+                              ? ExpansionTile(
+                                  onExpansionChanged: (_) {
+                                    context
+                                        .read<FetchConnectionsCubit>()
+                                        .addToConnection(property);
+                                  },
+                                  maintainState: true,
+                                  title: const Text("Details"),
+                                  children: [
+                                    ListTile(
+                                      title: SelectableText(
+                                        property.user.name,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleMedium!
+                                            .copyWith(color: Colors.black),
+                                      ),
+                                      subtitle: const Text("Name"),
+                                    ),
+                                    ListTile(
+                                      title: SelectableText(
+                                        property.user.phone,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleMedium!
+                                            .copyWith(color: Colors.black),
+                                      ),
+                                      subtitle: const Text("Phone"),
+                                    ),
+                                  ],
+                                )
+                              : Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Text(
+                                    "🤝🏻 User Connections Are Expired Please Purchase it to Continue",
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .titleMedium!
+                                        .copyWith(
+                                          color: Colors.red,
+                                        ),
                                   ),
-                        ),
-                      ),
-                actionsAlignment: MainAxisAlignment.center,
-                actions: context.watch<ConnectionManagementCubit>().state > 0
-                    ? [
-                        FlutterSocialButton(
-                          mini: true,
-                          title: "Call Now",
-                          buttonType: ButtonType.phone,
-                          onTap: () async {
-                            final url =
-                                Uri.parse("tel://${property.user.phone}");
-                            if (!await launchUrl(url)) {
-                              throw Exception('Could not launch $url');
-                            }
-                          },
-                        ),
-                        FlutterSocialButton(
-                          mini: true,
-                          title: "WhatsApp",
-                          buttonType: ButtonType.whatsapp,
-                          iconColor: Colors.white,
-                          onTap: () async {
-                            final url = Uri.parse(
-                                "https://wa.me/91${property.user.phone}");
-                            if (!await launchUrl(url)) {
-                              throw Exception('Could not launch $url');
-                            }
-                          },
-                        ),
-                      ]
-                    : null,
-              ),
+                                ),
+                      actionsAlignment: MainAxisAlignment.center,
+                      actions: context
+                                  .watch<ConnectionManagementCubit>()
+                                  .state >
+                              0
+                          ? [
+                              FlutterSocialButton(
+                                mini: true,
+                                title: "Call Now",
+                                buttonType: ButtonType.phone,
+                                onTap: () async {
+                                  final url =
+                                      Uri.parse("tel://${property.user.phone}");
+                                  if (!await launchUrl(url)) {
+                                    throw Exception('Could not launch $url');
+                                  }
+                                },
+                              ),
+                              FlutterSocialButton(
+                                mini: true,
+                                title: "WhatsApp",
+                                buttonType: ButtonType.whatsapp,
+                                iconColor: Colors.white,
+                                onTap: () async {
+                                  final url = Uri.parse(
+                                      "https://wa.me/91${property.user.phone}");
+                                  if (!await launchUrl(url)) {
+                                    throw Exception('Could not launch $url');
+                                  }
+                                },
+                              ),
+                            ]
+                          : null,
+                    ),
+                  );
+                }
+                return const SizedBox.shrink();
+              },
             );
           },
         ),

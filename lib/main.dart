@@ -6,6 +6,8 @@ import 'package:gharmart/utils/theme_data.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+const bool adminMode = false;
+
 void main() async {
   await Supabase.initialize(
     url: MyConstants.supabaseUrl,
@@ -22,7 +24,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
-      title: 'GHAR MARKET',
+      title: adminMode ? "GHARMARKET ADMIN" : 'GHAR MARKET',
       theme: myTheme,
       routerConfig: MyRouter.router,
     );

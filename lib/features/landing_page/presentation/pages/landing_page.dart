@@ -1,4 +1,5 @@
 import 'package:csc_picker/csc_picker.dart';
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gharmart/features/home_listings/presentation/manager/filter/listing_filter_cubit.dart';
@@ -11,6 +12,7 @@ import 'package:gharmart/utils/config_file.dart';
 import 'package:gharmart/utils/constants.dart';
 import 'package:gharmart/utils/my_layout_builder.dart';
 import 'package:go_router/go_router.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../home_listings/presentation/manager/display_properties/display_properties_cubit.dart';
 import '../../../home_listings/presentation/manager/fetch_properties/fetch_properties_cubit.dart';
@@ -198,53 +200,7 @@ class LandingPageMobile extends StatelessWidget {
                         ),
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 20.0, vertical: 10),
-                      child: Theme(
-                        data: ThemeData(),
-                        child: DropdownButtonFormField<String>(
-                          decoration: InputDecoration(
-                            prefixIcon: Icon(
-                              Icons.window_outlined,
-                              color: Theme.of(context).primaryColor,
-                            ),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(40),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(40),
-                              borderSide: BorderSide(
-                                  color: Theme.of(context).primaryColor,
-                                  width: 2),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(40),
-                              borderSide: BorderSide(
-                                  color: Theme.of(context).primaryColor,
-                                  width: 3),
-                            ),
-                          ),
-                          hint: const Text('Select Landmark'),
-                          value: context
-                              .watch<ListingFilterCubit>()
-                              .state
-                              .landmark,
-                          onChanged: (String? newValue) {
-                            context
-                                .read<ListingFilterCubit>()
-                                .applyLandmark(newValue!);
-                          },
-                          items: landmarksPune
-                              .map<DropdownMenuItem<String>>((String value) {
-                            return DropdownMenuItem<String>(
-                              value: value,
-                              child: Text(value),
-                            );
-                          }).toList(),
-                        ),
-                      ),
-                    ),
+                    const SearchLandMarkDropDownMobile(),
                     Padding(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 20.0, vertical: 10),
@@ -349,116 +305,6 @@ class LandingPageMobile extends StatelessWidget {
                         ),
                       ),
                     ),
-                    if (context
-                            .watch<ListingFilterCubit>()
-                            .state
-                            .propertyType ==
-                        "Rent")
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 20.0, vertical: 10),
-                        child: Theme(
-                          data: ThemeData(),
-                          child: DropdownButtonFormField<String>(
-                            decoration: InputDecoration(
-                              prefixIcon: Icon(
-                                Icons.currency_rupee,
-                                color: Theme.of(context).primaryColor,
-                              ),
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(40),
-                              ),
-                              enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(40),
-                                borderSide: BorderSide(
-                                    color: Theme.of(context).primaryColor,
-                                    width: 2),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(40),
-                                borderSide: BorderSide(
-                                    color: Theme.of(context).primaryColor,
-                                    width: 3),
-                              ),
-                            ),
-                            hint: const Text('Select Rent Range'),
-                            value: 'from 0 to 5K',
-                            onChanged: (String? newValue) {
-                              if (newValue != null) {
-                                applyRentRange(context, newValue);
-                              }
-                            },
-                            items: <String>[
-                              'from 0 to 5K',
-                              'from 5K to 10K',
-                              'from 10K to 25K',
-                              'from 25K to 50K',
-                              'from 50K to 75K',
-                              'from 75K to 1 Lac',
-                            ].map<DropdownMenuItem<String>>((String value) {
-                              return DropdownMenuItem<String>(
-                                value: value,
-                                child: Text(value),
-                              );
-                            }).toList(),
-                          ),
-                        ),
-                      ),
-                    if (context
-                            .watch<ListingFilterCubit>()
-                            .state
-                            .propertyType ==
-                        "Sell")
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 20.0, vertical: 10),
-                        child: Theme(
-                          data: ThemeData(),
-                          child: DropdownButtonFormField<String>(
-                            decoration: InputDecoration(
-                              prefixIcon: Icon(
-                                Icons.currency_rupee,
-                                color: Theme.of(context).primaryColor,
-                              ),
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(40),
-                              ),
-                              enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(40),
-                                borderSide: BorderSide(
-                                    color: Theme.of(context).primaryColor,
-                                    width: 2),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(40),
-                                borderSide: BorderSide(
-                                    color: Theme.of(context).primaryColor,
-                                    width: 3),
-                              ),
-                            ),
-                            hint: const Text('Select Rent Range'),
-                            value: 'from 0 to 5 Lac',
-                            onChanged: (String? newValue) {
-                              if (newValue != null) {
-                                applySellPriceRange(context, newValue);
-                              }
-                            },
-                            items: <String>[
-                              'from 0 to 5 Lac',
-                              'from 5 Lac to 25 Lac',
-                              'from 25 Lac to 50 Lac',
-                              'from 50 lac to 75 Lac',
-                              'from 75 Lac to 1 Cr',
-                              'from 1 Cr to 5 Cr',
-                            ].map<DropdownMenuItem<String>>((String value) {
-                              return DropdownMenuItem<String>(
-                                value: value,
-                                child: Text(value),
-                              );
-                            }).toList(),
-                          ),
-                        ),
-                      ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: SizedBox(
@@ -829,55 +675,7 @@ class LandingPageDesktop extends StatelessWidget {
                             ),
                           ),
                           const VerticalDivider(color: Colors.white),
-                          Expanded(
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 5.0, vertical: 2),
-                              child: Theme(
-                                data: ThemeData(),
-                                child: DropdownButtonFormField<String>(
-                                  dropdownColor: Theme.of(context).primaryColor,
-                                  icon: const Icon(null),
-                                  decoration: InputDecoration(
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(40),
-                                    ),
-                                    enabledBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(40),
-                                      borderSide: BorderSide(
-                                          color: Theme.of(context).primaryColor,
-                                          width: 2),
-                                    ),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(40),
-                                      borderSide: BorderSide(
-                                          color: Theme.of(context).primaryColor,
-                                          width: 3),
-                                    ),
-                                  ),
-                                  hint: const Text('Select Landmark'),
-                                  style: const TextStyle(color: Colors.white70),
-                                  value: context
-                                      .watch<ListingFilterCubit>()
-                                      .state
-                                      .landmark,
-                                  onChanged: (String? newValue) {
-                                    context
-                                        .read<ListingFilterCubit>()
-                                        .applyLandmark(newValue!);
-                                  },
-                                  items: landmarksPune
-                                      .map<DropdownMenuItem<String>>(
-                                          (String value) {
-                                    return DropdownMenuItem<String>(
-                                      value: value,
-                                      child: Text(value),
-                                    );
-                                  }).toList(),
-                                ),
-                              ),
-                            ),
-                          ),
+                          const SearchLandMarkDropDown(),
                           const VerticalDivider(color: Colors.white),
                           Expanded(
                             child: Padding(
@@ -990,127 +788,6 @@ class LandingPageDesktop extends StatelessWidget {
                               ),
                             ),
                           ),
-                          const VerticalDivider(color: Colors.white),
-                          if (context
-                                  .watch<ListingFilterCubit>()
-                                  .state
-                                  .propertyType ==
-                              "Rent")
-                            Expanded(
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 5.0, vertical: 2),
-                                child: Theme(
-                                  data: ThemeData(),
-                                  child: DropdownButtonFormField<String>(
-                                    icon: const Icon(null),
-                                    dropdownColor:
-                                        Theme.of(context).primaryColor,
-                                    decoration: InputDecoration(
-                                      border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(40),
-                                      ),
-                                      enabledBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(40),
-                                        borderSide: BorderSide(
-                                            color:
-                                                Theme.of(context).primaryColor,
-                                            width: 2),
-                                      ),
-                                      focusedBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(40),
-                                        borderSide: BorderSide(
-                                            color:
-                                                Theme.of(context).primaryColor,
-                                            width: 3),
-                                      ),
-                                    ),
-                                    hint: const Text('Select Rent Range'),
-                                    style:
-                                        const TextStyle(color: Colors.white70),
-                                    value: 'from 0 to 5K',
-                                    onChanged: (String? newValue) {
-                                      if (newValue != null) {
-                                        applyRentRange(context, newValue);
-                                      }
-                                    },
-                                    items: <String>[
-                                      'from 0 to 5K',
-                                      'from 5K to 10K',
-                                      'from 10K to 25K',
-                                      'from 25K to 50K',
-                                      'from 50K to 75K',
-                                      'from 75K to 1 Lac',
-                                    ].map<DropdownMenuItem<String>>(
-                                        (String value) {
-                                      return DropdownMenuItem<String>(
-                                        value: value,
-                                        child: Text(value),
-                                      );
-                                    }).toList(),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          if (context
-                                  .watch<ListingFilterCubit>()
-                                  .state
-                                  .propertyType ==
-                              "Sell")
-                            Expanded(
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 5.0, vertical: 2),
-                                child: Theme(
-                                  data: ThemeData(),
-                                  child: DropdownButtonFormField<String>(
-                                    icon: const Icon(null),
-                                    decoration: InputDecoration(
-                                      border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(40),
-                                      ),
-                                      enabledBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(40),
-                                        borderSide: BorderSide(
-                                            color:
-                                                Theme.of(context).primaryColor,
-                                            width: 2),
-                                      ),
-                                      focusedBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(40),
-                                        borderSide: BorderSide(
-                                            color:
-                                                Theme.of(context).primaryColor,
-                                            width: 3),
-                                      ),
-                                    ),
-                                    hint: const Text('Select Price Range'),
-                                    style:
-                                        const TextStyle(color: Colors.white70),
-                                    value: 'from 0 to 5 Lac',
-                                    onChanged: (String? newValue) {
-                                      if (newValue != null) {
-                                        applySellPriceRange(context, newValue);
-                                      }
-                                    },
-                                    items: <String>[
-                                      'from 0 to 5 Lac',
-                                      'from 5 Lac to 25 Lac',
-                                      'from 25 Lac to 50 Lac',
-                                      'from 50 lac to 75 Lac',
-                                      'from 75 Lac to 1 Cr',
-                                      'from 1 Cr to 5 Cr',
-                                    ].map<DropdownMenuItem<String>>(
-                                        (String value) {
-                                      return DropdownMenuItem<String>(
-                                        value: value,
-                                        child: Text(value),
-                                      );
-                                    }).toList(),
-                                  ),
-                                ),
-                              ),
-                            ),
                           ElevatedButton(
                             onPressed: () {
                               context
@@ -1213,10 +890,96 @@ class LandingPageDesktop extends StatelessWidget {
                   ),
                 ),
               ),
-              Container(
-                width: 200,
-                height: 5,
-                color: Theme.of(context).primaryColor,
+              Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Container(
+                  width: 200,
+                  height: 5,
+                  color: Theme.of(context).primaryColor,
+                ),
+              ),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+                child: IntrinsicHeight(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      TextButton(
+                        child: Text(
+                          "Privacy Policy",
+                          style: TextStyle(
+                            color: Theme.of(context).primaryColor,
+                            fontSize: 20,
+                          ),
+                        ),
+                        onPressed: () async {
+                          final Uri url = Uri.parse('https://policy.gharmarket.com/privacy-policy-2/');
+                          if (!await launchUrl(url)) {
+                            print('Could not launch $url');
+                          }
+                        },
+                      ),
+                      VerticalDivider(
+                        color: Theme.of(context).primaryColor,
+                        width: 20,
+                      ),
+                      TextButton(
+                        child: Text(
+                          "Terms and Conditions",
+                          style: TextStyle(
+                            color: Theme.of(context).primaryColor,
+                            fontSize: 20,
+                          ),
+                        ),
+                        onPressed: () async {
+                          final Uri url = Uri.parse('https://policy.gharmarket.com/terms-and-conditions/');
+                          if (!await launchUrl(url)) {
+                            print('Could not launch $url');
+                          }
+                        },
+                      ),
+                      VerticalDivider(
+                        color: Theme.of(context).primaryColor,
+                        width: 20,
+                      ),
+                      TextButton(
+                        child: Text(
+                          "Refund Policy",
+                          style: TextStyle(
+                            color: Theme.of(context).primaryColor,
+                            fontSize: 20,
+                          ),
+                        ),
+                        onPressed: () async {
+                          final Uri url = Uri.parse('https://policy.gharmarket.com/refund-policy/');
+                          if (!await launchUrl(url)) {
+                            print('Could not launch $url');
+                          }
+                        },
+                      ),
+                      VerticalDivider(
+                        color: Theme.of(context).primaryColor,
+                        width: 20,
+                      ),
+                      TextButton(
+                        child: Text(
+                          "Support",
+                          style: TextStyle(
+                            color: Theme.of(context).primaryColor,
+                            fontSize: 20,
+                          ),
+                        ),
+                        onPressed: () async {
+                          final Uri url = Uri.parse('https://policy.gharmarket.com/support/');
+                          if (!await launchUrl(url)) {
+                            print('Could not launch $url');
+                          }
+                        },
+                      ),
+                    ],
+                  ),
+                ),
               ),
             ],
           ),
@@ -1308,6 +1071,223 @@ class AddPropertyMenuButtonMobile extends StatelessWidget {
         backgroundColor: Theme.of(context).primaryColor,
       ),
       child: const Text("List Property"),
+    );
+  }
+}
+
+class SearchLandMarkDropDown extends StatefulWidget {
+  const SearchLandMarkDropDown({super.key});
+
+  @override
+  State<SearchLandMarkDropDown> createState() => _SearchLandMarkDropDownState();
+}
+
+class _SearchLandMarkDropDownState extends State<SearchLandMarkDropDown> {
+  final TextEditingController textEditingController = TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: Theme(
+        data: ThemeData(),
+        child: DropdownButtonHideUnderline(
+          child: DropdownButton2<String>(
+            iconStyleData: const IconStyleData(icon: Icon(null)),
+            style: const TextStyle(color: Colors.white70),
+            isExpanded: true,
+            items: landmarksPune
+                .map((item) => DropdownMenuItem(
+                      value: item,
+                      child: Text(
+                        item,
+                        style: const TextStyle(
+                          fontSize: 14,
+                        ),
+                      ),
+                    ))
+                .toList(),
+            value: context.watch<ListingFilterCubit>().state.landmark,
+            onChanged: (value) {
+              if (value != null) {
+                context.read<ListingFilterCubit>().applyLandmark(value);
+              }
+            },
+            buttonStyleData: const ButtonStyleData(
+              padding: EdgeInsets.symmetric(horizontal: 16),
+              height: 40,
+              width: 200,
+            ),
+            dropdownStyleData: DropdownStyleData(
+              decoration: BoxDecoration(
+                color: Theme.of(context).primaryColor,
+              ),
+              maxHeight: 200,
+            ),
+            menuItemStyleData: const MenuItemStyleData(
+              height: 40,
+            ),
+            dropdownSearchData: DropdownSearchData(
+              searchController: textEditingController,
+              searchInnerWidgetHeight: 50,
+              searchInnerWidget: Container(
+                height: 50,
+                padding: const EdgeInsets.only(
+                  top: 8,
+                  bottom: 4,
+                  right: 8,
+                  left: 8,
+                ),
+                child: TextFormField(
+                  expands: true,
+                  maxLines: null,
+                  controller: textEditingController,
+                  decoration: InputDecoration(
+                    isDense: true,
+                    contentPadding: const EdgeInsets.symmetric(
+                      horizontal: 10,
+                      vertical: 8,
+                    ),
+                    hintText: 'Search for an Landmark...',
+                    hintStyle:
+                        const TextStyle(fontSize: 12, color: Colors.white),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                        borderSide:
+                            const BorderSide(width: 1, color: Colors.white)),
+                  ),
+                ),
+              ),
+              searchMatchFn: (item, searchValue) {
+                return item.value
+                    .toString()
+                    .toLowerCase()
+                    .contains(searchValue.toLowerCase());
+              },
+            ),
+            //This to clear the search value when you close the menu
+            onMenuStateChange: (isOpen) {
+              if (!isOpen) {
+                textEditingController.clear();
+              }
+            },
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class SearchLandMarkDropDownMobile extends StatefulWidget {
+  const SearchLandMarkDropDownMobile({super.key});
+
+  @override
+  State<SearchLandMarkDropDownMobile> createState() =>
+      _SearchLandMarkDropDownMobile();
+}
+
+class _SearchLandMarkDropDownMobile
+    extends State<SearchLandMarkDropDownMobile> {
+  final TextEditingController textEditingController = TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
+    return Theme(
+      data: ThemeData(),
+      child: Container(
+        margin: const EdgeInsets.symmetric(horizontal: 20),
+        width: double.infinity,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(25),
+          border: Border.all(
+            color: Theme.of(context).primaryColor,
+            width: 2.5,
+          ),
+        ),
+        child: DropdownButtonHideUnderline(
+          child: DropdownButton2<String>(
+            iconStyleData: const IconStyleData(icon: Icon(null)),
+            style: const TextStyle(color: Colors.white70),
+            isExpanded: true,
+            items: landmarksPune
+                .map((item) => DropdownMenuItem(
+                      value: item,
+                      child: Text(
+                        item,
+                        style: const TextStyle(
+                          fontSize: 16,
+                          color: Colors.black,
+                        ),
+                      ),
+                    ))
+                .toList(),
+            value: context.watch<ListingFilterCubit>().state.landmark,
+            onChanged: (value) {
+              if (value != null) {
+                context.read<ListingFilterCubit>().applyLandmark(value);
+              }
+            },
+            buttonStyleData: const ButtonStyleData(
+              padding: EdgeInsets.symmetric(horizontal: 16),
+              height: 40,
+              width: 200,
+            ),
+            dropdownStyleData: DropdownStyleData(
+              decoration: BoxDecoration(
+                color: Theme.of(context).primaryColor,
+              ),
+              maxHeight: 200,
+            ),
+            menuItemStyleData: const MenuItemStyleData(
+              height: 40,
+            ),
+            dropdownSearchData: DropdownSearchData(
+              searchController: textEditingController,
+              searchInnerWidgetHeight: 50,
+              searchInnerWidget: Container(
+                height: 50,
+                padding: const EdgeInsets.only(
+                  top: 8,
+                  bottom: 4,
+                  right: 8,
+                  left: 8,
+                ),
+                child: TextFormField(
+                  expands: true,
+                  maxLines: null,
+                  controller: textEditingController,
+                  decoration: InputDecoration(
+                    filled: true,
+                    isDense: true,
+                    contentPadding: const EdgeInsets.symmetric(
+                      horizontal: 10,
+                      vertical: 8,
+                    ),
+                    hintText: 'Search for an Landmark...',
+                    hintStyle:
+                        const TextStyle(fontSize: 12, color: Colors.grey),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                        borderSide:
+                            const BorderSide(width: 1, color: Colors.white)),
+                  ),
+                ),
+              ),
+              searchMatchFn: (item, searchValue) {
+                return item.value
+                    .toString()
+                    .toLowerCase()
+                    .contains(searchValue.toLowerCase());
+              },
+            ),
+            //This to clear the search value when you close the menu
+            onMenuStateChange: (isOpen) {
+              if (!isOpen) {
+                textEditingController.clear();
+              }
+            },
+          ),
+        ),
+      ),
     );
   }
 }

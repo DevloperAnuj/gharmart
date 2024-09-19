@@ -43,7 +43,7 @@ class SearchSectionMobile extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: IconButton(
             onPressed: () {
-              _showAlertDialog(context);
+              _showFilterDialog(context);
             },
             style: ElevatedButton.styleFrom(
               backgroundColor: const Color.fromRGBO(18, 132, 142, 1),
@@ -108,7 +108,7 @@ class SearchSectionTablet extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: IconButton(
             onPressed: () {
-              _showAlertDialog(context);
+              _showFilterDialog(context);
             },
             style: ElevatedButton.styleFrom(
               backgroundColor: const Color.fromRGBO(18, 132, 142, 1),
@@ -172,7 +172,7 @@ class SearchbarSectionDesktop extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: ElevatedButton.icon(
             onPressed: () {
-              _showAlertDialog(context);
+              _showFilterDialog(context);
             },
             style: ElevatedButton.styleFrom(
               backgroundColor: const Color.fromRGBO(18, 132, 142, 1),
@@ -189,7 +189,7 @@ class SearchbarSectionDesktop extends StatelessWidget {
 
 }
 
-Future<void> _showAlertDialog(BuildContext context) async {
+Future<void> _showFilterDialog(BuildContext context) async {
   return showDialog<void>(
     context: context,
     //barrierDismissible: false, // user must tap button!

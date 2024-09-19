@@ -30,7 +30,7 @@ class ListingFilterState {
       prefTen: "All",
       furnishing: "Semi",
       parking: "Bike and Car",
-      rentMin: 0,
+      rentMin: 1000,
       rentMax: 5000,
       landmark: "Ambegaon Budruk",
       procat: "Flat"

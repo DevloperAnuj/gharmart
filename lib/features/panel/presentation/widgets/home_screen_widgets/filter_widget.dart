@@ -40,7 +40,9 @@ class FilterWidgetDesktop extends StatelessWidget {
                       currentState: "Maharashtra",
                       currentCountry: "India",
                       onCountryChanged: (country) {
-                        context.read<ListingFilterCubit>().applyCountry(country);
+                        context
+                            .read<ListingFilterCubit>()
+                            .applyCountry(country);
                       },
                       onStateChanged: (state) {
                         String selectedState = state ?? "Maharashtra";

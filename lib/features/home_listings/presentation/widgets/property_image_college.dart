@@ -128,7 +128,7 @@ class PropertyImageCarouselWidgetDesktop extends StatelessWidget {
                   ),
                   Center(
                     child: Text(
-                      "GharMart",
+                      "GharMarket",
                       style: Theme.of(context).textTheme.titleMedium!.copyWith(
                             color: Colors.white.withOpacity(0.6),
                             fontSize: 50,

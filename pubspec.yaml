@@ -53,6 +53,7 @@ dependencies:
   flutter_social_button: ^1.1.4+1
   url_launcher: ^6.2.5
   flutter_svg: ^2.0.10+1
+  dropdown_button2: ^2.3.9
 
 
 dev_dependencies:

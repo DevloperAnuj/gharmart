@@ -108,8 +108,8 @@ class AddPropertyToReviewButton extends StatelessWidget {
                     .read<UploadPropertyDatabaseCubit>()
                     .uploadPropertyToDatabase(context);
               },
-              icon: const Icon(Icons.airplane_ticket),
-              label: const Text("Send For Review"),
+              icon: const Icon(Icons.upload),
+              label: const Text("List Property"),
               style: ElevatedButton.styleFrom(
                 backgroundColor: Theme.of(context).primaryColor,
                 foregroundColor: Colors.white,
@@ -175,50 +175,13 @@ class AddPropertyPageDesktop extends StatelessWidget {
                         fontWeight: FontWeight.bold,
                       ),
                 ),
-                actions: [
+                actions: const [
+                  //Need Help Button
                   Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: BlocConsumer<UploadPropertyDatabaseCubit,
-                        UploadPropertyDatabaseState>(
-                      listener: (context, state) {
-                        if (state is UploadPropertyDatabaseFailed) {
-                          MyConstants.mySnackBar(
-                            context,
-                            message: state.err,
-                            color: Colors.red,
-                          );
-                        }
-                        if (state is UploadPropertyDatabaseSuccess) {
-                          context.read<AddPropertyTempCubit>().setToInit();
-                          MyConstants.mySnackBar(
-                            context,
-                            message: "Property Submitted For Review",
-                            color: Colors.green,
-                          );
-                          Future.delayed(const Duration(seconds: 2), () {
-                            context.pop();
-                          });
-                        }
-                      },
-                      builder: (context, state) {
-                        if (state is UploadPropertyDatabaseLoading) {
-                          return const CircularProgressIndicator();
-                        }
-                        return ElevatedButton.icon(
-                          onPressed: () {
-                            context
-                                .read<UploadPropertyDatabaseCubit>()
-                                .uploadPropertyToDatabase(context);
-                          },
-                          icon: const Icon(Icons.rate_review),
-                          label: const Text("Send For Review"),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Theme.of(context).primaryColor,
-                            foregroundColor: Colors.white,
-                          ),
-                        );
-                      },
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 20,
                     ),
+                    child: Text("For Help Related Listing Property Call : 7887 302172"),
                   ),
                 ],
               ),
