@@ -21,9 +21,9 @@ class ConnectionManagementCubit extends Cubit<int> {
 
   void handleConnection(String id) {
     if (state > 0) {
+      emit(state - 1);
       Future.delayed(const Duration(seconds: 1), () async {
         await client.from("users").update({"tokens": state - 1}).eq('id', id);
-        emit(state - 1);
       });
     }
   }
